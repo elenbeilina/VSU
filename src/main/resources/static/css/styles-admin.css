@@ -1,0 +1,54 @@
+body{
+    background-color: #FAFAFA;
+}
+
+.c_alert{
+    margin-top: 15px;
+    padding: 15px 0px;
+    border-radius: 5px;
+    background-color: #e6e6e6;
+    text-align: center;
+}
+
+.c_alert > h4{
+    font-size: 30px;
+}
+
+.c_alert > p{
+    font-size: 16px;
+}
+
+.new_qestions{
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    margin: 20px 20px 0px 0px;
+}
+
+._news{
+    display: inline-block;
+    margin: 20px;
+}
+
+._title{
+    background-color: #dddddd;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+._title > p{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+}
+
+._info{
+    margin: 20px;
+}
+
+.add-user{
+    width: 700px;
+}
+
+.input-title{
+    width: 250px;
+}

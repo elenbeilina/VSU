@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+</head>
+<body>
+<div th:fragment="admin-header-frag">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark main-menu">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="admin-index.html"><img src="https://img.icons8.com/color/48/000000/services.png" width="30"> Admin Tool</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Главная</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/admin/news">Новости</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/tournaments">Турниры <span class="badge badge-primary badge-pill">5</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/sponsors">Спонсоры</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">Рейтинг</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/qa">Вопрос / Ответ <span class="badge badge-primary badge-pill">5</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
