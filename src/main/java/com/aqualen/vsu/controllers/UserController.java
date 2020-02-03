@@ -1,12 +1,11 @@
 package com.aqualen.vsu.controllers;
 
-import com.aqualen.vsu.entity.enums.UserRole;
-import com.aqualen.vsu.services.impl.NewsServiceImpl;
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.entity.User;
+import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.services.impl.NewsServiceImpl;
 import com.aqualen.vsu.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +26,6 @@ public class UserController {
 
     @Autowired
     private NewsServiceImpl newsService;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/")
     public String index(@RequestParam(value = "errorMessage", required = false) String error,

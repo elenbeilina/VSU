@@ -4,9 +4,11 @@ import com.aqualen.vsu.entity.RequestQuestion;
 import com.aqualen.vsu.services.RequestQuestionService;
 import com.aqualen.vsu.repository.RequestQuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class RequestQuestionServiceImpl implements RequestQuestionService {
 
     @Autowired
