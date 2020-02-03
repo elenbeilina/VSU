@@ -16,19 +16,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+    @Autowired
     private UserDetailsService userDetailsService;
-    private ObjectMapper objectMapper;
 
     @Autowired
-    SecurityConfiguration(UserDetailsService userDetailsService, ObjectMapper objectMapper){
-        this.userDetailsService = userDetailsService;
-        this.objectMapper = objectMapper;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -65,7 +57,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+                .userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 
 }

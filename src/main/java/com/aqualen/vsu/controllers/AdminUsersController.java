@@ -4,6 +4,7 @@ import com.aqualen.vsu.services.DepartmentService;
 import com.aqualen.vsu.services.UserService;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.utils.Updater;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminUsersController {

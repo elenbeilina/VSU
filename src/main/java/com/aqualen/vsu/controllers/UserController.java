@@ -5,6 +5,7 @@ import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.services.impl.NewsServiceImpl;
 import com.aqualen.vsu.services.impl.UserServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @Controller
 @RequestMapping("")
 public class UserController {
