@@ -40,7 +40,7 @@
                 <label class="input-group-text input-title" for="userRole">Тип пользователя</label>
             </div>
             <select class="custom-select" name="role" id="userRole">
-                <option th:each="role : ${T(com.vsu.project.service.entity.enums.UserRole).values()}"
+                <option th:each="role : ${T(com.aqualen.vsu.entity.enums.UserRole).values()}"
                         th:value="${role}" th:text="${role}" th:selected="${role == user.role}" >
                 </option>
             </select>

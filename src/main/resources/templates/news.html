@@ -10,33 +10,27 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" th:href="@{/css/styles-admin.css}" href="../../css/styles-admin.css" />
+    <link rel="stylesheet" th:href="@{/css/styles-tournament.css}" href="../../css/styles-index.css" />
+    <link rel="stylesheet" th:href="@{/css/infinite-slider.css}" href="../../css/infinite-slider.css" />
+    <link rel="stylesheet" th:href="@{/css/styles-header-footer.css}" href="../../css/styles-header-footer.css" />
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,700,800" rel="stylesheet">
 
 </head>
 <body>
-<div th:replace="fragments/admin-header-frag :: admin-header-frag"/>
+<div th:replace="fragments/header-frag :: header-frag"/>
 
 <div class="container-fluid">
-    <div th:if="${alertMessage}" class="alert alert-warning" style="margin-top: 10px;">
-        <h4><span th:text="${alertMessage}"></span></h4>
-    </div>
-    <div class="alert alert-primary" style="margin-top: 10px;">
-        <h4>Пользователи сервиса</h4>
-    </div>
     <div style="display: block; margin-bottom: 10px;">
         <a href="/admin/users/add" class="btn btn-success" style="width: 250px;"><img src="https://img.icons8.com/color/48/000000/add-list.png" width="25"> Создать пользователя</a>
     </div>
     <table class="table table-striped table-dark table-borded" >
         <thead>
         <tr>
-            <th scope="col">Username</th>
-            <th scope="col"><img src="https://img.icons8.com/color/48/000000/business-contact.png" width="20"> Фамилия Имя</th>
-            <th scope="col"><img src="https://img.icons8.com/color/48/000000/business-contact.png" width="20"> Номер студенческого</th>
-            <th scope="col"><img src="https://img.icons8.com/color/48/000000/person-male.png" width="20"> Роль</th>
-            <th scope="col"><img src="https://img.icons8.com/color/48/000000/org-unit.png" width="20"> Факультет</th>
-            <th scope="col"><img src="https://img.icons8.com/color/48/000000/about.png" width="20"> О себе</th>
+            <th scope="col"><img src="https://img.icons8.com/color/48/000000/header-1.png" width="20"> Заголовок</th>
+            <th scope="col"><img src="https://img.icons8.com/color/48/000000/comments.png" width="20"> Текст новости</th>
+            <th scope="col"><img src="https://img.icons8.com/color/48/000000/person-male.png" width="20"> Автор</th>
+            <th scope="col"><img src="https://img.icons8.com/color/48/000000/calendar.png" width="20"> Дата создания</th>
             <th scope="col"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                                  width="20" height="20"
                                  viewBox="0 0 224 224"
@@ -44,19 +38,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="user : ${users}">
-            <th scope="row"><span th:text="${user.username}"></span></th>
-            <td><span th:text="|${user.secondName} ${user.firstName}|"></span></td>
-            <td><span th:text="${user.studentBookId}"></span></td>
-            <td th:if="${user.role == T(com.aqualen.vsu.entity.enums.UserRole).Administrator}">Administrator</td>
-            <td th:if="${user.role == T(com.aqualen.vsu.entity.enums.UserRole).User}">User</td>
-            <td th:if="${user.role == T(com.aqualen.vsu.entity.enums.UserRole).Sponsor}">Sponsor</td>
-            <td><span th:text="${user.department.name}"></span></td>
-            <td><span th:text="${user.description}"></span></td>
-            <td>
-                <a class="btn btn-warning" style="width: 150px; margin-top: 10px;" th:href="|/admin/users/edit/${user.id}|"><img src="https://img.icons8.com/color/48/000000/edit-property.png" width="25"> Изменить</a>
-                <a class="btn btn-danger"  style="width: 150px; margin-top: 10px;" th:href="|/admin/users/delete/${user.id}|"><img src="https://img.icons8.com/color/48/000000/litter-disposal.png" width="25"> Удалить</a>
-            </td>
+        <tr th:each="newsPaper : ${news}">
+            <th scope="row"><span th:text="${newsPaper.title}"></span></th>
+            <td><span th:text="${newsPaper.description}"></span></td>
+            <td><a th:href="|/profile/${newsPaper.user.id}|"><span th:text="${newsPaper.user.username}"></span></a></td>
+            <td><span th:text="${newsPaper.dateCreated}"></span></td>
         </tr>
         </tbody>
     </table>
