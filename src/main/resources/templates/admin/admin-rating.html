@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <title>VSU Tournaments - сервис для студентов</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" th:href="@{/css/styles-tournament.css}" href="../../css/styles-index.css" />
+    <link rel="stylesheet" th:href="@{/css/infinite-slider.css}" href="../../css/infinite-slider.css" />
+    <link rel="stylesheet" th:href="@{/css/styles-header-footer.css}" href="../../css/styles-header-footer.css" />
+
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,700,800" rel="stylesheet">
+
+</head>
+<body>
+<div th:replace="fragments/admin-header-frag :: header-frag"/>
+
+<div class="container main-container">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">ТОП 10</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">ТОП 100</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <table class="table table-striped table-dark table-borded" >
+                <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col"><img src="https://img.icons8.com/color/48/000000/org-unit.png" width="20"> Факультет</th>
+                    <th scope="col"><img src="https://img.icons8.com/color/48/000000/person-male.png" width="20"> Пользователь</th>
+                    <th scope="col"><img src="https://img.icons8.com/color/48/000000/filled-star.png" width="20"> Рейтинг</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="userSeq : ${top10}">
+                    <th scope="row"><span th:text="${userSeq.username}"></span></th>
+                    <td><span th:text="${userSeq.department.name}"></span></td>
+                    <td><img style="border-radius: 100px;" th:src="${userSeq.picture}" width="20"> <span th:text="|${userSeq.firstName} ${userSeq.secondName}|"></span></td>
+                    <td><span th:text="${userSeq.rating}"></span> баллов</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <table class="table table-striped table-dark table-borded" >
+                <thead>
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col"><img src="https://img.icons8.com/color/48/000000/org-unit.png" width="20"> Факультет</th>
+                    <th scope="col"><img src="https://img.icons8.com/color/48/000000/person-male.png" width="20"> Пользователь</th>
+                    <th scope="col"><img src="https://img.icons8.com/color/48/000000/filled-star.png" width="20"> Рейтинг</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="userSeq : ${top100}">
+                    <th scope="row"><span th:text="${userSeq.username}"></span></th>
+                    <td><span th:text="${userSeq.department.name}"></span></td>
+                    <td><img style="border-radius: 100px;" th:src="${userSeq.picture}" width="20"> <span th:text="|${userSeq.firstName} ${userSeq.secondName}|"></span></td>
+                    <td><span th:text="${userSeq.rating}"></span> баллов</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/footer-frag :: footer-frag"/>
+
+<!-- BOOTSTRAP JS -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" th:src="@{/js/carousel-sponsors.js}"></script>
+</body>
+</html>

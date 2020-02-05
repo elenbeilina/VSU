@@ -21,10 +21,13 @@
 <div th:replace="fragments/header-frag :: header-frag"/>
 
 <div class="container-fluid" style="background-color: #fcfcfc; padding-bottom: 40px;">
+    <div th:if="${alertMessage}" class="alert alert-warning" style="margin-top: 10px;">
+        <h4><span th:text="${alertMessage}"></span></h4>
+    </div>
     <div class="container main-container">
         <div class="user-info-block">
             <img th:src="${user.picture}" style="border-radius: 100px;" width="100" height="100" alt="avatar">
-            <p class="user-info-name"><span th:text="|${user.firstName} ${user.SecondName}|"></span> <a th:if="${isUserProfile}" th:href="'/admin/users/edit/'+ ${user.id}"><img src="https://img.icons8.com/material/50/666666/edit.png" width="20" height="20" alt="edit"> (редактировать)</a></p>
+            <p class="user-info-name"><span th:text="|${user.firstName} ${user.SecondName}|"></span> <a th:if="${isUserProfile}" th:href="'/profile/edit/'+ ${user.id}"><img src="https://img.icons8.com/material/50/666666/edit.png" width="20" height="20" alt="edit"> (редактировать)</a></p>
             <div class="social-links">
                 <img th:if="${user.linkINS}" class="social-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/480px-Instagram_icon.png" width="20" height="20" alt="inst">
                 <img th:if="${user.linkVK}" class="social-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/240px-VK.com-logo.svg.png" width="20" height="20" alt="inst">

@@ -1,13 +1,37 @@
 package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.entity.Department;
+import com.aqualen.vsu.repository.DepartmentRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface DepartmentService {
-    Department addDepartment(Department department);
-    void delete(long id);
-    Department getById(long id);
-    Department updateDepartment(Department department);
-    List<Department> getAll();
+@Service
+@Slf4j
+public class DepartmentService {
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    public Department addDepartment(Department department) {
+        return departmentRepository.saveAndFlush(department);
+    }
+
+    public void delete(long id) {
+        departmentRepository.deleteById(id);
+    }
+
+    public Department getById(long id) {
+        return departmentRepository.getOne(id);
+    }
+
+    public Department updateDepartment(Department department) {
+        return departmentRepository.saveAndFlush(department);
+    }
+
+    public List<Department> getAll() {
+        return departmentRepository.findAll();
+    }
 }

@@ -1,14 +1,47 @@
 package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.entity.News;
+import com.aqualen.vsu.repository.NewsRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
-public interface NewsService {
-    News addNews(News news);
-    void delete(long id);
-    News getById(long id);
-    News updateNews(News news);
-    List<News> getAll(int count);
-    List<News> getAll();
+@Service
+@Slf4j
+public class NewsService {
+
+    @Autowired
+    NewsRepository newsRepository;
+
+    public News addNews(News news) {
+        news.setDateCreated(new Timestamp(System.currentTimeMillis()));
+        return newsRepository.saveAndFlush(news);
+    }
+
+    public void delete(long id) {
+        newsRepository.deleteById(id);
+    }
+
+    public News getById(long id) {
+        return newsRepository.getOne(id);
+    }
+
+    public News updateNews(News news) {
+        return newsRepository.saveAndFlush(news);
+    }
+
+    public List<News> getAll() {
+        return newsRepository.findAll();
+    }
+
+    public List<News> getAll(int count) {
+        List<News> news = newsRepository.findAll();
+        if (news.size() > count)
+            return news.subList(0, count);
+        else
+            return news;
+    }
 }

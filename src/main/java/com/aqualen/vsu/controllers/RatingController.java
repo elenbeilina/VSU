@@ -1,7 +1,7 @@
 package com.aqualen.vsu.controllers;
 
 import com.aqualen.vsu.entity.enums.UserRole;
-import com.aqualen.vsu.services.impl.UserServiceImpl;
+import com.aqualen.vsu.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +17,7 @@ import java.security.Principal;
 public class RatingController {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @GetMapping("")
     public String ratingPage(ModelMap modelMap, Principal principal){

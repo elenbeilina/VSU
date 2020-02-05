@@ -2,6 +2,7 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.entity.enums.UserRole;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,10 +11,12 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "users",schema="vsu")
+@DynamicUpdate
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column( updatable = false )
     private long id;
 
     @Column(name = "role_id")

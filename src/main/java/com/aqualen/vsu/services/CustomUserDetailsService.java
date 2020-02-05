@@ -1,8 +1,9 @@
-package com.aqualen.vsu.services.impl;
+package com.aqualen.vsu.services;
 
-import com.aqualen.vsu.repository.UserRepository;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.exceptions.LoginProcessException;
+import com.aqualen.vsu.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Slf4j
+public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -24,7 +26,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username){
         try {
