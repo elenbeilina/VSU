@@ -14,8 +14,9 @@ import java.sql.Timestamp;
 public class News {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column( updatable = false )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_news")
+    @SequenceGenerator(name="seq_news",
+            sequenceName="vsu.news_seq", allocationSize=1)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)

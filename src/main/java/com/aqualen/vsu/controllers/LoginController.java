@@ -20,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequestMapping("")
-public class UserController {
+public class LoginController {
 
     @Autowired
     private UserService userService;
@@ -40,7 +40,12 @@ public class UserController {
             modelMap.addAttribute("errorMessage", error);
         }
         if (principal != null){
-            modelMap.addAttribute("user", userService.findByUsername(principal.getName()));
+            User user = userService.findByUsername(principal.getName());
+            if(user.getRole().equals(UserRole.Administrator)){
+                modelMap.addAttribute("adminName", principal.getName());
+                return "admin/admin-index";
+            }
+            modelMap.addAttribute("user", user);
         }
         return "index";
     }

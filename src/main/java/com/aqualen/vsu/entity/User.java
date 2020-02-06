@@ -15,8 +15,9 @@ import java.sql.Timestamp;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column( updatable = false )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
+    @SequenceGenerator(name="seq_user",
+            sequenceName="vsu.user_seq", allocationSize=1)
     private long id;
 
     @Column(name = "role_id")

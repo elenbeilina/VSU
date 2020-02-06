@@ -1,4 +1,4 @@
-package com.aqualen.vsu.security;
+package com.aqualen.vsu.config;
 
 import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.services.CustomUserDetailsService;
@@ -14,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @Slf4j
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired
     private CustomUserDetailsService userDetailsService;

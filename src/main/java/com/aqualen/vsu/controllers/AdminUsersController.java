@@ -37,8 +37,7 @@ public class AdminUsersController {
 
     @PostMapping(value = "/users/add", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String updateUser(@RequestBody MultiValueMap<String, String> map, ModelMap modelMap){
-        User user =  new User();
-        user = updater.updateUser(user, map);
+        User user = updater.updateUser(new User(), map);
         userService.addUser(user);
         modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно создан !");
         modelMap.addAttribute("users", userService.getAll());
