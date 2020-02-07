@@ -21,7 +21,7 @@
     <div class="alert alert-warning" style="margin-top: 10px;">
         <h4>Изменение пользователя <span th:text="|${user.secondName} ${user.firstName} (${user.username})|"></span></h4>
     </div>
-    <form class="add-user" th:action="|/admin/users/update/${user.id}|" method="post">
+    <form class="add-user" th:action="|/admin/users/edit/${user.id}|" method="post">
         <div class="input-group mb-3">
             <div class="input-group-prepend">
                 <span class="input-group-text input-title">Фамилия и Имя</span>

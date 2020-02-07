@@ -26,7 +26,7 @@ public class User {
 
     @Column(name = "student_book_id")
     @NotNull
-    private long studentBookId;
+    private String studentBookId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)

@@ -39,7 +39,7 @@ public class Updater {
                     user.setPassword(passwordEncoder.encode(params.getFirst(k)));
                     break;
                 case "studentBookId":
-                    user.setStudentBookId(Long.parseLong(params.getFirst(k)));
+                    user.setStudentBookId(params.getFirst(k));
                     break;
                 case "username":
                     user.setUsername(params.getFirst(k));

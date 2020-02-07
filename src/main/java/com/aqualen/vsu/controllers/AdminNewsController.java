@@ -1,6 +1,8 @@
 package com.aqualen.vsu.controllers;
 
 import com.aqualen.vsu.entity.News;
+import com.aqualen.vsu.entity.User;
+import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.services.NewsService;
 import com.aqualen.vsu.services.UserService;
 import com.aqualen.vsu.utils.Updater;
@@ -26,14 +28,31 @@ public class AdminNewsController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/edit/{id}")
-    public String editNews(@PathVariable long id, ModelMap modelMap){
-        modelMap.addAttribute("newsPaper", newsService.getById(id));
-        return "admin/admin-add-news";
+    @GetMapping("/{id}")
+    public String editForm(@PathVariable long id, ModelMap modelMap){
+        modelMap.addAttribute("news", newsService.getById(id));
+        return "admin/admin-edit-news";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable long id,@RequestBody MultiValueMap<String, String> map, ModelMap modelMap){
+        News news = newsService.getById(id);
+        newsService.updateNews(news,map);
+        modelMap.addAttribute("news", newsService.getAll());
+        return "admin/admin-news";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id, ModelMap modelMap){
+        News news = newsService.getById(id);
+        newsService.delete(id);
+        modelMap.addAttribute("alertMessage", "Новость " + news.getTitle() + " успешно удалена !");
+        modelMap.addAttribute("news", newsService.getAll());
+        return "admin/admin-users";
     }
 
     @GetMapping("/add")
-    public String addNews(ModelMap modelMap){
+    public String add(){
         return "admin/admin-add-news";
     }
 
@@ -46,7 +65,7 @@ public class AdminNewsController {
     }
 
     @GetMapping("")
-    public String getAllNews(ModelMap modelMap, Principal principal){
+    public String getAll(ModelMap modelMap, Principal principal){
         modelMap.addAttribute("news", newsService.getAll());
         if (principal != null){
             modelMap.addAttribute("user", userService.findByUsername(principal.getName()));

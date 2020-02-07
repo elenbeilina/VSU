@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -39,7 +40,8 @@ public class NewsService {
         return newsRepository.getOne(id);
     }
 
-    public News updateNews(News news) {
+    public News updateNews(News news, MultiValueMap<String, String> map) {
+        news = updater.updateNews(news, map);
         return newsRepository.saveAndFlush(news);
     }
 

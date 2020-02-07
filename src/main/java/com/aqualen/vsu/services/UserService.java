@@ -21,7 +21,8 @@ public class UserService {
     @Autowired
     Updater updater;
 
-    public User addUser(User user) {
+    public User addUser(MultiValueMap<String, String> map) {
+        User user = updater.updateUser(new User(), map);
         return userRepository.saveAndFlush(user);
     }
 

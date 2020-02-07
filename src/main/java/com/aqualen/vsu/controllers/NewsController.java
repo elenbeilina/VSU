@@ -23,9 +23,9 @@ public class NewsController {
     UserService userService;
 
     @GetMapping("")
-    public String getAllNews(ModelMap modelMap, Principal principal){
+    public String getAll(ModelMap modelMap, Principal principal) {
         modelMap.addAttribute("news", newsService.getAll());
-        if (principal != null){
+        if (principal != null) {
             modelMap.addAttribute("user", userService.findByUsername(principal.getName()));
         }
         return "news";

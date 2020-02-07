@@ -17,7 +17,7 @@ public class News {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_news")
     @SequenceGenerator(name="seq_news",
             sequenceName="vsu.news_seq", allocationSize=1)
-    private int id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner", nullable = false)

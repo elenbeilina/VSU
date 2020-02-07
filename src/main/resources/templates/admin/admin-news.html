@@ -48,7 +48,7 @@
             <td><a th:href="|/profile/${newsPaper.user.id}|"><span th:text="${newsPaper.user.username}"></span></a></td>
             <td><span th:text="${newsPaper.dateCreated}"></span></td>
             <td>
-                <a class="btn btn-warning" style="width: 150px; margin-top: 10px;" th:href="|/admin/news/edit/${newsPaper.id}|"><img src="https://img.icons8.com/color/48/000000/edit-property.png" width="25"> Изменить</a>
+                <a class="btn btn-warning" style="width: 150px; margin-top: 10px;" th:href="|/admin/news/${newsPaper.id}|"><img src="https://img.icons8.com/color/48/000000/edit-property.png" width="25"> Изменить</a>
                 <a class="btn btn-danger"  style="width: 150px; margin-top: 10px;" th:href="|/admin/news/delete/${newsPaper.id}|"><img src="https://img.icons8.com/color/48/000000/litter-disposal.png" width="25"> Удалить</a>
             </td>
         </tr>

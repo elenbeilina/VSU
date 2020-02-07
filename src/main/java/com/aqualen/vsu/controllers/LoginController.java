@@ -41,11 +41,11 @@ public class LoginController {
         }
         if (principal != null){
             User user = userService.findByUsername(principal.getName());
+            modelMap.addAttribute("user", user);
             if(user.getRole().equals(UserRole.Administrator)){
                 modelMap.addAttribute("adminName", principal.getName());
                 return "admin/admin-index";
             }
-            modelMap.addAttribute("user", user);
         }
         return "index";
     }
