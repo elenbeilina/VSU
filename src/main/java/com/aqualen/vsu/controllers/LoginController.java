@@ -31,18 +31,18 @@ public class LoginController {
     @GetMapping("/")
     public String index(@RequestParam(value = "errorMessage", required = false) String error,
                         ModelMap modelMap,
-                        Principal principal){
+                        Principal principal) {
         List<User> users = userService.getUsersByRole(UserRole.User);
-        List<News> news = newsService.getAll(5);
+        List<News> news = newsService.getAll();
         modelMap.addAttribute("users", users);
         modelMap.addAttribute("news", news);
-        if (error != null){
+        if (error != null) {
             modelMap.addAttribute("errorMessage", error);
         }
-        if (principal != null){
+        if (principal != null) {
             User user = userService.findByUsername(principal.getName());
             modelMap.addAttribute("user", user);
-            if(user.getRole().equals(UserRole.Administrator)){
+            if (user.getRole().equals(UserRole.Administrator)) {
                 modelMap.addAttribute("adminName", principal.getName());
                 return "admin/admin-index";
             }
@@ -51,9 +51,8 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView failLogin(@RequestParam(value = "error", required = false) String error,
-                                  ModelMap modelMap){
-        modelMap.addAttribute("errorMessage", "Неправильный логин или пароль ! Попробуйте снова !");
+    public ModelAndView failLogin(ModelMap modelMap) {
+        modelMap.addAttribute("errorMessage", "Неправильный логин или пароль! Попробуйте снова!");
         return new ModelAndView("redirect:/", modelMap);
     }
 }

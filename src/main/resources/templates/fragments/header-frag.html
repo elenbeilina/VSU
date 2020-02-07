@@ -12,7 +12,8 @@
                 <img th:src="@{/img/logo.png}" width="30" height="30" class="d-inline-block align-top" alt="">
                 VSU Tournaments
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="navbar-collapse collapse" id="navbarTogglerDemo01">
@@ -38,7 +39,8 @@
                 </ul>
                 <div sec:authorize="!isAuthenticated()">
                     <div class="dropdown pmd-dropdown pmd-user-info">
-                        <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+                        <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center"
+                           data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
                             <div class="username">
                                 Войти
                             </div>
@@ -47,11 +49,14 @@
                             <form class="px-4 py-3" action="/j_spring_security_check" method="POST" name="logging-form">
                                 <div class="form-group">
                                     <label for="exampleDropdownFormEmail1">Имя пользователя:</label>
-                                    <input name="username" type="text" class="form-control" id="exampleDropdownFormEmail1" placeholder="Введите имя пользователя" required>
+                                    <input name="username" type="text" class="form-control"
+                                           id="exampleDropdownFormEmail1" placeholder="Введите имя пользователя"
+                                           required>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleDropdownFormPassword1">Пароль:</label>
-                                    <input name="password" type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Введите пароль" required>
+                                    <input name="password" type="password" class="form-control"
+                                           id="exampleDropdownFormPassword1" placeholder="Введите пароль" required>
                                 </div>
                                 <input type="submit" class="btn btn-primary" value="Войти">
                             </form>
@@ -60,8 +65,10 @@
                 </div>
                 <div sec:authorize="isAuthenticated()">
                     <div class="dropdown pmd-dropdown pmd-user-info">
-                        <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
-                            <img class="mr-2" th:src="${user.picture}" style="border-radius: 5px;" width="40" height="40" alt="avatar">
+                        <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center"
+                           data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+                            <img class="mr-2" th:src="${user.picture}" style="border-radius: 5px;" width="40"
+                                 height="40" alt="avatar">
                             <div class="username">
                                 <span th:text="|${user.firstName} ${user.secondName}|"></span>
                             </div>

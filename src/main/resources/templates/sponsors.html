@@ -1,18 +1,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <head>
     <title>VSU Tournaments - сервис для студентов</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" th:href="@{/css/styles-tournament.css}" href="../../css/styles-index.css" />
-    <link rel="stylesheet" th:href="@{/css/infinite-slider.css}" href="../../css/infinite-slider.css" />
-    <link rel="stylesheet" th:href="@{/css/styles-header-footer.css}" href="../../css/styles-header-footer.css" />
+    <link rel="stylesheet" th:href="@{/css/styles-tournament.css}" href="../../css/styles-index.css"/>
+    <link rel="stylesheet" th:href="@{/css/infinite-slider.css}" href="../../css/infinite-slider.css"/>
+    <link rel="stylesheet" th:href="@{/css/styles-header-footer.css}" href="../../css/styles-header-footer.css"/>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,700,800" rel="stylesheet">
@@ -26,7 +27,8 @@
         <div class="col-md-12" style="color: black;">
             <div>
                 <p style="display: inline-block; text-align: left;">Спонсоры</p>
-                <p style="display: inline-block; float: right; color: rgba(0,0,0,0.5);">Как стать спонсором <img src="https://img.icons8.com/ios/64/666666/help.png" width="15"></p>
+                <p style="display: inline-block; float: right; color: rgba(0,0,0,0.5);">Как стать спонсором <img
+                        src="https://img.icons8.com/ios/64/666666/help.png" width="15"></p>
             </div>
             <div class="black-line"></div>
             <div class="sponsor row" style="padding-top: 20px;" th:each="sponsor : ${sponsors}">
@@ -45,10 +47,16 @@
 <div th:replace="fragments/footer-frag :: footer-frag"/>
 
 <!-- BOOTSTRAP JS -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" th:src="@{/js/carousel-sponsors.js}"></script>
 </body>
 </html>

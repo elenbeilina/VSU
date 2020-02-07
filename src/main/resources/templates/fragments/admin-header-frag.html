@@ -9,14 +9,16 @@
         <div class="container-fluid">
             <div sec:authorize="isAuthenticated()">
                 <div class="dropdown pmd-dropdown pmd-user-info">
-                    <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center" data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
-                        <a class="navbar-brand" href="admin-index.html"><img src="https://img.icons8.com/color/48/000000/services.png" width="30"> Admin Tool</a>
+                    <a href="javascript:void(0);" class="btn-user dropdown-toggle media align-items-center"
+                       data-toggle="dropdown" data-sidebar="true" aria-expanded="false">
+                        <a class="navbar-brand" href="admin-index.html"><img
+                                src="https://img.icons8.com/color/48/000000/services.png" width="30"> Admin Tool</a>
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <a class="dropdown-item" th:href="'/profile/' + ${user.id}">Перейти в профиль</a>
                         <a class="dropdown-item" href="/logout">Выйти</a>
                     </ul>
                 </div>
@@ -30,19 +32,21 @@
                         <a class="nav-link" href="/admin/news">Новости</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/tournaments">Турниры <span class="badge badge-primary badge-pill"></span></a>
+                        <a class="nav-link" href="/tournaments">Турниры <span
+                                class="badge badge-primary badge-pill"></span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/sponsors">Спонсоры</a>
+                        <a class="nav-link" href="/sponsors">Спонсоры</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/">Рейтинг</a>
+                        <a class="nav-link" href="/rating/">Рейтинг</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/users">Управление пользователями</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin/qa">Вопрос / Ответ <span class="badge badge-primary badge-pill"></span></a>
+                        <a class="nav-link" href="/admin/qa">Вопрос / Ответ <span
+                                class="badge badge-primary badge-pill"></span></a>
                     </li>
                 </ul>
             </div>

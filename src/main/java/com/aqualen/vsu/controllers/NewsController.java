@@ -1,5 +1,6 @@
 package com.aqualen.vsu.controllers;
 
+import com.aqualen.vsu.services.ModelMapService;
 import com.aqualen.vsu.services.NewsService;
 import com.aqualen.vsu.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -20,14 +21,12 @@ public class NewsController {
     private NewsService newsService;
 
     @Autowired
-    UserService userService;
+    ModelMapService modelMapService;
 
     @GetMapping("")
     public String getAll(ModelMap modelMap, Principal principal) {
         modelMap.addAttribute("news", newsService.getAll());
-        if (principal != null) {
-            modelMap.addAttribute("user", userService.findByUsername(principal.getName()));
-        }
+        modelMapService.addUser(modelMap,principal);
         return "news";
     }
 }

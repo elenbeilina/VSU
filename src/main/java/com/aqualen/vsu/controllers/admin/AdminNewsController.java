@@ -1,8 +1,9 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.admin;
 
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.services.ModelMapService;
 import com.aqualen.vsu.services.NewsService;
 import com.aqualen.vsu.services.UserService;
 import com.aqualen.vsu.utils.Updater;
@@ -26,7 +27,13 @@ public class AdminNewsController {
     @Autowired
     Updater updater;
     @Autowired
-    private UserService userService;
+    private ModelMapService modelMapService;
+
+    @GetMapping("")
+    public String getAll(ModelMap modelMap, Principal principal){
+        modelMap.addAttribute("news", newsService.getAll());
+        return "admin/admin-news";
+    }
 
     @GetMapping("/{id}")
     public String editForm(@PathVariable long id, ModelMap modelMap){
@@ -61,15 +68,6 @@ public class AdminNewsController {
         News news = newsService.addNews(map, principal);
         modelMap.addAttribute("alertMessage", "Новость " + news.getTitle() + " успешно создана!");
         modelMap.addAttribute("news", newsService.getAll());
-        return "admin/admin-news";
-    }
-
-    @GetMapping("")
-    public String getAll(ModelMap modelMap, Principal principal){
-        modelMap.addAttribute("news", newsService.getAll());
-        if (principal != null){
-            modelMap.addAttribute("user", userService.findByUsername(principal.getName()));
-        }
         return "admin/admin-news";
     }
 }

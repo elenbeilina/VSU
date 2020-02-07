@@ -1,4 +1,4 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.admin;
 
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.services.DepartmentService;
@@ -20,8 +20,6 @@ public class AdminUsersController {
     private UserService userService;
     @Autowired
     private DepartmentService departmentService;
-    @Autowired
-    private Updater updater;
 
     @GetMapping("")
     public String getAll(ModelMap modelMap){
@@ -30,9 +28,17 @@ public class AdminUsersController {
     }
 
     @GetMapping("/add")
-    public String add(ModelMap modelMap){
+    public String addForm(ModelMap modelMap){
         modelMap.addAttribute("departments", departmentService.getAll());
         return "admin/admin-add-user";
+    }
+
+    @PostMapping(value = "/add", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String add(@RequestBody MultiValueMap<String, String> map, ModelMap modelMap){
+        User user = userService.addUser(map);
+        modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно создан!");
+        modelMap.addAttribute("users", userService.getAll());
+        return "admin/admin-users";
     }
 
     @GetMapping("/edit/{id}")
@@ -46,7 +52,7 @@ public class AdminUsersController {
     public String edit(@PathVariable long id, @RequestBody MultiValueMap<String, String> map, ModelMap modelMap){
         User user = userService.getById(id);
         userService.updateUser(user,map);
-        modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно изменен !");
+        modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно изменен!");
         modelMap.addAttribute("users", userService.getAll());
         return "admin/admin-users";
     }
@@ -55,15 +61,7 @@ public class AdminUsersController {
     public String delete(@PathVariable long id, ModelMap modelMap){
         User user = userService.getById(id);
         userService.delete(id);
-        modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно удален !");
-        modelMap.addAttribute("users", userService.getAll());
-        return "admin/admin-users";
-    }
-
-    @PostMapping(value = "/add", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String add(@RequestBody MultiValueMap<String, String> map, ModelMap modelMap){
-        User user = userService.addUser(map);
-        modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно создан !");
+        modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно удален!");
         modelMap.addAttribute("users", userService.getAll());
         return "admin/admin-users";
     }

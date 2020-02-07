@@ -1,6 +1,7 @@
 package com.aqualen.vsu.controllers;
 
 import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.services.ModelMapService;
 import com.aqualen.vsu.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +19,14 @@ public class RatingController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    ModelMapService modelMapService;
 
     @GetMapping("")
     public String ratingPage(ModelMap modelMap, Principal principal){
         modelMap.addAttribute("top10", userService.getUsersByRole(UserRole.User, 10));
         modelMap.addAttribute("top100", userService.getUsersByRole(UserRole.User, 100));
-        if (principal != null){
-            modelMap.addAttribute("user", userService.findByUsername(principal.getName()));
-        }
+        modelMapService.addUser(modelMap,principal);
         return "rating";
     }
 

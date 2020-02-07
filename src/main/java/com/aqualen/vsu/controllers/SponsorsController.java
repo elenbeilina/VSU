@@ -1,6 +1,7 @@
 package com.aqualen.vsu.controllers;
 
 import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.services.ModelMapService;
 import com.aqualen.vsu.services.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,12 @@ public class SponsorsController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    ModelMapService modelMapService;
 
     @GetMapping("")
     public String sponsorsPage(ModelMap modelMap, Principal principal){
-        if (principal != null){
-            modelMap.addAttribute("user", userService.findByUsername(principal.getName()));
-        }
+        modelMapService.addUser(modelMap,principal);
         modelMap.addAttribute("sponsors", userService.getUsersByRole(UserRole.Sponsor));
         return "sponsors";
     }

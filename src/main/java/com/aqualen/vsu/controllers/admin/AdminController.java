@@ -1,4 +1,4 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.admin;
 
 import com.aqualen.vsu.services.DepartmentService;
 import com.aqualen.vsu.services.UserService;
@@ -15,19 +15,6 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-
-    private UserService userService;
-    private DepartmentService departmentService;
-    private Updater updater;
-
-    @Autowired
-    AdminController(UserService userService,
-                    DepartmentService departmentService,
-                    Updater updater){
-        this.userService = userService;
-        this.departmentService = departmentService;
-        this.updater = updater;
-    }
 
     @GetMapping("")
     public String welcome(ModelMap modelMap, Principal principal){

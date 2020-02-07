@@ -1,18 +1,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+>
 <head>
     <title>Профиль пользователя</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- BOOTSTRAP CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" th:href="@{/css/styles-profile.css}" href="../../css/styles-index.css" />
-    <link rel="stylesheet" th:href="@{/css/infinite-slider.css}" href="../../css/infinite-slider.css" />
-    <link rel="stylesheet" th:href="@{/css/styles-header-footer.css}" href="../../css/styles-header-footer.css" />
+    <link rel="stylesheet" th:href="@{/css/styles-profile.css}" href="../../css/styles-index.css"/>
+    <link rel="stylesheet" th:href="@{/css/infinite-slider.css}" href="../../css/infinite-slider.css"/>
+    <link rel="stylesheet" th:href="@{/css/styles-header-footer.css}" href="../../css/styles-header-footer.css"/>
 
     <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,700,800" rel="stylesheet">
@@ -27,16 +28,28 @@
     <div class="container main-container">
         <div class="user-info-block">
             <img th:src="${user.picture}" style="border-radius: 100px;" width="100" height="100" alt="avatar">
-            <p class="user-info-name"><span th:text="|${user.firstName} ${user.SecondName}|"></span> <a th:if="${isUserProfile}" th:href="'/profile/edit/'+ ${user.id}"><img src="https://img.icons8.com/material/50/666666/edit.png" width="20" height="20" alt="edit"> (редактировать)</a></p>
+            <p class="user-info-name"><span th:text="|${user.firstName} ${user.SecondName}|"></span> <a
+                    th:if="${isUserProfile}" th:href="'/profile/edit/'+ ${user.id}"><img
+                    src="https://img.icons8.com/material/50/666666/edit.png" width="20" height="20" alt="edit">
+                (редактировать)</a></p>
             <div class="social-links">
-                <img th:if="${user.linkINS}" class="social-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/480px-Instagram_icon.png" width="20" height="20" alt="inst">
-                <img th:if="${user.linkVK}" class="social-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/240px-VK.com-logo.svg.png" width="20" height="20" alt="inst">
-                <img th:if="${user.linkFB}" class="social-item" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Facebook_icon_2013.svg/2000px-Facebook_icon_2013.svg.png" width="20" height="20" alt="inst">
-                <img th:if="${user.linkTWI}" class="social-item" src="https://upload.wikimedia.org/wikipedia/lv/thumb/9/9f/Twitter_bird_logo_2012.svg/173px-Twitter_bird_logo_2012.svg.png" width="20" height="20" alt="inst">
+                <img th:if="${user.linkINS}" class="social-item"
+                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/480px-Instagram_icon.png"
+                     width="20" height="20" alt="inst">
+                <img th:if="${user.linkVK}" class="social-item"
+                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/VK.com-logo.svg/240px-VK.com-logo.svg.png"
+                     width="20" height="20" alt="inst">
+                <img th:if="${user.linkFB}" class="social-item"
+                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Facebook_icon_2013.svg/2000px-Facebook_icon_2013.svg.png"
+                     width="20" height="20" alt="inst">
+                <img th:if="${user.linkTWI}" class="social-item"
+                     src="https://upload.wikimedia.org/wikipedia/lv/thumb/9/9f/Twitter_bird_logo_2012.svg/173px-Twitter_bird_logo_2012.svg.png"
+                     width="20" height="20" alt="inst">
             </div>
             <div class="about">
                 <p class="about-title">О себе</p>
-                <p class="about-subtitle"><span th:if="${user.description}" th:text="${user.description}"></span><span th:if="!${user.description}" th:text="В данный момент это поле не заполнено."></span></p>
+                <p class="about-subtitle"><span th:if="${user.description}" th:text="${user.description}"></span><span
+                        th:if="!${user.description}" th:text="В данный момент это поле не заполнено."></span></p>
             </div>
         </div>
     </div>
@@ -85,7 +98,8 @@
                 </div>
                 <p class="tournament-subtext">До окончания осталось 42 дней (дня)</p>
                 <div class="progress bg-dark">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 40%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 40%"
+                         aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
             <div class="tournament">
@@ -97,7 +111,8 @@
                 </div>
                 <p class="tournament-subtext">До окончания осталось 42 дней (дня)</p>
                 <div class="progress bg-dark">
-                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 90%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 90%"
+                         aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
             <div class="tournament">
@@ -109,7 +124,8 @@
                 </div>
                 <p class="tournament-subtext">До окончания осталось 42 дней (дня)</p>
                 <div class="progress bg-dark">
-                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 20%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 20%"
+                         aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
@@ -121,10 +137,16 @@
 <div th:replace="fragments/footer-frag :: footer-frag"/>
 
 <!-- BOOTSTRAP JS -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
-<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
 <script type="text/javascript" th:src="@{/js/carousel-sponsors.js}"></script>
 </body>
 </html>
