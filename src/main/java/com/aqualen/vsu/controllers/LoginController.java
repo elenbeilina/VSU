@@ -29,7 +29,7 @@ public class LoginController {
     private NewsService newsService;
 
     @GetMapping("/")
-    public String index(@RequestParam(value = "errorMessage", required = false) String error,
+    public String welcomePage(@RequestParam(value = "errorMessage", required = false) String error,
                         ModelMap modelMap,
                         Principal principal) {
         List<User> users = userService.getUsersByRole(UserRole.User);
@@ -51,7 +51,7 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public ModelAndView failLogin(ModelMap modelMap) {
+    public ModelAndView fail(ModelMap modelMap) {
         modelMap.addAttribute("errorMessage", "Неправильный логин или пароль! Попробуйте снова!");
         return new ModelAndView("redirect:/", modelMap);
     }

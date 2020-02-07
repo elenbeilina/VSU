@@ -1,4 +1,4 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.user;
 
 import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.services.ModelMapService;
@@ -23,10 +23,9 @@ public class SponsorsController {
     ModelMapService modelMapService;
 
     @GetMapping("")
-    public String sponsorsPage(ModelMap modelMap, Principal principal){
-        modelMapService.addUser(modelMap,principal);
+    public String getPage(ModelMap modelMap, Principal principal) {
+        modelMapService.addUser(modelMap, principal);
         modelMap.addAttribute("sponsors", userService.getUsersByRole(UserRole.Sponsor));
         return "sponsors";
     }
-
 }

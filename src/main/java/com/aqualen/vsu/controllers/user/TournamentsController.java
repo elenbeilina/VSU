@@ -1,8 +1,7 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.user;
 
 import com.aqualen.vsu.services.ModelMapService;
-import com.aqualen.vsu.services.NewsService;
-import com.aqualen.vsu.services.UserService;
+import com.aqualen.vsu.services.TournamentsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,19 +13,19 @@ import java.security.Principal;
 
 @Slf4j
 @Controller
-@RequestMapping("/news")
-public class NewsController {
+@RequestMapping("/tournaments")
+public class TournamentsController {
 
     @Autowired
-    private NewsService newsService;
+    TournamentsService tournamentsService;
 
     @Autowired
     ModelMapService modelMapService;
 
     @GetMapping("")
     public String getAll(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("news", newsService.getAll());
-        modelMapService.addUser(modelMap,principal);
-        return "news";
+        modelMap.addAttribute("tournaments", tournamentsService.getAll());
+        modelMapService.addUser(modelMap, principal);
+        return "tournaments";
     }
 }

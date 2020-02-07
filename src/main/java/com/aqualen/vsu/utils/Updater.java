@@ -9,6 +9,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
+import java.util.Objects;
+
 @Component
 public class Updater {
 
@@ -25,7 +27,7 @@ public class Updater {
                 case "department":
                     user.setDepartment(
                             departmentService.getById(
-                                    Long.parseLong(params.getFirst(k))
+                                    Long.parseLong(Objects.requireNonNull(params.getFirst(k)))
                             )
                     );
                     break;
@@ -36,7 +38,7 @@ public class Updater {
                     user.setSecondName(params.getFirst(k));
                     break;
                 case "password":
-                    user.setPassword(passwordEncoder.encode(params.getFirst(k)));
+                    user.setPassword(passwordEncoder.encode(Objects.requireNonNull(params.getFirst(k))));
                     break;
                 case "studentBookId":
                     user.setStudentBookId(params.getFirst(k));

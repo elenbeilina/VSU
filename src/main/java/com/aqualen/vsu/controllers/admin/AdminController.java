@@ -17,7 +17,7 @@ import java.security.Principal;
 public class AdminController {
 
     @GetMapping("")
-    public String welcome(ModelMap modelMap, Principal principal){
+    public String welcomePage(ModelMap modelMap, Principal principal){
         modelMap.addAttribute("adminName", principal.getName());
         return "admin/admin-index";
     }

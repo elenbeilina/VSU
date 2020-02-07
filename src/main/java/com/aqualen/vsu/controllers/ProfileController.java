@@ -23,27 +23,27 @@ public class ProfileController {
     @Autowired
     private DepartmentService departmentService;
 
-    @GetMapping("/edit/{id}")
-    public String editProfile(@PathVariable long id, ModelMap modelMap){
-        modelMap.addAttribute("user", userService.getById(id));
-        modelMap.addAttribute("departments", departmentService.getAll());
-        return "edit-profile";
-    }
-
     @GetMapping("/{id}")
-    public String getProfile(@PathVariable("id") long userId,
-                             ModelMap modelMap,
-                             Principal principal){
+    public String getPage(@PathVariable("id") long userId,
+                          ModelMap modelMap,
+                          Principal principal) {
         User user = userService.getById(userId);
         modelMap.addAttribute("isUserProfile", user.getUsername().equals(principal.getName()));
         modelMap.addAttribute("user", user);
         return "profile";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable long id, ModelMap modelMap) {
+        modelMap.addAttribute("user", userService.getById(id));
+        modelMap.addAttribute("departments", departmentService.getAll());
+        return "edit-profile";
+    }
+
     @PostMapping(value = "/update/{id}", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String updateProfile(@PathVariable long id, @RequestBody MultiValueMap<String, String> map, ModelMap modelMap){
+    public String update(@PathVariable long id, @RequestBody MultiValueMap<String, String> map, ModelMap modelMap) {
         User user = userService.getById(id);
-        userService.updateUser(user,map);
+        userService.updateUser(user, map);
         modelMap.addAttribute("alertMessage", "Пользователь " + user.getUsername() + " успешно изменен !");
         modelMap.addAttribute("user", user);
         return "profile";

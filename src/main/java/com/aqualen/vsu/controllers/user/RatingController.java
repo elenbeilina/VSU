@@ -1,4 +1,4 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.user;
 
 import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.services.ModelMapService;
@@ -23,10 +23,10 @@ public class RatingController {
     ModelMapService modelMapService;
 
     @GetMapping("")
-    public String ratingPage(ModelMap modelMap, Principal principal){
+    public String getPage(ModelMap modelMap, Principal principal) {
         modelMap.addAttribute("top10", userService.getUsersByRole(UserRole.User, 10));
         modelMap.addAttribute("top100", userService.getUsersByRole(UserRole.User, 100));
-        modelMapService.addUser(modelMap,principal);
+        modelMapService.addUser(modelMap, principal);
         return "rating";
     }
 

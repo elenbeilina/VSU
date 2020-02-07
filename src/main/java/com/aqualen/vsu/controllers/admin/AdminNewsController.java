@@ -36,7 +36,7 @@ public class AdminNewsController {
     }
 
     @GetMapping("/{id}")
-    public String editForm(@PathVariable long id, ModelMap modelMap){
+    public String editPage(@PathVariable long id, ModelMap modelMap){
         modelMap.addAttribute("news", newsService.getById(id));
         return "admin/admin-edit-news";
     }
@@ -59,12 +59,12 @@ public class AdminNewsController {
     }
 
     @GetMapping("/add")
-    public String add(){
+    public String addPage(){
         return "admin/admin-add-news";
     }
 
     @PostMapping(value = "/add", produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String addNews(@RequestBody MultiValueMap<String, String> map, ModelMap modelMap, Principal principal){
+    public String add(@RequestBody MultiValueMap<String, String> map, ModelMap modelMap, Principal principal){
         News news = newsService.addNews(map, principal);
         modelMap.addAttribute("alertMessage", "Новость " + news.getTitle() + " успешно создана!");
         modelMap.addAttribute("news", newsService.getAll());

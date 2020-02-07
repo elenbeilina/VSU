@@ -28,7 +28,7 @@ public class AdminUsersController {
     }
 
     @GetMapping("/add")
-    public String addForm(ModelMap modelMap){
+    public String addPage(ModelMap modelMap){
         modelMap.addAttribute("departments", departmentService.getAll());
         return "admin/admin-add-user";
     }
@@ -42,7 +42,7 @@ public class AdminUsersController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable long id, ModelMap modelMap){
+    public String editPage(@PathVariable long id, ModelMap modelMap){
         modelMap.addAttribute("departments", departmentService.getAll());
         modelMap.addAttribute("user", userService.getById(id));
         return "admin/admin-edit-user";
