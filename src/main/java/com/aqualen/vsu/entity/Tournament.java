@@ -14,8 +14,10 @@ import java.sql.Timestamp;
 public class Tournament {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tournaments")
+    @SequenceGenerator(name="seq_tournaments",
+            sequenceName="vsu.tournaments_seq", allocationSize=1)
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
@@ -31,17 +33,9 @@ public class Tournament {
     @JoinColumn(name = "winner_id", nullable = false)
     private User winnerId;
 
-    @NotNull
-    @Column(name = "gift_picture")
-    private String giftPicture;
-
-    @NotNull
-    @Column(name = "gift_name")
-    private String giftName;
-
-    @NotNull
-    @Column(name = "gift_description")
-    private String giftDescription;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "prize_id", nullable = false)
+    private Prize prize;
 
     @NotNull
     @Column(name = "start_date")

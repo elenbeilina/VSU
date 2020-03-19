@@ -1,11 +1,7 @@
 package com.aqualen.vsu.controllers.admin;
 
 import com.aqualen.vsu.entity.News;
-import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.entity.enums.UserRole;
-import com.aqualen.vsu.services.ModelMapService;
 import com.aqualen.vsu.services.NewsService;
-import com.aqualen.vsu.services.UserService;
 import com.aqualen.vsu.utils.Updater;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +22,6 @@ public class AdminNewsController {
     private NewsService newsService;
     @Autowired
     Updater updater;
-    @Autowired
-    private ModelMapService modelMapService;
 
     @GetMapping("")
     public String getAll(ModelMap modelMap, Principal principal){
