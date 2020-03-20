@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.security.Principal;
 import java.sql.Timestamp;
@@ -32,12 +31,16 @@ public class NewsService {
         return newsRepository.saveAndFlush(news);
     }
 
-    public void delete(long id) {
+    public void delete(Long id) {
         newsRepository.deleteById(id);
     }
 
     public News getById(long id) {
         return newsRepository.getOne(id);
+    }
+
+    public void update(News news) {
+        newsRepository.saveAndFlush(news);
     }
 
     public News updateNews(News news, MultiValueMap<String, String> map) {
