@@ -1,7 +1,7 @@
-package com.aqualen.vsu.controllers.user;
+package com.aqualen.vsu.controllers;
 
-import com.aqualen.vsu.services.ModelMapService;
 import com.aqualen.vsu.services.TournamentsService;
+import com.aqualen.vsu.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,13 +19,8 @@ public class TournamentsController {
     @Autowired
     TournamentsService tournamentsService;
 
-    @Autowired
-    ModelMapService modelMapService;
-
     @GetMapping("")
-    public String getAll(ModelMap modelMap, Principal principal) {
-        modelMap.addAttribute("tournaments", tournamentsService.getAll());
-        modelMapService.addUser(modelMap, principal);
-        return "tournaments";
+    public Response getAll() {
+        return Response.success(tournamentsService.getAll());
     }
 }

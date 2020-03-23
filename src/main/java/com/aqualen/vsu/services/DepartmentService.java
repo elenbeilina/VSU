@@ -15,23 +15,19 @@ public class DepartmentService {
     @Autowired
     private DepartmentRepository departmentRepository;
 
-    public Department addDepartment(Department department) {
-        return departmentRepository.saveAndFlush(department);
-    }
-
-    public void delete(long id) {
-        departmentRepository.deleteById(id);
+    public List<Department> getAll() {
+        return departmentRepository.findAll();
     }
 
     public Department getById(long id) {
         return departmentRepository.getOne(id);
     }
 
-    public Department updateDepartment(Department department) {
+    public Department update(Department department) {
         return departmentRepository.saveAndFlush(department);
     }
 
-    public List<Department> getAll() {
-        return departmentRepository.findAll();
+    public void delete(long id) {
+        departmentRepository.deleteById(id);
     }
 }
