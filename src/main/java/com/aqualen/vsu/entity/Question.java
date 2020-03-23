@@ -2,6 +2,7 @@ package com.aqualen.vsu.entity;
 
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,6 +23,10 @@ public class Question {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User user;
+
+    @OneToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "answer_id", nullable = false)
+    private Answer answer;
 
     @NotNull
     private String description;
