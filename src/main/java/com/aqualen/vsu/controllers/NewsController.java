@@ -3,16 +3,16 @@ package com.aqualen.vsu.controllers;
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.services.NewsService;
 import com.aqualen.vsu.utils.Response;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
-@Controller
-@RequestMapping("news")
+@RestController
+@RequestMapping("/news")
 public class NewsController {
     @Autowired
     private NewsService newsService;
@@ -26,6 +26,7 @@ public class NewsController {
     }
 
     @GetMapping("all")
+    @ApiOperation(value = "Получить все новости")
     public Response getNews() {
         return Response.success(newsService.getAll());
     }
@@ -48,8 +49,8 @@ public class NewsController {
     }
 
     @PostMapping("")
-    public Response add(@RequestBody News news) {
-        newsService.update(news);
+    public Response add(@RequestParam String title, @RequestParam String description, @RequestParam Long userId) {
+        newsService.add(title, description, userId);
         return Response.success();
     }
 }
