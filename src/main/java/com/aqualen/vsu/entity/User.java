@@ -55,15 +55,7 @@ public class User {
 
     private String picture;
 
-    @Column(name = "social_vk")
-    private String linkVK;
-
-    @Column(name = "social_fb")
-    private String linkFB;
-
-    @Column(name = "social_inst")
-    private String linkINS;
-
-    @Column(name = "social_twi")
-    private String linkTWI;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "social_id", nullable = false)
+    private SocialMedia socialMedia;
 }
