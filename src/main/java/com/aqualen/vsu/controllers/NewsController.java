@@ -25,29 +25,29 @@ public class NewsController {
         return Response.fail(DEFAULT_ERROR_MESSAGE);
     }
 
-    @GetMapping("get")
+    @GetMapping("all")
     public Response getNews() {
         return Response.success(newsService.getAll());
     }
 
-    @GetMapping("{id}")
-    public Response getOne(@PathVariable Long id) {
+    @GetMapping("")
+    public Response getOne(@RequestParam Long id) {
         return Response.success(newsService.getById(id));
     }
 
-    @PostMapping("edit")
+    @PutMapping("")
     public Response edit(@RequestBody News news) {
         newsService.update(news);
         return Response.success();
     }
 
-    @DeleteMapping("{id}")
-    public Response delete(@PathVariable Long id) {
+    @DeleteMapping("")
+    public Response delete(@RequestParam Long id) {
         newsService.delete(id);
         return Response.success();
     }
 
-    @PostMapping("add")
+    @PostMapping("")
     public Response add(@RequestBody News news) {
         newsService.update(news);
         return Response.success();
