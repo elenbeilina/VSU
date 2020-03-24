@@ -26,8 +26,8 @@ public class QuestionService {
         return questionRepository.getOne(id);
     }
 
-    public Question updateQuestion(Question requestQuestion) {
-        return questionRepository.saveAndFlush(requestQuestion);
+    public Question update(Question question) {
+        return questionRepository.saveAndFlush(question);
     }
 
     public void delete(Long id) {

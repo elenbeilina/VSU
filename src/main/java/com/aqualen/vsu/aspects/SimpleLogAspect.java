@@ -37,7 +37,7 @@ public class SimpleLogAspect {
         Object[] arguments = joinPoint.getArgs();
 
         if (arguments == null || arguments.length == 0) {
-            return "(no parameters)";
+            return "no parameters";
         }
 
         return Stream.of(arguments).map(o -> o == null ? "null" : o.toString())
