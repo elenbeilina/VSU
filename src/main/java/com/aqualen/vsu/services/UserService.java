@@ -16,6 +16,8 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    PasswordLogic passwordLogic;
 
     public void delete(long id) {
         userRepository.deleteById(id);
@@ -30,12 +32,14 @@ public class UserService {
     }
 
     public List<User> getUsersByRole(UserRole role) {
-        List<User> users = userRepository.findAllByRole(role);
-        users.sort((a,b) -> a.getRating() > b.getRating() ? -1 : 1);
-        return users;
+        return userRepository.findAllByRole(role);
     }
-
     public void update(User user){
+        userRepository.saveAndFlush(user);
+    }
+    public void add(User user){
+        passwordLogic.encodePassword(user);
+
         userRepository.saveAndFlush(user);
     }
 

@@ -1,7 +1,8 @@
 package com.aqualen.vsu.controllers;
 
-import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.services.UserService;
+import com.aqualen.vsu.entity.News;
+import com.aqualen.vsu.exceptions.PasswordException;
+import com.aqualen.vsu.services.PasswordLogic;
 import com.aqualen.vsu.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/password")
+public class PasswordController {
     @Autowired
-    private UserService userService;
+    PasswordLogic passwordLogic;
 
     private static final String DEFAULT_ERROR_MESSAGE = "При обработке данных произошла непредвиденная ошибка";
 
@@ -24,31 +25,16 @@ public class UserController {
         return Response.fail(DEFAULT_ERROR_MESSAGE);
     }
 
-    @GetMapping("all")
-    public Response getUsers() {
-        return Response.success(userService.getAll());
-    }
-
-    @GetMapping("")
-    public Response getOne(@RequestParam Long id) {
-        return Response.success(userService.getById(id));
+    @ExceptionHandler(PasswordException.class)
+    public Response handlePasswordException(HttpServletRequest request, Exception e) {
+        log.error("Error on processing of URL mapping '" + request.getRequestURI() + "': ", e);
+        return Response.fail(e.getMessage());
     }
 
     @PutMapping("")
-    public Response edit(@RequestBody User user) {
-        userService.update(user);
-        return Response.success();
-    }
-
-    @DeleteMapping("")
-    public Response delete(@RequestParam Long id) {
-        userService.delete(id);
-        return Response.success();
-    }
-
-    @PostMapping("")
-    public Response add(@RequestBody User user) {
-        userService.add(user);
+    public Response update(@RequestParam String userName, @RequestParam String old,
+                           @RequestParam String newOne, @RequestParam String newTwo) {
+        passwordLogic.updatePassword(userName, old, newOne, newTwo);
         return Response.success();
     }
 }

@@ -23,13 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username){
         try {
-            bCryptPasswordEncoder.encode("123");
             User user = userRepository.findByUsername(username);
             Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
             grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().name()));
