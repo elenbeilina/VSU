@@ -4,14 +4,13 @@ import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.exceptions.PasswordException;
 import com.aqualen.vsu.repository.UserRepository;
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@Slf4j
 public class PasswordLogic {
+
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -30,7 +29,7 @@ public class PasswordLogic {
         User user = userRepository.findByUsername(userName);
 
         checkOldPassword(old, user.getPassword());
-        checkNewPassword(newOne,newTwo);
+        checkNewPassword(newOne, newTwo);
 
         user.setPassword(bCryptPasswordEncoder.encode(newOne));
         userRepository.saveAndFlush(user);

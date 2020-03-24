@@ -18,7 +18,7 @@ public class NewsController {
     @Autowired
     private NewsService newsService;
 
-    private static final String DEFAULT_ERROR_MESSAGE = "При обработке данных произошла непредвиденная ошибка";
+    private static final String DEFAULT_ERROR_MESSAGE = "При работе с новостями произошла непредвиденная ошибка";
 
     @ExceptionHandler(Exception.class)
     public Response handleException(HttpServletRequest request, Exception e) {
@@ -26,6 +26,7 @@ public class NewsController {
         return Response.fail(DEFAULT_ERROR_MESSAGE);
     }
 
+    @SimpleLog
     @GetMapping("all")
     @ApiOperation(value = "Получить все новости")
     public Response getNews() {
@@ -38,18 +39,21 @@ public class NewsController {
         return Response.success(newsService.getById(id));
     }
 
+    @SimpleLog
     @PutMapping("")
     public Response edit(@RequestBody News news) {
         newsService.update(news);
         return Response.success();
     }
 
+    @SimpleLog
     @DeleteMapping("")
     public Response delete(@RequestParam Long id) {
         newsService.delete(id);
         return Response.success();
     }
 
+    @SimpleLog
     @PostMapping("")
     public Response add(@RequestParam String title, @RequestParam String description, @RequestParam Long userId) {
         newsService.add(title, description, userId);

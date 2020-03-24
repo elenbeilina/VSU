@@ -2,7 +2,6 @@ package com.aqualen.vsu.config;
 
 import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.services.CustomUserDetailsService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,7 +13,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Autowired

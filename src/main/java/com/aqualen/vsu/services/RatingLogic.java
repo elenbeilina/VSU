@@ -3,7 +3,6 @@ package com.aqualen.vsu.services;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.entity.enums.UserRole;
 import com.aqualen.vsu.repository.UserRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +10,6 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-@Slf4j
 public class RatingLogic {
     @Autowired
     UserRepository userRepository;
