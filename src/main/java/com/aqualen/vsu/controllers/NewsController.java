@@ -1,5 +1,6 @@
 package com.aqualen.vsu.controllers;
 
+import com.aqualen.vsu.aspects.SimpleLog;
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.services.NewsService;
 import com.aqualen.vsu.utils.Response;
@@ -31,6 +32,7 @@ public class NewsController {
         return Response.success(newsService.getAll());
     }
 
+    @SimpleLog
     @GetMapping("")
     public Response getOne(@RequestParam Long id) {
         return Response.success(newsService.getById(id));
