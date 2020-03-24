@@ -35,15 +35,6 @@ public class UserService {
         return users;
     }
 
-    public List<User> getUsersByRole(UserRole role, int count) {
-        List<User> users = userRepository.findAllByRole(role);
-        users.sort((a,b) -> a.getRating() > b.getRating() ? -1 : 1);
-        if (users.size() > count)
-            return users.subList(0,count);
-        else
-            return users;
-    }
-
     public void update(User user){
         userRepository.saveAndFlush(user);
     }
