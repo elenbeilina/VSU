@@ -3,6 +3,7 @@ package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.logic.PasswordLogic;
 import com.aqualen.vsu.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

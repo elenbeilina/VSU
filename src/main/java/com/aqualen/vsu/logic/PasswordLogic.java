@@ -1,4 +1,4 @@
-package com.aqualen.vsu.services;
+package com.aqualen.vsu.logic;
 
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.exceptions.PasswordException;

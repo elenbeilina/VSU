@@ -1,7 +1,7 @@
 package com.aqualen.vsu.controllers;
 
 import com.aqualen.vsu.aspects.SimpleLog;
-import com.aqualen.vsu.services.RatingLogic;
+import com.aqualen.vsu.logic.RatingLogic;
 import com.aqualen.vsu.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package com.aqualen.vsu.controllers;
 
 import com.aqualen.vsu.aspects.SimpleLog;
 import com.aqualen.vsu.exceptions.PasswordException;
-import com.aqualen.vsu.services.PasswordLogic;
+import com.aqualen.vsu.logic.PasswordLogic;
 import com.aqualen.vsu.utils.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
