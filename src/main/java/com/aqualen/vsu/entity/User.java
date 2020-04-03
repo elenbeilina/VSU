@@ -55,15 +55,21 @@ public class User {
 
     private String picture;
 
-    @Column(name = "social_vk")
-    private String linkVK;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "social_id", nullable = false)
+    private SocialMedia socialMedia;
 
-    @Column(name = "social_fb")
-    private String linkFB;
+    public User(long id, UserRole role, String studentBookId, String username, String firstName, String secondName, String password, long rating) {
+        this.id = id;
+        this.role = role;
+        this.studentBookId = studentBookId;
+        this.username = username;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.password = password;
+        this.rating = rating;
+    }
 
-    @Column(name = "social_inst")
-    private String linkINS;
-
-    @Column(name = "social_twi")
-    private String linkTWI;
+    public User() {
+    }
 }
