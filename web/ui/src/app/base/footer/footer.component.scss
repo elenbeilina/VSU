@@ -1,0 +1,44 @@
+@import "common.scss";
+
+.footer {
+  background-color: #262D33;
+  width: 100vw;
+
+  .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.footer-info {
+  margin: 0 auto;
+  max-width: $maxWidth;
+
+  height: 100%;
+  color: #ffffff;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+  &:first-child {
+    border-bottom: 1px solid gray;
+  }
+  &.center {
+    justify-content: center;
+  }
+  .copy {
+    font-size: 12px;
+    font-weight: lighter;
+    //color: gray;
+    // todo сделать светло серым
+  }
+}
+
+.header_main-menu__link {
+  color: #ffffff;
+  font-weight: 500;
+  margin: 0 10px;
+}

@@ -3,12 +3,18 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MatIconModule} from '@angular/material/icon';
+
+const materialImports = [
+  MatIconModule
+];
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
+    ...materialImports,
     BrowserModule,
     AppRoutingModule
   ],
