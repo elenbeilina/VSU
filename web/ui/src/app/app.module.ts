@@ -3,18 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {MatIconModule} from '@angular/material/icon';
-
-const materialImports = [
-  MatIconModule
-];
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MaterialModule} from './common/material.module';
 
 @NgModule({
   declarations: [
     AppComponent,
   ],
   imports: [
-    ...materialImports,
+    MaterialModule,
+    BrowserAnimationsModule,
     BrowserModule,
     AppRoutingModule
   ],
