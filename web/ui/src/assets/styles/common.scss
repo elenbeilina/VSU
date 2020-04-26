@@ -1,0 +1,57 @@
+.input-custom {
+  width: 100%;
+  font-family: Roboto, sans-serif;
+  height: 40px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding:  0 10px;
+  font-size: 14px;
+  color: #939699;
+  border: 1px solid #D9DADB;
+  &:hover {
+    border: 1px solid #4592FF;
+  }
+  &:focus {
+    border: 1px solid #4592FF;
+  }
+  &::placeholder {
+    color: #939699;
+  }
+}
+
+.button-custom {
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  height: 40px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  &_blue {
+    padding: 0 20px;
+    color: #ffffff;
+    background: #4592FF;
+  }
+
+  &_gray {
+    color: #939699;
+    background: transparent;
+  }
+}
+
+.link-custom {
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  color: #4592FF;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+

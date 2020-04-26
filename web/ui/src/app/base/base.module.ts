@@ -22,8 +22,16 @@ const routes: Routes = [
         loadChildren: () => import('../news/news.module').then(m => m.NewsModule)
       },
       {
+        path: 'profile',
+        loadChildren: () => import('../account/account.module.js').then(m => m.AccountModule)
+      },
+      {
         path: 'sponsors',
         loadChildren: () => import('../sponsors/sponsors.module').then(m => m.SponsorsModule)
+      },
+      {
+        path: 'questions',
+        loadChildren: () => import('../faq/faq.module').then(m => m.FaqModule)
       }
     ]
   }

@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
   openSignIn() {
     this.modalDialog.open(SignInComponent, {
-      width: '300px',
+      width: '370px',
       autoFocus: false,
     }).afterClosed().subscribe(res => {
     });

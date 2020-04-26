@@ -1,11 +1,11 @@
-@import "common.scss";
-
 .header {
   background-color: #262D33;
   height: var(--height-header, 70px);
   .logo {
     cursor: pointer;
     font-size: 20px;
+    user-select: none;
+    outline: none;
     font-weight: bold;
   }
 }
@@ -28,6 +28,9 @@
   color: #ffffff;
   font-weight: 500;
   margin: 0 10px;
+  &:hover, &.active {
+    text-decoration: underline;
+  }
 }
 
 .user {

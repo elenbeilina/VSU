@@ -1,1 +1,16 @@
-<p>sign-in works!</p>
+<section class="section-modal">
+  <h2 class="section-modal__title">Войти</h2>
+  <div class="section-modal__close" (click)="dialogRef.close()">
+    <mat-icon class="icon">close</mat-icon>
+  </div>
+  <input placeholder="Логин" type="text" class="input-custom section-modal__input">
+  <input placeholder="Пароль" type="password" class="input-custom section-modal__input">
+  <div class="section-modal__wrap-button">
+    <button class="button-custom button-custom_blue">Войти</button>
+    <button class="button-custom button-custom_gray">Забыли пароль?</button>
+  </div>
+  <div class="section-modal__sign-up">
+    Нет аккаунта?
+    <a class="link-custom">Зарегистрироваться</a>
+  </div>
+</section>
