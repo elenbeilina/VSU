@@ -30,6 +30,10 @@ const routes: Routes = [
         loadChildren: () => import('../sponsors/sponsors.module').then(m => m.SponsorsModule)
       },
       {
+        path: 'rating',
+        loadChildren: () => import('../rating/rating.module').then(m => m.RatingModule)
+      },
+      {
         path: 'questions',
         loadChildren: () => import('../faq/faq.module').then(m => m.FaqModule)
       }
