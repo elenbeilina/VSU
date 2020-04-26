@@ -1,0 +1,14 @@
+$icon-path: "/assets/images/icons/";
+@mixin icon($name) {
+  background: url($icon-path + $name) no-repeat center;
+  -webkit-background-size: 100%;
+  background-size: 100%;
+}
+@mixin icon-colored($name, $color) {
+  mask-image: url($icon-path + $name);
+  mask-size: 100%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  background-blend-mode: normal;
+  background: $color no-repeat center;
+}

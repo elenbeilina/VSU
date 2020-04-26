@@ -1,12 +1,12 @@
 <header class="header">
   <div class="header-info">
-    <div class="logo">VSU Tournaments</div>
+    <div class="logo" routerLink="/">VSU Tournaments</div>
     <nav class="header_main-menu">
-      <a class="header_main-menu__link" href="#">Новости</a>
+      <a class="header_main-menu__link" routerLink="/news">Новости</a>
       <a class="header_main-menu__link" href="#">Турниры</a>
-      <a class="header_main-menu__link" href="#">Спонсоры</a>
-      <a class="header_main-menu__link" href="#">Рейтинг</a>
-      <a class="header_main-menu__link" href="#">FAQ</a>
+      <a class="header_main-menu__link" routerLink="/sponsors">Спонсоры</a>
+      <a class="header_main-menu__link" routerLink="/rating">Рейтинг</a>
+      <a class="header_main-menu__link" routerLink="/faq">FAQ</a>
     </nav>
     <div class="user-info">
       <div class="user" (click)="openSignIn()">
