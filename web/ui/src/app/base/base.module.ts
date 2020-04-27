@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('../news/news.module').then(m => m.NewsModule)
       },
       {
+        path: 'tournaments',
+        loadChildren: () => import('../tournaments/tournaments.module').then(m => m.TournamentsModule)
+      },
+      {
         path: 'profile',
         loadChildren: () => import('../account/account.module.js').then(m => m.AccountModule)
       },
