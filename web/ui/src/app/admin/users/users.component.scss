@@ -1,0 +1,20 @@
+.section-users {
+  padding: 20px 0;
+  max-width: var(--width-main);
+  margin: 0 auto;
+
+  &__title {
+    margin: 0;
+  }
+
+  &__header {
+    margin: 0 25px 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &__icon-add {
+    cursor: pointer;
+    font-size: 32px;
+  }
+}

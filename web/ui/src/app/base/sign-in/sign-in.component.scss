@@ -1,21 +1,4 @@
 .section-modal {
-  position: relative;
-
-  &__title {
-    font-size: 20px;
-    margin: 0 0 20px 0;
-  }
-
-  &__close {
-    position: absolute;
-    right: -21px;
-    top: -15px;
-    cursor: pointer;
-
-    .icon {
-      color: #BCBFC2;
-    }
-  }
 
   &__input {
     margin-bottom: 15px;

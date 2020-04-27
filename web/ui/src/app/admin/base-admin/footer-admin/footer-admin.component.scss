@@ -1,0 +1,71 @@
+@import "icons.scss";
+
+.footer {
+  background-color: #262D33;
+  height: var(--height-footer, 160px);
+
+  .logo {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.footer-info {
+  margin: 0 auto;
+  max-width: var(--width-main, 1200px);
+
+  height: 100%;
+  color: #ffffff;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 0;
+
+  &:first-child {
+    border-bottom: 1px solid gray;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+
+  .copy {
+    font-size: 12px;
+    font-weight: lighter;
+    //color: gray;
+    // todo сделать светло серым
+  }
+}
+
+.header_main-menu__link {
+  color: #ffffff;
+  font-weight: 500;
+  margin: 0 10px;
+}
+
+.social {
+  display: flex;
+}
+
+.social__icon {
+  cursor: pointer;
+  margin-left: 10px;
+  width: 24px;
+  height: 24px;
+}
+
+.social__icon.vk {
+  @include icon-colored('icon-vk.svg', #ffffff);
+}
+
+.social__icon.inst {
+  @include icon-colored('icon-instagram.svg', #ffffff);
+}
+
+.social__icon.twitter {
+  @include icon-colored('icon-twitter.svg', #ffffff);
+}

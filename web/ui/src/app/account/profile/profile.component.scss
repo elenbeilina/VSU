@@ -32,6 +32,7 @@
     font-size: 20px;
     margin-bottom: 20px;
   }
+
   &__about {
     flex: 1;
   }
@@ -40,4 +41,36 @@
     justify-self: flex-end;
     align-self: flex-end;
   }
+}
+
+.section-trophy {
+  border-radius: 10px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 20px 0;
+  max-width: var(--width-main);
+  &__title {
+    margin: 0 0 10px 25px;
+  }
+}
+
+.trophy-set {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 20px 0;
+  margin: 0 -1px 0 -1px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+.trophy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border-left: 1px solid #D9DADB;
+  &__title {
+    font-weight: 500;
+  }
+
 }

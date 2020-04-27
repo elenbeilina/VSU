@@ -8,26 +8,4 @@
   }
 }
 
-.table-rating {
-  border-radius: 10px;
 
-  &__header {
-    border-radius: 10px 10px 0 0;
-  }
-
-  &__header-cell {
-    font-size: 16px;
-    color: #262D33;
-    font-weight: bold;
-  }
-
-  &__cell {
-    color: #4B5157;
-  }
-
-  &__row {
-    &:last-child {
-      border-radius: 0 0 10px 10px;
-    }
-  }
-}

@@ -1,0 +1,4 @@
+.main {
+  background: #EDEFF0;
+  min-height: calc(100vh - var(--height-header, 70px) - var(--height-footer, 160px));
+}
