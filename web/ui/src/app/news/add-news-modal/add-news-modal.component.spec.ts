@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FooterAdminComponent } from './footer-admin.component';
+import { AddNewsModalComponent } from './add-news-modal.component';
 
-describe('FooterAdminComponent', () => {
-  let component: FooterAdminComponent;
-  let fixture: ComponentFixture<FooterAdminComponent>;
+describe('AddNewsModalComponent', () => {
+  let component: AddNewsModalComponent;
+  let fixture: ComponentFixture<AddNewsModalComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FooterAdminComponent ]
+      declarations: [ AddNewsModalComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FooterAdminComponent);
+    fixture = TestBed.createComponent(AddNewsModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

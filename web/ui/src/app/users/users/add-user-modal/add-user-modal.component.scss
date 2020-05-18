@@ -1,0 +1,19 @@
+.section-modal {
+
+  &__input {
+    margin-bottom: 15px;
+  }
+
+  &__wrap-button {
+    display: flex;
+  }
+  .button-custom_blue {
+    margin-right: 15px;
+  }
+
+  &__sign-up {
+    margin: 15px -30px 0;
+    padding: 20px 30px 0;
+    border-top: 1px solid #D9DADB;
+  }
+}

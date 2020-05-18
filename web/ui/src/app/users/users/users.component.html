@@ -1,7 +1,7 @@
 <section class="section-users">
   <div class="section-users__header">
     <h2 class="section-users__title">Пользователи</h2>
-    <mat-icon class="section-users__icon-add" matTooltip="Добавить пользователя" (click)="openUserModal()">add</mat-icon>
+    <mat-icon class="section-users__icon-add" matTooltip="Добавить пользователя" (click)="openUserModal(FormMode.ADD)">add</mat-icon>
   </div>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8 section-rating__table table-rating table-custom">
     <ng-container matColumnDef="login">
@@ -26,7 +26,9 @@
 
     <ng-container matColumnDef="actions">
       <mat-header-cell class="table-custom__header-cell" *matHeaderCellDef></mat-header-cell>
-      <mat-cell class="table-custom__cell" *matCellDef="let element"> <mat-icon>edit</mat-icon> </mat-cell>
+      <mat-cell class="table-custom__cell" *matCellDef="let element">
+        <mat-icon class="action__edit" (click)="openUserModal(FormMode.EDIT)">edit</mat-icon>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row class="table-custom__header" *matHeaderRowDef="displayedColumns"></mat-header-row>

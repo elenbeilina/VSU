@@ -1,5 +1,8 @@
 <section class="section-news">
-  <h2 class="section-news__title">Последние новости</h2>
+  <div class="section-news__header">
+    <h2 class="section-news__title">Последние новости</h2>
+    <mat-icon class="section-news__icon-add icon-clicked" matTooltip="Добавить новость">add</mat-icon>
+  </div>
   <div class="news-set">
 
     <article class="news">
@@ -7,6 +10,11 @@
         <h3 class="news__title">
           Passengers Suffer as Crowded Field Puts Pressure on Europe’s Airlines
         </h3>
+        <div class="actions">
+          <mat-icon class="news__edit icon-clicked">edit</mat-icon>
+          <mat-icon class="news__delete icon-clicked">delete</mat-icon>
+        </div>
+
       </header>
       <p class="news__info">Weaker carriers have fallen by the wayside amid fierce competition, while others have been hit by bad luck. The result: thousands of canceled flights.</p>
       <footer class="news__footer">

@@ -3,7 +3,20 @@
   max-width: var(--width-main);
   margin: 0 auto;
   &__title {
+    margin: 0;
+  }
+
+  &__header {
     margin: 0 0 10px 25px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__icon-add {
+    cursor: pointer;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
   }
 }
 
@@ -22,6 +35,8 @@
   }
   &__header {
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
   }
   &__footer {
     margin-top: 20px;

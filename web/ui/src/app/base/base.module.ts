@@ -40,7 +40,11 @@ const routes: Routes = [
       {
         path: 'questions',
         loadChildren: () => import('../faq/faq.module').then(m => m.FaqModule)
-      }
+      },
+      {
+        path: 'users',
+        loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
+      },
     ]
   }
 ];
