@@ -5,10 +5,10 @@
 
 	<groupId>com.aqualen</groupId>
 	<artifactId>vsu</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>jar</packaging>
 
-	<name>VSU</name>
+	<name>vsu-service</name>
 	<description>Project for Voronezh State University</description>
 
 	<parent>
