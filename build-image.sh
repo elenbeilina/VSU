@@ -2,8 +2,8 @@
 
 mvn clean package
 
-docker build -t github.com/elenbeilina/vsu/vsu:latest .
-docker push github.com/elenbeilina/vsu/vsu:latest
+docker build -t elenbeilina/vsu-service:vsu-latest .
+docker push elenbeilina/vsu-service:vsu-latest
 
 #пример упаковки в архив и восстановления
 #docker build -t vsu:latest .
