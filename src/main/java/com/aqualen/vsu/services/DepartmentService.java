@@ -2,16 +2,17 @@ package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.entity.Department;
 import com.aqualen.vsu.repository.DepartmentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DepartmentService {
 
-    @Autowired
-    private DepartmentRepository departmentRepository;
+    private final DepartmentRepository departmentRepository;
 
     public List<Department> getAll() {
         return departmentRepository.findAll();

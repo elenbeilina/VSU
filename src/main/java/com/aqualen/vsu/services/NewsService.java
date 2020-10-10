@@ -3,18 +3,18 @@ package com.aqualen.vsu.services;
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.repository.NewsRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class NewsService {
 
-    @Autowired
-    NewsRepository newsRepository;
-    @Autowired
-    UserService userService;
+    private final NewsRepository newsRepository;
+    private final UserService userService;
 
     public List<News> getAll() {
         return newsRepository.findAll();

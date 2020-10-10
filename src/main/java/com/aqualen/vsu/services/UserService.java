@@ -4,18 +4,18 @@ import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.logic.PasswordLogic;
 import com.aqualen.vsu.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    PasswordLogic passwordLogic;
+    private final UserRepository userRepository;
+    private final PasswordLogic passwordLogic;
 
     public void delete(long id) {
         userRepository.deleteById(id);

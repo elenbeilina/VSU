@@ -24,20 +24,20 @@ public class RestControllerAdviser {
 
     @ResponseBody
     @ExceptionHandler(Exception.class)
-    public ResponseEntity defaultExceptionHandler(HttpServletRequest request, Exception e) {
+    public ResponseEntity<String> defaultExceptionHandler(HttpServletRequest request, Exception e) {
         log.error("Error on processing of URL {}: ", request.getRequestURI(), e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(DEFAULT_MESSAGE);
     }
 
     @ResponseBody
     @ExceptionHandler(ReadableException.class)
-    public ResponseEntity defaultExceptionHandler(HttpServletRequest request, ReadableException e) {
+    public ResponseEntity<String> defaultExceptionHandler(HttpServletRequest request, ReadableException e) {
         log.error("Error on processing of URL {}:", request.getRequestURI(), e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity methodArgumentNotValidException(HttpServletRequest request, ConstraintViolationException e) {
+    public ResponseEntity<String> methodArgumentNotValidException(HttpServletRequest request, ConstraintViolationException e) {
         log.error("Error on processing of URL {}:", request.getRequestURI(), e);
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         List<ConstraintViolation<?>> violations = new ArrayList<>(constraintViolations);
@@ -46,7 +46,7 @@ public class RestControllerAdviser {
     }
 
     @ExceptionHandler(PasswordException.class)
-    public ResponseEntity handlePasswordException(HttpServletRequest request, Exception e) {
+    public ResponseEntity<String> handlePasswordException(HttpServletRequest request, Exception e) {
         log.error("Error on processing of URL mapping '" + request.getRequestURI() + "': ", e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }

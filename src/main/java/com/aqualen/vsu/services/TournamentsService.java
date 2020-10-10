@@ -2,16 +2,17 @@ package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.repository.TournamentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class TournamentsService {
 
-    @Autowired
-    TournamentRepository tournamentRepository;
+    private final TournamentRepository tournamentRepository;
 
     public List<Tournament> getAll() {
         return tournamentRepository.findAll();

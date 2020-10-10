@@ -1,7 +1,8 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.user;
 
 import com.aqualen.vsu.aspects.SimpleLog;
 import com.aqualen.vsu.entity.User;
+import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,21 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
 
     @SimpleLog
-    @GetMapping("all")
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok(userService.getAll());
-    }
-
-    @SimpleLog
     @GetMapping
-    public ResponseEntity<User> getOne(@RequestParam Long id) {
+    public ResponseEntity<User> get(@RequestParam Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 

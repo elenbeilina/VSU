@@ -1,7 +1,8 @@
 package com.aqualen.vsu.enums;
 
 public enum TournamentStatus {
-    Started,
-    InProgress,
-    Closed
+    CREATED,
+    STARTED,
+    IN_PROGRESS,
+    CLOSED
 }

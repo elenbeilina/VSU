@@ -1,4 +1,4 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.department;
 
 import com.aqualen.vsu.aspects.SimpleLog;
 import com.aqualen.vsu.entity.Department;
@@ -11,22 +11,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/departments")
+@RequestMapping("/department")
 @RequiredArgsConstructor
 public class DepartmentController {
 
     private final DepartmentService departmentService;
 
     @SimpleLog
-    @GetMapping("all")
-    @ApiOperation(value = "Получить все новости")
-    public ResponseEntity<List<Department>> getDepartments() {
-        return ResponseEntity.ok(departmentService.getAll());
-    }
-
-    @SimpleLog
     @GetMapping
-    public ResponseEntity<Department> getDepartment(@RequestParam Long id) {
+    public ResponseEntity<Department> get(@RequestParam Long id) {
         return ResponseEntity.ok(departmentService.getById(id));
     }
 

@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .antMatchers("/", "/login", "/logout")
                     .permitAll()
                 .antMatchers("/admin/**")
-                    .hasRole(UserRole.Administrator.name())
+                    .hasRole(UserRole.ADMINISTRATOR.name())
                 .and()
                     .exceptionHandling().accessDeniedPage("/403")
         ;
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     }
 
     @Override
-    public void configure(WebSecurity web) throws Exception {
+    public void configure(WebSecurity web) {
         web.ignoring()
                 .antMatchers(
                         "/webjars/**", "/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",

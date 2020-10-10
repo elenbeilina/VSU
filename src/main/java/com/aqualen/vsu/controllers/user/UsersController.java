@@ -1,4 +1,4 @@
-package com.aqualen.vsu.controllers;
+package com.aqualen.vsu.controllers.user;
 
 import com.aqualen.vsu.aspects.SimpleLog;
 import com.aqualen.vsu.entity.User;
@@ -8,20 +8,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/sponsors")
+@RequestMapping("/users")
 @RequiredArgsConstructor
-public class SponsorsController {
+public class UsersController {
 
     private final UserService userService;
 
     @SimpleLog
-    @GetMapping("all")
+    @GetMapping()
     public ResponseEntity<List<User>> getAll() {
-        return ResponseEntity.ok(userService.getUsersByRole(UserRole.Sponsor));
+        return ResponseEntity.ok(userService.getAll());
+    }
+
+    @SimpleLog
+    @GetMapping("role")
+    public ResponseEntity<List<User>> getUsers(@RequestParam UserRole role) {
+        return ResponseEntity.ok(userService.getUsersByRole(role));
     }
 }

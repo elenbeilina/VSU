@@ -3,6 +3,7 @@ package com.aqualen.vsu.services;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.exceptions.LoginProcessException;
 import com.aqualen.vsu.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,10 +16,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) {
