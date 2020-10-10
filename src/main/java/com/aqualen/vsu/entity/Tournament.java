@@ -1,7 +1,7 @@
 package com.aqualen.vsu.entity;
 
-import com.aqualen.vsu.entity.enums.TournamentLabel;
-import com.aqualen.vsu.entity.enums.TournamentStatus;
+import com.aqualen.vsu.enums.TournamentLabel;
+import com.aqualen.vsu.enums.TournamentStatus;
 import lombok.Data;
 
 import javax.persistence.*;

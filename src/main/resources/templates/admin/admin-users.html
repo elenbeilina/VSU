@@ -70,9 +70,9 @@
             <th scope="row"><span th:text="${user.username}"></span></th>
             <td><span th:text="|${user.secondName} ${user.firstName}|"></span></td>
             <td><span th:text="${user.studentBookId}"></span></td>
-            <td th:if="${user.role == T(com.aqualen.vsu.entity.enums.UserRole).Administrator}">Administrator</td>
-            <td th:if="${user.role == T(com.aqualen.vsu.entity.enums.UserRole).User}">User</td>
-            <td th:if="${user.role == T(com.aqualen.vsu.entity.enums.UserRole).Sponsor}">Sponsor</td>
+            <td th:if="${user.role == T(com.aqualen.vsu.enums.UserRole).Administrator}">Administrator</td>
+            <td th:if="${user.role == T(com.aqualen.vsu.enums.UserRole).User}">User</td>
+            <td th:if="${user.role == T(com.aqualen.vsu.enums.UserRole).Sponsor}">Sponsor</td>
             <td><span th:text="${user.department.name}"></span></td>
             <td><span th:text="${user.description}"></span></td>
             <td>

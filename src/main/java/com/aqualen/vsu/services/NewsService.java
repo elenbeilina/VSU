@@ -36,10 +36,10 @@ public class NewsService {
         newsRepository.saveAndFlush(news);
     }
 
-    public void add(String title, String description, Long userId) {
+    public News add(String title, String description, Long userId) {
         User user = userService.getById(userId);
         News news = new News(title, description, user);
-        newsRepository.saveAndFlush(news);
+        return newsRepository.saveAndFlush(news);
     }
 
     public void delete(Long id) {

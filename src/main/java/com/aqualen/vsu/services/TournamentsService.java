@@ -21,8 +21,8 @@ public class TournamentsService {
         return tournamentRepository.getOne(id);
     }
 
-    public void update(Tournament tournament) {
-        tournamentRepository.saveAndFlush(tournament);
+    public Tournament update(Tournament tournament) {
+        return tournamentRepository.saveAndFlush(tournament);
     }
 
     public void delete(Long id) {

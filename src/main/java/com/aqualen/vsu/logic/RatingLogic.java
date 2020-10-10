@@ -1,7 +1,7 @@
 package com.aqualen.vsu.logic;
 
 import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class RatingLogic {
-    @Autowired
-    UserRepository userRepository;
+
+    private final UserRepository userRepository;
 
     public List<User> getUsersList(int count) {
         List<User> users = userRepository.findAllByRole(UserRole.User);

@@ -1,4 +1,4 @@
-package com.aqualen.vsu.entity.enums;
+package com.aqualen.vsu.enums;
 
 public enum TournamentStatus {
     Started,

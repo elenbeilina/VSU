@@ -1,6 +1,6 @@
 package com.aqualen.vsu.entity;
 
-import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.enums.UserRole;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 

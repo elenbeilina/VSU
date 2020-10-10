@@ -1,8 +1,7 @@
 package com.aqualen.vsu.services;
 
-
 import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.logic.PasswordLogic;
 import com.aqualen.vsu.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +37,10 @@ public class UserService {
         userRepository.saveAndFlush(user);
     }
 
-    public void add(User user) {
+    public User add(User user) {
         passwordLogic.encodePassword(user);
 
-        userRepository.saveAndFlush(user);
+        return userRepository.saveAndFlush(user);
     }
 
     public User findByUsername(String username) {

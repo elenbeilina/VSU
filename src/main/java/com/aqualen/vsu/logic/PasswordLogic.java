@@ -3,18 +3,18 @@ package com.aqualen.vsu.logic;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.exceptions.PasswordException;
 import com.aqualen.vsu.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class PasswordLogic {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final String OLD_PASSWORD_ERROR_MESSAGE = "Не правильно введен старый пароль";
     private static final String NEW_PASSWORD_ERROR_MESSAGE = "Введенные пароли не совпадают";

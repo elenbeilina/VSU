@@ -1,6 +1,6 @@
 package com.aqualen.vsu.config;
 
-import com.aqualen.vsu.entity.enums.UserRole;
+import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.services.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
