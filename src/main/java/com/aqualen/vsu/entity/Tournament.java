@@ -2,6 +2,7 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,19 +27,23 @@ public class Tournament {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
     @NotNull
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Department department;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sponsor_id", nullable = false)
     @NotNull
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User sponsor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User winnerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "prize_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Prize prize;
 
     @NotNull

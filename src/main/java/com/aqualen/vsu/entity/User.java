@@ -1,6 +1,7 @@
 package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,7 @@ public class User {
 
     @Column(name = "role_id")
     @NotNull
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UserRole role;
 
     @Column(name = "student_book_id")
@@ -34,6 +36,7 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Department department;
 
     @NotNull
@@ -61,5 +64,6 @@ public class User {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "social_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private SocialMedia socialMedia;
 }
