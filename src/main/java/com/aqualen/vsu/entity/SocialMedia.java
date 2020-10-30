@@ -1,6 +1,8 @@
 package com.aqualen.vsu.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -9,6 +11,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "social_media",schema="vsu")
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class SocialMedia {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_social_media")

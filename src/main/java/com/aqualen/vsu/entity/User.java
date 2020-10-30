@@ -1,7 +1,9 @@
 package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.UserRole;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -12,6 +14,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "users",schema="vsu")
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -58,18 +62,4 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "social_id", nullable = false)
     private SocialMedia socialMedia;
-
-    public User(long id, UserRole role, String studentBookId, String username, String firstName, String secondName, String password, long rating) {
-        this.id = id;
-        this.role = role;
-        this.studentBookId = studentBookId;
-        this.username = username;
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.password = password;
-        this.rating = rating;
-    }
-
-    public User() {
-    }
 }

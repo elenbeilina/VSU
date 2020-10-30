@@ -1,6 +1,8 @@
 package com.aqualen.vsu.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "prizes",schema="vsu")
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class Prize {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_prize")

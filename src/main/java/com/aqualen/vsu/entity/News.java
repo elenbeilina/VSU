@@ -1,6 +1,8 @@
 package com.aqualen.vsu.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -11,6 +13,8 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "news", schema = "vsu")
 @DynamicUpdate
+@NoArgsConstructor
+@AllArgsConstructor
 public class News {
 
     @Id
@@ -38,8 +42,5 @@ public class News {
         this.title = title;
         this.description = description;
         this.dateCreated = new Timestamp(System.currentTimeMillis());
-    }
-
-    public News() {
     }
 }

@@ -2,7 +2,9 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,6 +13,8 @@ import java.sql.Timestamp;
 @Data
 @Entity
 @Table(name = "tournament",schema="vsu")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tournament {
 
     @Id

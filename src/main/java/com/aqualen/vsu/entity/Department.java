@@ -8,6 +8,8 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @Table(name = "department",schema="vsu")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Department {
 
     @Id
