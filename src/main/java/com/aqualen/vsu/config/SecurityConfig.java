@@ -1,7 +1,8 @@
 package com.aqualen.vsu.config;
 
-import com.aqualen.vsu.enums.UserRole;
+import com.aqualen.vsu.config.jwt.JwtFilter;
 import com.aqualen.vsu.services.CustomUserDetailsService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -9,48 +10,32 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final CustomUserDetailsService userDetailsService;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtFilter jwtFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-
-        http.authorizeRequests()
-                .antMatchers("/", "/login", "/logout")
-                    .permitAll()
-                .antMatchers("/admin/**")
-                    .hasRole(UserRole.ADMINISTRATOR.name())
-                .and()
-                    .exceptionHandling().accessDeniedPage("/403")
-        ;
-
-        // Config for Login Form
         http
+                .httpBasic().disable()
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/user/*").hasRole("USER")
+                .antMatchers("/register", "/auth").permitAll()
                 .and()
-                .formLogin()//
-                    // Submit URL of login page.
-                    .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                    .loginPage("/login")//
-                    .defaultSuccessUrl("/")//
-                    .failureUrl("/login?error=true")//
-                    .usernameParameter("username")//
-                    .passwordParameter("password")
-                // Config for Logout Page
-                .and()
-                    .logout()
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/");
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Autowired

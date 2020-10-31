@@ -5,7 +5,6 @@ import com.aqualen.vsu.exceptions.PasswordException;
 import com.aqualen.vsu.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +21,10 @@ public class PasswordLogic {
     public void encodePassword(User user) {
         String password = bCryptPasswordEncoder.encode(user.getPassword());
         user.setPassword(password);
+    }
+
+    public boolean checkMatches(String password, User user) {
+        return bCryptPasswordEncoder.matches(password, user.getPassword());
     }
 
     @SneakyThrows
