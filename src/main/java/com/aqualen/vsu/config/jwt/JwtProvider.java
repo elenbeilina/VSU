@@ -30,10 +30,9 @@ public class JwtProvider {
                 .compact();
     }
 
-    public boolean validateToken(String token) {
+    public void validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
-            return true;
         } catch (ExpiredJwtException expEx) {
             throw new TokenException(EXPIRED_TOKEN_MESSAGE);
 

@@ -1,9 +1,11 @@
 package com.aqualen.vsu.utils;
 
 import com.aqualen.vsu.entity.User;
+import lombok.experimental.UtilityClass;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-public abstract class UserUtils {
+@UtilityClass
+public class UserUtils {
     public static User getUser() {
         if (SecurityContextHolder.getContext().getAuthentication() == null)
             return null;
