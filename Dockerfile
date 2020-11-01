@@ -3,10 +3,6 @@ ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
 
 ENV app_port=- \
-    server_oracle=- \
-    server_oracle_port=- \
-    oracle_db_name=- \
-    oracle_db_user=- \
-    oracle_db_password=-
+    server_postgres=-
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/app.jar","--server.port=${app_port}","--server.postrgres=${server_postgres}"]

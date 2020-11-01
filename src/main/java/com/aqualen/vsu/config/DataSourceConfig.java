@@ -10,14 +10,14 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Value("${server.postrgre}")
+    @Value("${server.postrgres}")
     private String server;
 
     @Bean
     public DataSource getDataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("org.postgresql.Driver");
-        dataSourceBuilder.url("jdbc:postgresql://"+ server + ":5432/vsu");
+        dataSourceBuilder.url("jdbc:postgresql://" + server + ":5432/vsu");
         dataSourceBuilder.username("vsu");
         dataSourceBuilder.password("pas");
         return dataSourceBuilder.build();
