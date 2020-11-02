@@ -1,4 +1,4 @@
-package com.aqualen.vsu.aspects;
+package com.aqualen.vsu.log;
 
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.utils.UserUtils;
@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 @Slf4j
 public class SimpleLogAspect {
 
-    @Around("@annotation(com.aqualen.vsu.aspects.SimpleLog)")
+    @Around("@annotation(com.aqualen.vsu.log.SimpleLog)")
     public Object logMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 
         String template = "user: %s, %s with parameters (%s): completed in %s";

@@ -1,6 +1,6 @@
 package com.aqualen.vsu.controllers;
 
-import com.aqualen.vsu.aspects.SimpleLog;
+import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.logic.RatingLogic;
 import lombok.RequiredArgsConstructor;

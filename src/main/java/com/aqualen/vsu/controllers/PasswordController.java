@@ -1,6 +1,6 @@
 package com.aqualen.vsu.controllers;
 
-import com.aqualen.vsu.aspects.SimpleLog;
+import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.logic.PasswordLogic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
