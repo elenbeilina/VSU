@@ -5,6 +5,7 @@ import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.exceptions.PasswordException;
 import com.aqualen.vsu.logic.PasswordLogic;
 import com.aqualen.vsu.repository.UserRepository;
+import com.aqualen.vsu.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,10 @@ public class UserService {
 
     public List<User> getUsersByRole(UserRole role) {
         return userRepository.findAllByRole(role);
+    }
+
+    public User getUser(){
+        return UserUtils.getUser();
     }
 
     public void update(User user) {
