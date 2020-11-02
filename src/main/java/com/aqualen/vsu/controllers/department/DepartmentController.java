@@ -3,15 +3,12 @@ package com.aqualen.vsu.controllers.department;
 import com.aqualen.vsu.aspects.SimpleLog;
 import com.aqualen.vsu.entity.Department;
 import com.aqualen.vsu.services.DepartmentService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/department")
+@RequestMapping("department")
 @RequiredArgsConstructor
 public class DepartmentController {
 
