@@ -23,8 +23,8 @@ public class UserController {
     }
 
     @SimpleLog
-    @GetMapping
-    public ResponseEntity<User> getUser(@RequestParam Long id) {
+    @GetMapping("{id}")
+    public ResponseEntity<User> getById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 
