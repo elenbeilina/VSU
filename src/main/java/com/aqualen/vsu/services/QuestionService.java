@@ -1,12 +1,14 @@
 package com.aqualen.vsu.services;
 
+import com.aqualen.vsu.dto.AddQuestion;
 import com.aqualen.vsu.entity.Question;
 import com.aqualen.vsu.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.aqualen.vsu.dto.AddQuestion.toEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +30,12 @@ public class QuestionService {
     }
 
     public Question update(Question question) {
+        return questionRepository.saveAndFlush(question);
+    }
+
+    public Question add(AddQuestion questionToAdd) {
+        Question question = toEntity(questionToAdd);
+
         return questionRepository.saveAndFlush(question);
     }
 

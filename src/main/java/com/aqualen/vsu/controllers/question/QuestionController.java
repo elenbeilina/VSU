@@ -1,5 +1,6 @@
 package com.aqualen.vsu.controllers.question;
 
+import com.aqualen.vsu.dto.AddQuestion;
 import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.Question;
 import com.aqualen.vsu.services.QuestionService;
@@ -34,7 +35,7 @@ public class QuestionController {
 
     @SimpleLog
     @PostMapping
-    public ResponseEntity<Question> add(@RequestBody Question question) {
-        return ResponseEntity.ok(questionService.update(question));
+    public ResponseEntity<Question> add(@RequestBody AddQuestion question) {
+        return ResponseEntity.ok(questionService.add(question));
     }
 }

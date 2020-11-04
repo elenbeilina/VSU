@@ -2,18 +2,20 @@ package com.aqualen.vsu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "question",schema="vsu")
 @DynamicUpdate
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
@@ -39,5 +41,5 @@ public class Question {
 
     @NotNull
     @Column(name = "start_date")
-    private Timestamp dateCreated;
+    private LocalDate dateCreated;
 }
