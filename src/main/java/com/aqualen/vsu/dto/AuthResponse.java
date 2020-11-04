@@ -1,4 +1,4 @@
-package com.aqualen.vsu.jdo;
+package com.aqualen.vsu.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,9 +1,10 @@
 package com.aqualen.vsu.controllers.security;
 
 import com.aqualen.vsu.config.jwt.JwtProvider;
+import com.aqualen.vsu.dto.RegistrationResponse;
 import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.jdo.AuthRequest;
-import com.aqualen.vsu.jdo.AuthResponse;
+import com.aqualen.vsu.dto.AuthRequest;
+import com.aqualen.vsu.dto.AuthResponse;
 import com.aqualen.vsu.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ public class AuthController {
     private final JwtProvider jwtProvider;
 
     @PostMapping("register")
-    public void registerUser(@RequestBody User user) {
+    public void registerUser(@RequestBody RegistrationResponse user) {
         userService.add(user);
     }
 

@@ -1,5 +1,6 @@
 package com.aqualen.vsu.services;
 
+import com.aqualen.vsu.dto.RegistrationResponse;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.exceptions.PasswordException;
@@ -11,6 +12,8 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.aqualen.vsu.dto.RegistrationResponse.toEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +48,9 @@ public class UserService {
         userRepository.saveAndFlush(user);
     }
 
-    public User add(User user) {
+    public User add(RegistrationResponse registrationForm) {
+        User user = toEntity(registrationForm);
+
         passwordLogic.encodePassword(user);
 
         return userRepository.saveAndFlush(user);
