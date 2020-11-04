@@ -1,7 +1,7 @@
 package com.aqualen.vsu.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @Table(name = "department",schema="vsu")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Department {
@@ -26,8 +27,8 @@ public class Department {
 
     private String picture;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "social_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private SocialMedia socialMedia;
+    private String vk;
+    private String facebook;
+    private String instagram;
+    private String twitter;
 }

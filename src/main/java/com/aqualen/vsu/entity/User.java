@@ -3,18 +3,20 @@ package com.aqualen.vsu.entity;
 import com.aqualen.vsu.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 @Entity
 @Table(name = "users",schema="vsu")
 @DynamicUpdate
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -52,18 +54,17 @@ public class User {
 
     private String description;
 
-    @NotNull
     private String password;
 
     @NotNull
     private long rating;
 
-    private Timestamp birthday;
+    private LocalDate birthday;
 
     private String picture;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "social_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private SocialMedia socialMedia;
+    private String vk;
+    private String facebook;
+    private String instagram;
+    private String twitter;
 }
