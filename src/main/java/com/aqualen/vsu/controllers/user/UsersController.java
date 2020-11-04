@@ -21,14 +21,12 @@ public class UsersController {
     private final UserService userService;
 
     @SimpleLog
-    @GetMapping()
-    public ResponseEntity<List<User>> getAll() {
-        return ResponseEntity.ok(userService.getAll());
-    }
+    @GetMapping
+    public ResponseEntity<List<User>> getAll(@RequestParam(required = false)  UserRole role) {
+        if (role != null){
+            return ResponseEntity.ok(userService.getUsersByRole(role));
+        }
 
-    @SimpleLog
-    @GetMapping("role")
-    public ResponseEntity<List<User>> getUsers(@RequestParam UserRole role) {
-        return ResponseEntity.ok(userService.getUsersByRole(role));
+        return ResponseEntity.ok(userService.getAll());
     }
 }
