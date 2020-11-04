@@ -1,13 +1,14 @@
 package com.aqualen.vsu.services;
 
+import com.aqualen.vsu.dto.AddNews;
 import com.aqualen.vsu.entity.News;
-import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static com.aqualen.vsu.dto.AddNews.toEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -36,9 +37,9 @@ public class NewsService {
         newsRepository.saveAndFlush(news);
     }
 
-    public News add(String title, String description, Long userId) {
-        User user = userService.getById(userId);
-        News news = new News(title, description, user);
+    public News add(AddNews addNews) {
+        News news = toEntity(addNews);
+
         return newsRepository.saveAndFlush(news);
     }
 

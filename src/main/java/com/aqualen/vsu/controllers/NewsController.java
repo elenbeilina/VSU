@@ -1,5 +1,6 @@
 package com.aqualen.vsu.controllers;
 
+import com.aqualen.vsu.dto.AddNews;
 import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.services.NewsService;
@@ -44,7 +45,7 @@ public class NewsController {
 
     @SimpleLog
     @PostMapping
-    public ResponseEntity<News> add(@RequestParam String title, @RequestParam String description, @RequestParam Long userId) {
-        return ResponseEntity.ok(newsService.add(title, description, userId));
+    public ResponseEntity<News> add(@RequestBody AddNews addNews) {
+        return ResponseEntity.ok(newsService.add(addNews));
     }
 }
