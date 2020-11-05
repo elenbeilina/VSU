@@ -15,7 +15,6 @@ import static com.aqualen.vsu.dto.AddNews.toEntity;
 public class NewsService {
 
     private final NewsRepository newsRepository;
-    private final UserService userService;
 
     public List<News> getAll() {
         return newsRepository.findAll();

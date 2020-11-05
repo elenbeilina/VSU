@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -26,7 +26,6 @@ public class Tournament {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", nullable = false)
-    @NotNull
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Department department;
 
@@ -47,18 +46,14 @@ public class Tournament {
     private Prize prize;
 
     @NotNull
-    @Column(name = "start_date")
-    private Timestamp startDate;
+    private LocalDateTime startDate;
 
     @NotNull
-    @Column(name = "end_date")
-    private Timestamp endDate;
+    private LocalDateTime endDate;
 
     @NotNull
-    @Column(name = "status")
-    private TournamentStatus tournamentStatus;
+    private TournamentStatus status;
 
     @NotNull
-    @Column(name = "label")
-    private TournamentLabel tournamentLabel;
+    private TournamentLabel label;
 }

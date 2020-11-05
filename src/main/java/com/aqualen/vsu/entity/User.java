@@ -32,7 +32,6 @@ public class User {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UserRole role;
 
-    @Column(name = "student_book_id")
     @NotNull
     private String studentBookId;
 
@@ -43,26 +42,16 @@ public class User {
 
     @NotNull
     private String username;
-
-    @Column(name = "first_name")
     @NotNull
     private String firstName;
-
-    @Column(name = "second_name")
-    @NotNull
     private String secondName;
-
     private String description;
-
     private String password;
 
     @NotNull
     private long rating;
-
     private LocalDate birthday;
-
     private String picture;
-
     private String vk;
     private String facebook;
     private String instagram;
