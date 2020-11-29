@@ -14,6 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import static io.jsonwebtoken.lang.Strings.hasText;
 
@@ -30,7 +32,7 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token = getTokenFromRequest(request);
 
-        if (token == null || isPublicHttpMethod(request)) {
+        if (token == null || isPublicHttpMethod(request) || isPublicUri(request)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -45,7 +47,15 @@ public class JwtFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private Boolean isPublicHttpMethod(HttpServletRequest request) {
+    private boolean isPublicUri(HttpServletRequest request){
+        Set<String> uris = new HashSet<>();
+        uris.add("/sign-in");
+        uris.add("/registration");
+
+        return uris.contains(request.getServletPath());
+    }
+
+    private boolean isPublicHttpMethod(HttpServletRequest request) {
         return request.getMethod().equals(HttpMethod.OPTIONS.name());
     }
 
