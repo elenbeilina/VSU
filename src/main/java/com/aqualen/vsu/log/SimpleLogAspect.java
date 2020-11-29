@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -22,7 +21,7 @@ public class SimpleLogAspect {
     public Object logMethod(ProceedingJoinPoint joinPoint) throws Throwable {
 
         String template = "user: %s, %s with parameters (%s): completed in %s";
-        String userName = Optional.ofNullable(UserUtils.getUser()).map(User::getUsername).orElse("Unknown");
+        String userName = Optional.ofNullable(UserUtils.getUsername()).orElse("Unknown");
         String signature = joinPoint.getSignature().toShortString();
         String values = getParametersValues(joinPoint);
 

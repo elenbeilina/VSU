@@ -6,15 +6,14 @@ import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.exceptions.PasswordException;
 import com.aqualen.vsu.logic.PasswordLogic;
 import com.aqualen.vsu.repository.UserRepository;
-import com.aqualen.vsu.utils.UserUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 import static com.aqualen.vsu.dto.RegistrationResponse.toEntity;
+import static com.aqualen.vsu.utils.UserUtils.getUsername;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +41,7 @@ public class UserService {
     }
 
     public User getUser(){
-        String username = Objects.requireNonNull(UserUtils.getUser()).getUsername();
+        String username = getUsername();
 
         return userRepository.findByUsername(username);
     }

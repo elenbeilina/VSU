@@ -8,12 +8,11 @@ import lombok.Value;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+import static com.aqualen.vsu.utils.UserUtils.getUserId;
+
 @Value
 @Builder
 public class AddNews {
-    @NotNull
-    long userId;
-
     @NotNull
     String title;
 
@@ -24,7 +23,7 @@ public class AddNews {
         return News.builder()
                 .title(from.title)
                 .description(from.description)
-                .user(User.builder().id(from.userId).build())
+                .user(User.builder().id(getUserId()).build())
                 .dateCreated(LocalDate.now()).build();
     }
 }
