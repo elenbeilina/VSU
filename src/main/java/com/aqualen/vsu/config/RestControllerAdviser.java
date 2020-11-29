@@ -1,5 +1,6 @@
 package com.aqualen.vsu.config;
 
+import com.aqualen.vsu.exceptions.LoginProcessException;
 import com.aqualen.vsu.exceptions.PasswordException;
 import com.aqualen.vsu.exceptions.ReadableException;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class RestControllerAdviser {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage);
     }
 
-    @ExceptionHandler(PasswordException.class)
+    @ExceptionHandler({PasswordException.class, LoginProcessException.class})
     public ResponseEntity<String> handlePasswordException(HttpServletRequest request, Exception e) {
         log.error("Error on processing of URL mapping '" + request.getRequestURI() + "': ", e);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());

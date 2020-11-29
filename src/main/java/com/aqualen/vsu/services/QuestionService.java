@@ -2,6 +2,7 @@ package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.dto.AddQuestion;
 import com.aqualen.vsu.entity.Question;
+import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,10 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
-    public List<Question> getAll() {
+    public List<Question> getByRole(UserRole role) {
+        if(role == UserRole.USER){
+            return questionRepository.findAllByAnswerNotNull();
+        }
         return questionRepository.findAll();
     }
 
