@@ -1,8 +1,8 @@
 package com.aqualen.vsu.utils;
 
-import com.aqualen.vsu.entity.User;
 import lombok.experimental.UtilityClass;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 
 @UtilityClass
 public class UserUtils {

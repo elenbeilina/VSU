@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.aqualen.vsu.dto.RegistrationResponse.toEntity;
 
@@ -41,7 +42,9 @@ public class UserService {
     }
 
     public User getUser(){
-        return UserUtils.getUser();
+        String username = Objects.requireNonNull(UserUtils.getUser()).getUsername();
+
+        return userRepository.findByUsername(username);
     }
 
     public void update(User user) {

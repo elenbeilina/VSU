@@ -1,11 +1,11 @@
 package com.aqualen.vsu.log;
 
-import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
