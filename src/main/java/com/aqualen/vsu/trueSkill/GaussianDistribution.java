@@ -98,7 +98,7 @@ public class GaussianDistribution {
                 Square(meanDifference) / (2 * varianceDifference);
     }
 
-    protected static double Square(double x) {
+    public static double Square(double x) {
         return x * x;
     }
 
