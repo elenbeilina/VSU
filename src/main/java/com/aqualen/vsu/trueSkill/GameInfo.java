@@ -27,4 +27,8 @@ public class GameInfo {
         this.dynamicsFactor = dynamicsFactor;
         this.initialStandardDeviation = initialStandardDeviation;
     }
+
+    public Rating getDefaultRating() {
+            return new Rating(initialMean, initialStandardDeviation);
+    }
 }

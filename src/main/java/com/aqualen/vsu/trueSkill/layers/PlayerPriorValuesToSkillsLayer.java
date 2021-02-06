@@ -1,9 +1,8 @@
 package com.aqualen.vsu.trueSkill.layers;
 
-import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleStep;
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.Factors.GaussianPriorFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
@@ -23,8 +22,8 @@ public class PlayerPriorValuesToSkillsLayer extends TrueSkillFactorGraphLayer<Ga
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
         for (Player currentPlayer : players) {
-            KeyedVariable<User, GaussianDistribution> playerSkill =
-                    createSkillOutputVariable(currentPlayer.getUser());
+            KeyedVariable<Player, GaussianDistribution> playerSkill =
+                    createSkillOutputVariable(currentPlayer);
 
             addLayerFactor(createPriorFactor(currentPlayer.getRating(),
                     playerSkill, gameInfo));
@@ -33,7 +32,7 @@ public class PlayerPriorValuesToSkillsLayer extends TrueSkillFactorGraphLayer<Ga
         }
     }
 
-    private KeyedVariable<User, GaussianDistribution> createSkillOutputVariable(User key) {
+    private KeyedVariable<Player, GaussianDistribution> createSkillOutputVariable(Player key) {
         return new KeyedVariable<>(
                 key,
                 String.format("%s's skill", key),
@@ -41,7 +40,7 @@ public class PlayerPriorValuesToSkillsLayer extends TrueSkillFactorGraphLayer<Ga
     }
 
     private GaussianPriorFactor createPriorFactor(Rating priorRating,
-                                                  KeyedVariable<User, GaussianDistribution> skillsVariable,
+                                                  KeyedVariable<Player, GaussianDistribution> skillsVariable,
                                                   GameInfo gameInfo) {
         return new GaussianPriorFactor(priorRating.getMean(),
                 square(priorRating.getStandardDeviation()) +

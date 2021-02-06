@@ -16,6 +16,7 @@ import java.util.List;
 @Component
 @AllArgsConstructor
 public class TrueSkillFactorGraph {
+    //TODO:fix layers order
     private final List<TrueSkillFactorGraphLayer<GaussianDistribution>> layers;
     private final PlayerPriorValuesToSkillsLayer priorLayer;
 

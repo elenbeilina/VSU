@@ -1,9 +1,8 @@
 package com.aqualen.vsu.trueSkill.layers;
 
-import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleStep;
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.Factors.GaussianLikelihoodFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
@@ -20,8 +19,8 @@ public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<G
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
-        for (KeyedVariable<User, GaussianDistribution> playerSkillVariable : getInputVariables()) {
-            KeyedVariable<User, GaussianDistribution> playerPerformance =
+        for (KeyedVariable<Player, GaussianDistribution> playerSkillVariable : getInputVariables()) {
+            KeyedVariable<Player, GaussianDistribution> playerPerformance =
                     createOutputVariable(playerSkillVariable.getKey());
 
             addLayerFactor(createLikelihood(playerSkillVariable, playerPerformance, gameInfo));
@@ -30,13 +29,13 @@ public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<G
         }
     }
 
-    private GaussianLikelihoodFactor createLikelihood(KeyedVariable<User, GaussianDistribution> playerSkill,
-                                                      KeyedVariable<User, GaussianDistribution> playerPerformance,
+    private GaussianLikelihoodFactor createLikelihood(KeyedVariable<Player, GaussianDistribution> playerSkill,
+                                                      KeyedVariable<Player, GaussianDistribution> playerPerformance,
                                                       GameInfo gameInfo) {
         return new GaussianLikelihoodFactor(square(gameInfo.getBeta()), playerPerformance, playerSkill);
     }
 
-    private KeyedVariable<User, GaussianDistribution> createOutputVariable(User key) {
+    private KeyedVariable<Player, GaussianDistribution> createOutputVariable(Player key) {
         return new KeyedVariable<>(
                 key,
                 String.format("%s's performance", key),
