@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.aqualen.vsu.trueSkill.GaussianDistribution.Square;
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 // We intentionally have no Posterior schedule since the only purpose here is to
 @Component
@@ -44,8 +44,8 @@ public class PlayerPriorValuesToSkillsLayer extends TrueSkillFactorGraphLayer<Ga
                                                   KeyedVariable<User, GaussianDistribution> skillsVariable,
                                                   GameInfo gameInfo) {
         return new GaussianPriorFactor(priorRating.getMean(),
-                Square(priorRating.getStandardDeviation()) +
-                        Square(gameInfo.getDynamicsFactor()), skillsVariable);
+                square(priorRating.getStandardDeviation()) +
+                        square(gameInfo.getDynamicsFactor()), skillsVariable);
     }
 
     @Override

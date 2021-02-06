@@ -4,109 +4,107 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class GaussianDistribution {
-
     // Intentionally, we're not going to derive related things, but set them all at once
     // to get around some NaN issues
+    public double mean;
+    public double standardDeviation;
 
-    public double Mean;
-    public double StandardDeviation;
-
-    // Precision and PrecisionMean are used because they make multiplying and dividing simpler
+    // precision and precisionMean are used because they make multiplying and dividing simpler
     // (the the accompanying math paper for more details)
-    public double Precision;
-    public double PrecisionMean;
-    private double Variance;
+    public double precision;
+    public double precisionMean;
+    private double variance;
 
     public GaussianDistribution(double mean, double standardDeviation) {
-        Mean = mean;
-        StandardDeviation = standardDeviation;
-        Variance = Square(StandardDeviation);
-        Precision = 1.0 / Variance;
-        PrecisionMean = Precision * Mean;
+        this.mean = mean;
+        this.standardDeviation = standardDeviation;
+        variance = square(this.standardDeviation);
+        precision = 1.0 / variance;
+        precisionMean = precision * this.mean;
     }
 
     public GaussianDistribution(GaussianDistribution gaussianDistribution) {
-        this.Mean = gaussianDistribution.Mean;
-        this.StandardDeviation = gaussianDistribution.StandardDeviation;
-        this.Variance = gaussianDistribution.Variance;
-        this.Precision = gaussianDistribution.Precision;
-        this.PrecisionMean = gaussianDistribution.PrecisionMean;
+        this.mean = gaussianDistribution.mean;
+        this.standardDeviation = gaussianDistribution.standardDeviation;
+        this.variance = gaussianDistribution.variance;
+        this.precision = gaussianDistribution.precision;
+        this.precisionMean = gaussianDistribution.precisionMean;
     }
 
     public double NormalizationConstant() {
         // Great derivation of this is at http://www.astro.psu.edu/~mce/A451_2/A451/downloads/notes0.pdf
-        return 1.0 / (Math.sqrt(2 * Math.PI) * StandardDeviation);
+        return 1.0 / (Math.sqrt(2 * Math.PI) * standardDeviation);
     }
 
-    public static GaussianDistribution FromPrecisionMean(double precisionMean, double precision) {
+    public static GaussianDistribution fromPrecisionMean(double precisionMean, double precision) {
         GaussianDistribution gaussianDistribution = new GaussianDistribution();
-        gaussianDistribution.Precision = precision;
-        gaussianDistribution.PrecisionMean = precisionMean;
-        gaussianDistribution.Variance = 1.0 / precision;
-        gaussianDistribution.StandardDeviation = Math.sqrt(gaussianDistribution.Variance);
-        gaussianDistribution.Mean = gaussianDistribution.PrecisionMean / gaussianDistribution.Precision;
+        gaussianDistribution.precision = precision;
+        gaussianDistribution.precisionMean = precisionMean;
+        gaussianDistribution.variance = 1.0 / precision;
+        gaussianDistribution.standardDeviation = Math.sqrt(gaussianDistribution.variance);
+        gaussianDistribution.mean = gaussianDistribution.precisionMean / gaussianDistribution.precision;
         return gaussianDistribution;
     }
 
     // Although we could use equations from // For details, see http://www.tina-vision.net/tina-knoppix/tina-memo/2003-003.pdf
     // for multiplication, the precision mean ones are easier to write :)
     public static GaussianDistribution operatorMultiplication(GaussianDistribution left, GaussianDistribution right) {
-        return FromPrecisionMean(left.PrecisionMean + right.PrecisionMean, left.Precision + right.Precision);
+        return fromPrecisionMean(left.precisionMean + right.precisionMean, left.precision + right.precision);
     }
 
     /// Computes the absolute difference between two Gaussians
-    public static double AbsoluteDifference(GaussianDistribution left, GaussianDistribution right) {
+    public static double absoluteDifference(GaussianDistribution left, GaussianDistribution right) {
         return Math.max(
-                Math.abs(left.PrecisionMean - right.PrecisionMean),
-                Math.sqrt(Math.abs(left.Precision - right.Precision)));
+                Math.abs(left.precisionMean - right.precisionMean),
+                Math.sqrt(Math.abs(left.precision - right.precision)));
     }
 
     /// Computes the absolute difference between two Gaussians
     public static double operatorMinus(GaussianDistribution left, GaussianDistribution right) {
-        return AbsoluteDifference(left, right);
+        return absoluteDifference(left, right);
     }
 
-    public static double LogProductNormalization(GaussianDistribution left, GaussianDistribution right) {
-        if ((left.Precision == 0) || (right.Precision == 0)) {
+    public static double logProductNormalization(GaussianDistribution left, GaussianDistribution right) {
+        if ((left.precision == 0) || (right.precision == 0)) {
             return 0;
         }
 
-        double varianceSum = left.Variance + right.Variance;
-        double meanDifference = left.Mean - right.Mean;
+        double varianceSum = left.variance + right.variance;
+        double meanDifference = left.mean - right.mean;
 
         double logSqrt2Pi = Math.log(Math.sqrt(2 * Math.PI));
-        return -logSqrt2Pi - (Math.log(varianceSum) / 2.0) - (Square(meanDifference) / (2.0 * varianceSum));
+        return -logSqrt2Pi - (Math.log(varianceSum) / 2.0) - (square(meanDifference) / (2.0 * varianceSum));
     }
 
 
     public static GaussianDistribution operatorDivision(GaussianDistribution numerator, GaussianDistribution denominator) {
-        return FromPrecisionMean(numerator.PrecisionMean - denominator.PrecisionMean,
-                numerator.Precision - denominator.Precision);
+        return fromPrecisionMean(numerator.precisionMean - denominator.precisionMean,
+                numerator.precision - denominator.precision);
     }
 
-    public static double LogRatioNormalization(GaussianDistribution numerator, GaussianDistribution denominator) {
-        if ((numerator.Precision == 0) || (denominator.Precision == 0)) {
+    public static double logRatioNormalization(GaussianDistribution numerator, GaussianDistribution denominator) {
+        if ((numerator.precision == 0) || (denominator.precision == 0)) {
             return 0;
         }
 
-        double varianceDifference = denominator.Variance - numerator.Variance;
-        double meanDifference = numerator.Mean - denominator.Mean;
+        double varianceDifference = denominator.variance - numerator.variance;
+        double meanDifference = numerator.mean - denominator.mean;
 
         double logSqrt2Pi = Math.log(Math.sqrt(2 * Math.PI));
 
-        return Math.log(denominator.Variance) + logSqrt2Pi - Math.log(varianceDifference) / 2.0 +
-                Square(meanDifference) / (2 * varianceDifference);
+        return Math.log(denominator.variance) + logSqrt2Pi - Math.log(varianceDifference) / 2.0 +
+                square(meanDifference) / (2 * varianceDifference);
     }
 
-    public static double Square(double x) {
+    public static double square(double x) {
         return x * x;
     }
 
-    public static double At(double x) {
-        return At(x, 0, 1);
+    public static double at(double x) {
+        return at(x, 0, 1);
     }
 
-    public static double At(double x, double mean, double standardDeviation) {
+    public static double at(double x, double mean, double standardDeviation) {
         // See http://mathworld.wolfram.com/NormalDistribution.html
         //                1              -(x-mean)^2 / (2*stdDev^2)
         // P(x) = ------------------- * e
@@ -118,17 +116,17 @@ public class GaussianDistribution {
         return result;
     }
 
-    public static double CumulativeTo(double x, double mean, double standardDeviation) {
+    public static double cumulativeTo(double x, double mean, double standardDeviation) {
         double invsqrt2 = -0.707106781186547524400844362104;
-        double result = ErrorFunctionCumulativeTo(invsqrt2 * x);
+        double result = errorFunctionCumulativeTo(invsqrt2 * x);
         return 0.5 * result;
     }
 
-    public static double CumulativeTo(double x) {
-        return CumulativeTo(x, 0, 1);
+    public static double cumulativeTo(double x) {
+        return cumulativeTo(x, 0, 1);
     }
 
-    private static double ErrorFunctionCumulativeTo(double x) {
+    private static double errorFunctionCumulativeTo(double x) {
         // Derived from page 265 of Numerical Recipes 3rd Edition
         double z = Math.abs(x);
 
@@ -161,7 +159,7 @@ public class GaussianDistribution {
     }
 
 
-    private static double InverseErrorFunctionCumulativeTo(double p) {
+    private static double inverseErrorFunctionCumulativeTo(double p) {
         // From page 265 of numerical recipes
 
         if (p >= 2.0) {
@@ -176,26 +174,26 @@ public class GaussianDistribution {
         double x = -0.70711 * ((2.30753 + t * 0.27061) / (1.0 + t * (0.99229 + t * 0.04481)) - t);
 
         for (int j = 0; j < 2; j++) {
-            double err = ErrorFunctionCumulativeTo(x) - pp;
+            double err = errorFunctionCumulativeTo(x) - pp;
             x += err / (1.12837916709551257 * Math.exp(-(x * x)) - x * err); // Halley
         }
 
         return p < 1.0 ? x : -x;
     }
 
-    public static double InverseCumulativeTo(double x, double mean, double standardDeviation) {
+    public static double inverseCumulativeTo(double x, double mean, double standardDeviation) {
         // From numerical recipes, page 320
-        return mean - Math.sqrt(2) * standardDeviation * InverseErrorFunctionCumulativeTo(2 * x);
+        return mean - Math.sqrt(2) * standardDeviation * inverseErrorFunctionCumulativeTo(2 * x);
     }
 
-    public static double InverseCumulativeTo(double x) {
-        return InverseCumulativeTo(x, 0, 1);
+    public static double inverseCumulativeTo(double x) {
+        return inverseCumulativeTo(x, 0, 1);
     }
 
     @Override
     public String toString() {
         return String.format("μ=%s, σ=%s",
-                Mean,
-                StandardDeviation);
+                mean,
+                standardDeviation);
     }
 }

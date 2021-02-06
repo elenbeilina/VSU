@@ -16,14 +16,14 @@ public class TruncatedGaussianCorrectionFunctions
         /// <returns></returns>
         public static double VExceedsMargin(double teamPerformanceDifference, double drawMargin)
         {
-            double denominator = GaussianDistribution.CumulativeTo(teamPerformanceDifference - drawMargin);
+            double denominator = GaussianDistribution.cumulativeTo(teamPerformanceDifference - drawMargin);
 
             if (denominator < 2.222758749e-162)
             {
                 return -teamPerformanceDifference + drawMargin;
             }
 
-            return GaussianDistribution.At(teamPerformanceDifference - drawMargin)/denominator;
+            return GaussianDistribution.at(teamPerformanceDifference - drawMargin)/denominator;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ public class TruncatedGaussianCorrectionFunctions
 
         public static double WExceedsMargin(double teamPerformanceDifference, double drawMargin)
         {
-            double denominator = GaussianDistribution.CumulativeTo(teamPerformanceDifference - drawMargin);
+            double denominator = GaussianDistribution.cumulativeTo(teamPerformanceDifference - drawMargin);
 
             if (denominator < 2.222758749e-162)
             {
@@ -64,18 +64,18 @@ public class TruncatedGaussianCorrectionFunctions
         {
             return VWithinMargin(teamPerformanceDifference/c, drawMargin/c);
             //var teamPerformanceDifferenceAbsoluteValue = Math.Abs(teamPerformanceDifference);
-            //return (GaussianDistribution.At((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c) - GaussianDistribution.At((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c))
+            //return (GaussianDistribution.at((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c) - GaussianDistribution.at((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c))
             //       /
-            //       (GaussianDistribution.CumulativeTo((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c) - GaussianDistribution.CumulativeTo((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c));
+            //       (GaussianDistribution.cumulativeTo((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c) - GaussianDistribution.cumulativeTo((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c));
         }
 
         // My original:
         //public static double VWithinMargin(double teamPerformanceDifference, double drawMargin)
         //{
         //    var teamPerformanceDifferenceAbsoluteValue = Math.Abs(teamPerformanceDifference);
-        //    return (GaussianDistribution.At(-drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.At(drawMargin - teamPerformanceDifferenceAbsoluteValue))
+        //    return (GaussianDistribution.at(-drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.at(drawMargin - teamPerformanceDifferenceAbsoluteValue))
         //           /
-        //           (GaussianDistribution.CumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.CumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue));                                      
+        //           (GaussianDistribution.cumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.cumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue));
         //}
 
         // from F#:
@@ -83,8 +83,8 @@ public class TruncatedGaussianCorrectionFunctions
         {
             double teamPerformanceDifferenceAbsoluteValue = Math.abs(teamPerformanceDifference);
             double denominator =
-                GaussianDistribution.CumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) -
-                GaussianDistribution.CumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue);
+                GaussianDistribution.cumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) -
+                GaussianDistribution.cumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue);
             if (denominator < 2.222758749e-162)
             {
                 if (teamPerformanceDifference < 0.0)
@@ -95,8 +95,8 @@ public class TruncatedGaussianCorrectionFunctions
                 return -teamPerformanceDifference + drawMargin;
             }
 
-            double numerator = GaussianDistribution.At(-drawMargin - teamPerformanceDifferenceAbsoluteValue) -
-                               GaussianDistribution.At(drawMargin - teamPerformanceDifferenceAbsoluteValue);
+            double numerator = GaussianDistribution.at(-drawMargin - teamPerformanceDifferenceAbsoluteValue) -
+                               GaussianDistribution.at(drawMargin - teamPerformanceDifferenceAbsoluteValue);
 
             if (teamPerformanceDifference < 0.0)
             {
@@ -120,20 +120,20 @@ public class TruncatedGaussianCorrectionFunctions
             //            (
             //                ((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
             //                *
-            //                GaussianDistribution.At((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
+            //                GaussianDistribution.at((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
             //            )
             //            +
             //            (
             //                ((drawMargin + teamPerformanceDifferenceAbsoluteValue) / c)
             //                *
-            //                GaussianDistribution.At((drawMargin + teamPerformanceDifferenceAbsoluteValue) / c)
+            //                GaussianDistribution.at((drawMargin + teamPerformanceDifferenceAbsoluteValue) / c)
             //            )
             //        )
             //        /
             //        (
-            //            GaussianDistribution.CumulativeTo((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
+            //            GaussianDistribution.cumulativeTo((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
             //            -
-            //            GaussianDistribution.CumulativeTo((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
+            //            GaussianDistribution.cumulativeTo((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
             //        )
             //    );
         }
@@ -146,9 +146,9 @@ public class TruncatedGaussianCorrectionFunctions
         //    return (vDraw * vDraw)
         //           +
         //           (
-        //                ((drawMargin - teamPerformanceDifferenceAbsoluteValue) * GaussianDistribution.At(drawMargin - teamPerformanceDifferenceAbsoluteValue) + (drawMargin + teamPerformanceDifferenceAbsoluteValue) * GaussianDistribution.At(drawMargin + teamPerformanceDifferenceAbsoluteValue))
+        //                ((drawMargin - teamPerformanceDifferenceAbsoluteValue) * GaussianDistribution.at(drawMargin - teamPerformanceDifferenceAbsoluteValue) + (drawMargin + teamPerformanceDifferenceAbsoluteValue) * GaussianDistribution.at(drawMargin + teamPerformanceDifferenceAbsoluteValue))
         //                /
-        //                (GaussianDistribution.CumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.CumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue))
+        //                (GaussianDistribution.cumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.cumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue))
         //           );
         //}
 
@@ -156,9 +156,9 @@ public class TruncatedGaussianCorrectionFunctions
         public static double WWithinMargin(double teamPerformanceDifference, double drawMargin)
         {
             double teamPerformanceDifferenceAbsoluteValue = Math.abs(teamPerformanceDifference);
-            double denominator = GaussianDistribution.CumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue)
+            double denominator = GaussianDistribution.cumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue)
                                  -
-                                 GaussianDistribution.CumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue);
+                                 GaussianDistribution.cumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue);
 
             if (denominator < 2.222758749e-162)
             {
@@ -171,10 +171,10 @@ public class TruncatedGaussianCorrectionFunctions
                    (
                        (drawMargin - teamPerformanceDifferenceAbsoluteValue)
                        *
-                       GaussianDistribution.At(
+                       GaussianDistribution.at(
                            drawMargin - teamPerformanceDifferenceAbsoluteValue)
                        - (-drawMargin - teamPerformanceDifferenceAbsoluteValue)
                          *
-                         GaussianDistribution.At(-drawMargin - teamPerformanceDifferenceAbsoluteValue))/denominator;
+                         GaussianDistribution.at(-drawMargin - teamPerformanceDifferenceAbsoluteValue))/denominator;
         }
     }

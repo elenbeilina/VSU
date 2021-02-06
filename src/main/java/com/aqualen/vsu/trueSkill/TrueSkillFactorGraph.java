@@ -33,7 +33,7 @@ public class TrueSkillFactorGraph {
 
     public void runSchedule() {
         Schedule<GaussianDistribution> fullSchedule = createFullSchedule();
-        double fullScheduleDelta = fullSchedule.Visit();
+        double fullScheduleDelta = fullSchedule.visit();
     }
 
     private Schedule<GaussianDistribution> createFullSchedule()

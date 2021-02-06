@@ -19,12 +19,6 @@ public class Rating {
         this.standardDeviation = standardDeviation;
     }
 
-    /// <summary>
-    /// Constructs a rating.
-    /// </summary>
-    /// <param name="mean">The statistical mean value of the rating (also known as μ).</param>
-    /// <param name="standardDeviation">The standard deviation (the spread) of the rating (also known as σ).</param>
-    /// <param name="conservativeStandardDeviationMultiplier">The number of <paramref name="standardDeviation"/>s to subtract from the <paramref name="mean"/> to achieve a conservative rating.</param>
     /**
      * Constructs a rating.
      * @param mean - The statistical mean value of the rating (also known as μ)
@@ -46,34 +40,32 @@ public class Rating {
         return mean - conservativeStandardDeviationMultiplier * standardDeviation;
     }
 
-//    public static Rating GetPartialUpdate(Rating prior, Rating fullPosterior, double updatePercentage)
-//    {
-//        var priorGaussian = new GaussianDistribution(prior.Mean, prior.StandardDeviation);
-//        var posteriorGaussian = new GaussianDistribution(fullPosterior.Mean, fullPosterior.StandardDeviation);
-//
-//        // From a clarification email from Ralf Herbrich:
-//        // "the idea is to compute a linear interpolation between the prior and posterior skills of each player
-//        //  ... in the canonical space of parameters"
-//
-//        double precisionDifference = posteriorGaussian.Precision - priorGaussian.Precision;
-//        double partialPrecisionDifference = updatePercentage*precisionDifference;
-//
-//        double precisionMeanDifference = posteriorGaussian.PrecisionMean - priorGaussian.PrecisionMean;
-//        double partialPrecisionMeanDifference = updatePercentage*precisionMeanDifference;
-//
-//        GaussianDistribution partialPosteriorGaussion = GaussianDistribution.FromPrecisionMean(
-//                priorGaussian.PrecisionMean + partialPrecisionMeanDifference,
-//                priorGaussian.Precision + partialPrecisionDifference);
-//
-//        return new Rating(partialPosteriorGaussion.Mean, partialPosteriorGaussion.StandardDeviation,
-//                prior.conservativeStandardDeviationMultiplier);
-//    }
-//
-//    public override string ToString()
-//{
-//    // As a debug helper, display a localized rating:
-//    return String.Format(
-//            "μ={0:0.0000}, σ={1:0.0000}",
-//            Mean, StandardDeviation);
-//}
+    public static Rating getPartialUpdate(Rating prior, Rating fullPosterior, double updatePercentage)
+    {
+        GaussianDistribution priorGaussian = new GaussianDistribution(prior.mean, prior.standardDeviation);
+        GaussianDistribution posteriorGaussian = new GaussianDistribution(fullPosterior.mean, fullPosterior.standardDeviation);
+
+        // From a clarification email from Ralf Herbrich:
+        // "the idea is to compute a linear interpolation between the prior and posterior skills of each player
+        //  ... in the canonical space of parameters"
+        double precisionDifference = posteriorGaussian.precision - priorGaussian.precision;
+        double partialPrecisionDifference = updatePercentage*precisionDifference;
+
+        double precisionMeanDifference = posteriorGaussian.precisionMean - priorGaussian.precisionMean;
+        double partialPrecisionMeanDifference = updatePercentage*precisionMeanDifference;
+
+        GaussianDistribution partialPosteriorGaussion = GaussianDistribution.fromPrecisionMean(
+                priorGaussian.precisionMean + partialPrecisionMeanDifference,
+                priorGaussian.precision + partialPrecisionDifference);
+
+        return new Rating(partialPosteriorGaussion.mean, partialPosteriorGaussion.standardDeviation,
+                prior.conservativeStandardDeviationMultiplier);
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "μ={0:0.0000}, σ={1:0.0000}",
+                mean, standardDeviation);
+    }
 }

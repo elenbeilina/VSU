@@ -7,7 +7,7 @@ import com.aqualen.vsu.trueSkill.Player;
 
 import java.util.List;
 
-public abstract class TrueSkillFactorGraphLayer<TValue> extends FactorGraphLayer {
+public abstract class TrueSkillFactorGraphLayer<TValue> extends FactorGraphLayer<TValue> {
     public abstract void buildLayer(GameInfo gameInfo, List<Player> players);
 
     public Schedule<TValue> createPriorSchedule() {

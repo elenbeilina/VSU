@@ -1,19 +1,17 @@
 package com.aqualen.vsu.trueSkill.FactorGraphs.variable;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 public class KeyedVariable<TKey, TValue> extends Variable<TValue> {
-    private TKey Key;
+    private TKey key;
 
     public KeyedVariable(TKey key, String name, TValue prior) {
         super(name, prior);
-        Key = key;
+        this.key = key;
     }
 }

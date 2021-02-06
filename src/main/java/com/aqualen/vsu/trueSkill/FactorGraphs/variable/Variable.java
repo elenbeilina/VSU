@@ -4,25 +4,25 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 public class Variable<T> {
-    private String _Name;
-    private T _Prior;
+    private String name;
+    private T prior;
 
     public Variable(String name, T prior) {
-        _Name = "Variable[" + name + "]";
-        _Prior = prior;
+        this.name = "Variable[" + name + "]";
+        this.prior = prior;
         ResetToPrior();
     }
 
-    public T Value;
+    public T value;
 
     public void ResetToPrior() {
-        Value = _Prior;
+        value = prior;
     }
 
     @Override
     public String toString() {
         return "Variable{" +
-                "_Name='" + _Name + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 }

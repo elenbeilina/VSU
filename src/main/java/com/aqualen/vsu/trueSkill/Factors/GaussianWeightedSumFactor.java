@@ -25,7 +25,7 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
     public GaussianWeightedSumFactor(Variable<GaussianDistribution> sumVariable,
                                      List<Variable<GaussianDistribution>> variablesToSum,
                                      double[] variableWeights) {
-        super(CreateName(sumVariable, variablesToSum, variableWeights));
+        super(createName(sumVariable, variablesToSum, variableWeights));
         weights = new double[variableWeights.length + 1][];
         weightsSquared = new double[weights.length][];
 
@@ -92,35 +92,35 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
             variableIndexOrdersForWeights.add(variableIndices);
         }
 
-        CreateVariableToMessageBinding(sumVariable);
+        createVariableToMessageBinding(sumVariable);
 
         for (Variable<GaussianDistribution> currentVariable : variablesToSum) {
-            CreateVariableToMessageBinding(currentVariable);
+            createVariableToMessageBinding(currentVariable);
         }
     }
 
     public double getLogNormalization() {
 
-        List<Variable<GaussianDistribution>> vars = get_Variables();
-        List<Message<GaussianDistribution>> messages = get_Messages();
+        List<Variable<GaussianDistribution>> vars = getVariables();
+        List<Message<GaussianDistribution>> messages = getMessages();
 
         double result = 0.0;
 
         // We start at 1 since offset 0 has the sum
         for (int i = 1; i < vars.size(); i++) {
-            result += GaussianDistribution.LogRatioNormalization(vars.get(i).Value, messages.get(i).Value);
+            result += GaussianDistribution.logRatioNormalization(vars.get(i).value, messages.get(i).value);
         }
 
         return result;
     }
 
-    private double UpdateHelper(double[] weights, double[] weightsSquared,
+    private double updateHelper(double[] weights, double[] weightsSquared,
                                 List<Message<GaussianDistribution>> messages,
                                 List<Variable<GaussianDistribution>> variables) {
         // Potentially look at http://mathworld.wolfram.com/NormalSumDistribution.html for clues as
         // to what it's doing
-        GaussianDistribution message0 = new GaussianDistribution(messages.get(0).Value);
-        GaussianDistribution marginal0 = new GaussianDistribution(variables.get(0).Value);
+        GaussianDistribution message0 = new GaussianDistribution(messages.get(0).value);
+        GaussianDistribution marginal0 = new GaussianDistribution(variables.get(0).value);
 
         // The math works out so that 1/newPrecision = sum of a_i^2 /marginalsWithoutMessages[i]
         double inverseOfNewPrecisionSum = 0.0;
@@ -132,18 +132,18 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
             // These flow directly from the paper
 
             inverseOfNewPrecisionSum += weightsSquared[i] /
-                    (variables.get(i + 1).Value.Precision - messages.get(i + 1).Value.Precision);
+                    (variables.get(i + 1).value.precision - messages.get(i + 1).value.precision);
 
-            GaussianDistribution diff = GaussianDistribution.operatorDivision(variables.get(i + 1).Value, messages.get(i + 1).Value);
-            anotherInverseOfNewPrecisionSum += weightsSquared[i] / diff.Precision;
+            GaussianDistribution diff = GaussianDistribution.operatorDivision(variables.get(i + 1).value, messages.get(i + 1).value);
+            anotherInverseOfNewPrecisionSum += weightsSquared[i] / diff.precision;
 
             weightedMeanSum += weights[i]
                     *
-                    (variables.get(i + 1).Value.PrecisionMean - messages.get(i + 1).Value.PrecisionMean)
+                    (variables.get(i + 1).value.precisionMean - messages.get(i + 1).value.precisionMean)
                     /
-                    (variables.get(i + 1).Value.Precision - messages.get(i + 1).Value.Precision);
+                    (variables.get(i + 1).value.precision - messages.get(i + 1).value.precision);
 
-            anotherWeightedMeanSum += weights[i] * diff.PrecisionMean / diff.Precision;
+            anotherWeightedMeanSum += weights[i] * diff.precisionMean / diff.precision;
         }
 
         double newPrecision = 1.0 / inverseOfNewPrecisionSum;
@@ -152,25 +152,25 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
         double newPrecisionMean = newPrecision * weightedMeanSum;
         double anotherNewPrecisionMean = anotherNewPrecision * anotherWeightedMeanSum;
 
-        GaussianDistribution newMessage = GaussianDistribution.FromPrecisionMean(newPrecisionMean, newPrecision);
+        GaussianDistribution newMessage = GaussianDistribution.fromPrecisionMean(newPrecisionMean, newPrecision);
         GaussianDistribution oldMarginalWithoutMessage = GaussianDistribution.operatorDivision(marginal0, message0);
 
         GaussianDistribution newMarginal = GaussianDistribution.operatorMultiplication(oldMarginalWithoutMessage, newMessage);
 
         /// Update the message and marginal
 
-        messages.get(0).Value = newMessage;
-        variables.get(0).Value = newMarginal;
+        messages.get(0).value = newMessage;
+        variables.get(0).value = newMarginal;
 
         /// Return the difference in the new marginal
         return GaussianDistribution.operatorMinus(newMarginal, marginal0);
     }
 
-    public double UpdateMessage(int messageIndex) {
-        List<Message<GaussianDistribution>> allMessages = get_Messages();
-        List<Variable<GaussianDistribution>> allVariables = get_Variables();
+    public double updateMessage(int messageIndex) {
+        List<Message<GaussianDistribution>> allMessages = getMessages();
+        List<Variable<GaussianDistribution>> allVariables = getVariables();
 
-        Guard.ArgumentIsValidIndex(messageIndex, allMessages.size(), "messageIndex");
+        Guard.argumentIsValidIndex(messageIndex, allMessages.size(), "messageIndex");
 
         List<Message<GaussianDistribution>> updatedMessages = new ArrayList<>();
         List<Variable<GaussianDistribution>> updatedVariables = new ArrayList<>();
@@ -185,10 +185,10 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
             updatedVariables.add(allVariables.get(indicesToUse[i]));
         }
 
-        return UpdateHelper(weights[messageIndex], weightsSquared[messageIndex], updatedMessages, updatedVariables);
+        return updateHelper(weights[messageIndex], weightsSquared[messageIndex], updatedMessages, updatedVariables);
     }
 
-    private static String CreateName(Variable<GaussianDistribution> sumVariable,
+    private static String createName(Variable<GaussianDistribution> sumVariable,
                                      List<Variable<GaussianDistribution>> variablesToSum, double[] weights) {
         StringBuilder sb = new StringBuilder();
         sb.append(sumVariable.toString());

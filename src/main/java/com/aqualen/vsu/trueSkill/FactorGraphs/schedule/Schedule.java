@@ -1,22 +1,19 @@
 package com.aqualen.vsu.trueSkill.FactorGraphs.schedule;
 
+import lombok.ToString;
+
+@ToString
 public abstract class Schedule<T> {
-    private final String _Name;
+    private final String name;
 
     protected Schedule(String name) {
-        _Name = name;
+        this.name = name;
     }
 
-    public abstract double Visit(int depth, int maxDepth);
+    public abstract double visit(int depth, int maxDepth);
 
-    public double Visit() {
-        return Visit(-1, 0);
-    }
-
-    public String
-
-    ToString() {
-        return _Name;
+    public double visit() {
+        return visit(-1, 0);
     }
 }
 

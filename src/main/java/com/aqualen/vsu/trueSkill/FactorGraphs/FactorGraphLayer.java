@@ -13,44 +13,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public abstract class FactorGraphLayer {
+public abstract class FactorGraphLayer<T> {
 
-    private List<Factor> localFactors = new ArrayList<>();
+    private final List<Factor<T>> localFactors = new ArrayList<>();
     private final List<KeyedVariable<User, GaussianDistribution>> outputVariables = new ArrayList<>();
     private List<KeyedVariable<User, GaussianDistribution>> inputVariables = new ArrayList<>();
 
-    public void addToOutputVariables(KeyedVariable<User, GaussianDistribution> variable){
+    public void addToOutputVariables(KeyedVariable<User, GaussianDistribution> variable) {
         outputVariables.add(variable);
     }
 
 
-    public void setRawInputVariablesGroups(Object value)
-    {
-        if (value == null)
-        {
+    public void setRawInputVariablesGroups(Object value) {
+        if (value == null) {
             // TODO: message
             throw new IllegalArgumentException();
         }
 
-        inputVariables = (List) value;
+        inputVariables = (List<KeyedVariable<User, GaussianDistribution>>) value;
     }
 
     public abstract void buildLayer(GameInfo gameInfo, List<Player> players);
 
-    public Object getRawOutputVariablesGroups()
-    {
+    public Object getRawOutputVariablesGroups() {
         return outputVariables;
     }
 
-    protected void addLayerFactor(Factor factor)
-    {
+    protected void addLayerFactor(Factor<T> factor) {
         localFactors.add(factor);
     }
 
-    protected Schedule<GaussianDistribution> scheduleSequence(
-    List<Schedule<GaussianDistribution>> itemsToSequence,
-    String nameFormat,
-    Object[]... args){
+    protected Schedule<GaussianDistribution> scheduleSequence(List<Schedule<GaussianDistribution>> itemsToSequence,
+                                                              String nameFormat,
+                                                              Object[]... args) {
         String formattedName = String.format(nameFormat, args);
         return new ScheduleSequence(formattedName, itemsToSequence);
     }

@@ -9,27 +9,27 @@ import com.aqualen.vsu.trueSkill.GaussianDistribution;
 /// </summary>
 /// <remarks>See the accompanying math paper for more details.</remarks>
 public class GaussianPriorFactor extends GaussianFactor {
-    private final GaussianDistribution _NewMessage;
+    private final GaussianDistribution newMessage;
 
     public GaussianPriorFactor(double mean, double variance, Variable<GaussianDistribution> variable) {
         super(String.format("Prior value going to %s", variable));
-        _NewMessage = new GaussianDistribution(mean, Math.sqrt(variance));
-        CreateVariableToMessageBinding(variable,
+        newMessage = new GaussianDistribution(mean, Math.sqrt(variance));
+        createVariableToMessageBinding(variable,
                 new Message<>(
-                        GaussianDistribution.FromPrecisionMean(0, 0),
+                        GaussianDistribution.fromPrecisionMean(0, 0),
                         "message from %s to %s",
                         this, variable));
     }
 
-    protected double UpdateMessage(Message<GaussianDistribution> message,
+    protected double updateMessage(Message<GaussianDistribution> message,
                                    Variable<GaussianDistribution> variable) {
-        GaussianDistribution oldMarginal = new GaussianDistribution(variable.Value);
+        GaussianDistribution oldMarginal = new GaussianDistribution(variable.value);
         GaussianDistribution newMarginal =
-                GaussianDistribution.FromPrecisionMean(
-                        oldMarginal.PrecisionMean + _NewMessage.PrecisionMean - message.Value.PrecisionMean,
-                        oldMarginal.Precision + _NewMessage.Precision - message.Value.Precision);
-        variable.Value = newMarginal;
-        message.Value = _NewMessage;
+                GaussianDistribution.fromPrecisionMean(
+                        oldMarginal.precisionMean + newMessage.precisionMean - message.value.precisionMean,
+                        oldMarginal.precision + newMessage.precision - message.value.precision);
+        variable.value = newMarginal;
+        message.value = newMessage;
         return GaussianDistribution.operatorMinus(oldMarginal, newMarginal);
     }
 }

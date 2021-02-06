@@ -14,22 +14,22 @@ public abstract class GaussianFactor extends Factor<GaussianDistribution> {
 
     /// Sends the factor-graph message with and returns the log-normalization constant
     @Override
-    protected double SendMessage(Message<GaussianDistribution> message,
+    protected double sendMessage(Message<GaussianDistribution> message,
                                  Variable<GaussianDistribution> variable)
     {
-        GaussianDistribution marginal = variable.Value;
-        GaussianDistribution messageValue = message.Value;
-        double logZ = GaussianDistribution.LogProductNormalization(marginal, messageValue);
-        variable.Value = operatorMultiplication(marginal, messageValue);
+        GaussianDistribution marginal = variable.value;
+        GaussianDistribution messageValue = message.value;
+        double logZ = GaussianDistribution.logProductNormalization(marginal, messageValue);
+        variable.value = operatorMultiplication(marginal, messageValue);
         return logZ;
     }
     @Override
-    public Message<GaussianDistribution> CreateVariableToMessageBinding(
+    public Message<GaussianDistribution> createVariableToMessageBinding(
             Variable<GaussianDistribution> variable)
     {
-        return CreateVariableToMessageBinding(variable,
+        return createVariableToMessageBinding(variable,
                 new Message<>(
-                        GaussianDistribution.FromPrecisionMean(0, 0),
+                        GaussianDistribution.fromPrecisionMean(0, 0),
                         "message from {0} to {1}", this, variable));
     }
 }

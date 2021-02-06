@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.aqualen.vsu.trueSkill.GaussianDistribution.Square;
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 @Component
 public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<GaussianDistribution> {
@@ -33,7 +33,7 @@ public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<G
     private GaussianLikelihoodFactor createLikelihood(KeyedVariable<User, GaussianDistribution> playerSkill,
                                                       KeyedVariable<User, GaussianDistribution> playerPerformance,
                                                       GameInfo gameInfo) {
-        return new GaussianLikelihoodFactor(Square(gameInfo.getBeta()), playerPerformance, playerSkill);
+        return new GaussianLikelihoodFactor(square(gameInfo.getBeta()), playerPerformance, playerSkill);
     }
 
     private KeyedVariable<User, GaussianDistribution> createOutputVariable(User key) {

@@ -17,36 +17,36 @@ public class GaussianGreaterThanFactor extends GaussianFactor {
     public GaussianGreaterThanFactor(Variable<GaussianDistribution> variable, double epsilon) {
         super(String.format("%s", variable));
         this.epsilon = epsilon;
-        CreateVariableToMessageBinding(variable);
+        createVariableToMessageBinding(variable);
     }
 
 
     public double getLogNormalization() {
-        GaussianDistribution marginal = get_Variables().get(0).Value;
-        GaussianDistribution message = get_Messages().get(0).Value;
+        GaussianDistribution marginal = getVariables().get(0).value;
+        GaussianDistribution message = getMessages().get(0).value;
         GaussianDistribution messageFromVariable = operatorDivision(marginal,message);
-        return -GaussianDistribution.LogProductNormalization(messageFromVariable, message)
+        return -GaussianDistribution.logProductNormalization(messageFromVariable, message)
                 +
                 Math.log(
-                        GaussianDistribution.CumulativeTo((messageFromVariable.Mean - epsilon) /
-                                messageFromVariable.StandardDeviation));
+                        GaussianDistribution.cumulativeTo((messageFromVariable.mean - epsilon) /
+                                messageFromVariable.standardDeviation));
     }
 
-    protected double UpdateMessage(Message<GaussianDistribution> message,
+    protected double updateMessage(Message<GaussianDistribution> message,
                                    Variable<GaussianDistribution> variable) {
-        GaussianDistribution oldMarginal = new GaussianDistribution(variable.Value);
-        GaussianDistribution oldMessage = new GaussianDistribution(message.Value);
+        GaussianDistribution oldMarginal = new GaussianDistribution(variable.value);
+        GaussianDistribution oldMessage = new GaussianDistribution(message.value);
         GaussianDistribution messageFromVar = GaussianDistribution.operatorDivision(oldMarginal, oldMessage);
 
-        double c = messageFromVar.Precision;
-        double d = messageFromVar.PrecisionMean;
+        double c = messageFromVar.precision;
+        double d = messageFromVar.precisionMean;
 
         double sqrtC = Math.sqrt(c);
 
         double dOnSqrtC = d / sqrtC;
 
         double epsilsonTimesSqrtC = epsilon * sqrtC;
-        d = messageFromVar.PrecisionMean;
+        d = messageFromVar.precisionMean;
 
         double denom = 1.0 - TruncatedGaussianCorrectionFunctions.WExceedsMargin(dOnSqrtC, epsilsonTimesSqrtC);
 
@@ -56,13 +56,13 @@ public class GaussianGreaterThanFactor extends GaussianFactor {
                         TruncatedGaussianCorrectionFunctions.VExceedsMargin(dOnSqrtC, epsilsonTimesSqrtC)) /
                 denom;
 
-        GaussianDistribution newMarginal = GaussianDistribution.FromPrecisionMean(newPrecisionMean, newPrecision);
+        GaussianDistribution newMarginal = GaussianDistribution.fromPrecisionMean(newPrecisionMean, newPrecision);
         GaussianDistribution newMessage = operatorDivision(operatorMultiplication(oldMessage, newMarginal), oldMarginal);
 
         /// Update the message and marginal
-        message.Value = newMessage;
+        message.value = newMessage;
 
-        variable.Value = newMarginal;
+        variable.value = newMarginal;
 
         /// Return the difference in the new marginal
         return operatorMinus(newMarginal, oldMarginal);

@@ -10,7 +10,7 @@ public class DrawMargin {
         //
         // margin = inversecdf((draw probability + 1)/2) * sqrt(n1+n2) * beta
         // n1 and n2 are the number of players on each team
-        double margin = GaussianDistribution.InverseCumulativeTo(.5 * (drawProbability + 1), 0, 1) * Math.sqrt(1 + 1) *
+        double margin = GaussianDistribution.inverseCumulativeTo(.5 * (drawProbability + 1), 0, 1) * Math.sqrt(1 + 1) *
                 beta;
         return margin;
     }

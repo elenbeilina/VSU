@@ -2,20 +2,19 @@ package com.aqualen.vsu.trueSkill.FactorGraphs;
 
 import java.util.Arrays;
 
-public class Message<T>
-{
-    private String _NameFormat;
-    private Object[] _NameFormatArgs;
-    public T Value;
+public class Message<T> {
+    private final String nameFormat;
+    private final Object[] nameFormatArgs;
+    public T value;
 
     public Message(T value, String nameFormat, Object... args) {
-        _NameFormat = nameFormat;
-        _NameFormatArgs = args;
-        Value = value;
+        this.nameFormat = nameFormat;
+        nameFormatArgs = args;
+        this.value = value;
     }
 
     @Override
     public String toString() {
-        return (_NameFormat == null) ? Arrays.toString(_NameFormatArgs) : String.format(_NameFormat, _NameFormatArgs);
+        return (nameFormat == null) ? Arrays.toString(nameFormatArgs) : String.format(nameFormat, nameFormatArgs);
     }
 }

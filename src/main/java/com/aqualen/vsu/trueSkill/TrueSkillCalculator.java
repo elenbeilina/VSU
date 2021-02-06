@@ -15,7 +15,7 @@ public class TrueSkillCalculator {
     //TODO:not finished
     public Map<User, Rating> calculateNewRatings(GameInfo gameInfo, List<Player> players) {
 
-        Guard.ArgumentNotNull(gameInfo, "gameInfo");
+        Guard.argumentNotNull(gameInfo, "gameInfo");
         Collections.sort(players);
 
         trueSkillFactorGraph.buildGraph(gameInfo, players);
