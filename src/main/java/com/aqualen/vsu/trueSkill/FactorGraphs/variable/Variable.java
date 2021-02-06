@@ -1,4 +1,4 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs;
+package com.aqualen.vsu.trueSkill.FactorGraphs.variable;
 
 import lombok.NoArgsConstructor;
 
