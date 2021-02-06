@@ -47,7 +47,7 @@ public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<G
     public Schedule<GaussianDistribution> createPriorSchedule() {
         List<Schedule<GaussianDistribution>> skillToPerfStep = getLocalFactors()
                 .stream()
-                .map(likelihood -> new ScheduleStep("Skill to Perf step", likelihood, 0))
+                .map(likelihood -> new ScheduleStep<>("Skill to Perf step", likelihood, 0))
                 .collect(Collectors.toList());
         return scheduleSequence(skillToPerfStep,
                 "All skill to performance sending");
@@ -57,7 +57,7 @@ public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<G
     public Schedule<GaussianDistribution> createPosteriorSchedule() {
         List<Schedule<GaussianDistribution>> names = getLocalFactors()
                 .stream()
-                .map(likelihood -> new ScheduleStep("name", likelihood, 1))
+                .map(likelihood -> new ScheduleStep<>("name", likelihood, 1))
                 .collect(Collectors.toList());
         return scheduleSequence(names,
                 "All skill to performance sending");

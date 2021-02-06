@@ -52,7 +52,7 @@ public class PlayerPriorValuesToSkillsLayer extends TrueSkillFactorGraphLayer<Ga
     public Schedule<GaussianDistribution> createPriorSchedule() {
         List<Schedule<GaussianDistribution>> priorToSkillStep = getLocalFactors()
                 .stream()
-                .map(prior -> new ScheduleStep("Prior to Skill Step", prior, 0))
+                .map(prior -> new ScheduleStep<>("Prior to Skill Step", prior, 0))
                 .collect(Collectors.toList());
         return scheduleSequence(priorToSkillStep,
                 "All priors");
