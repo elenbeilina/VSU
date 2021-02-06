@@ -2,9 +2,8 @@ package com.aqualen.vsu.trueSkill.layers;
 
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.trueSkill.DrawMargin;
-import com.aqualen.vsu.trueSkill.FactorGraphs.FactorGraphLayer;
-import com.aqualen.vsu.trueSkill.FactorGraphs.KeyedVariable;
-import com.aqualen.vsu.trueSkill.FactorGraphs.Variable;
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.Factors.GaussianFactor;
 import com.aqualen.vsu.trueSkill.Factors.GaussianGreaterThanFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
@@ -13,7 +12,7 @@ import com.aqualen.vsu.trueSkill.Player;
 
 import java.util.List;
 
-public class PlayerDifferencesComparisonLayer extends FactorGraphLayer implements TrueSkillFactorGraphLayer {
+public class PlayerDifferencesComparisonLayer extends TrueSkillFactorGraphLayer<GaussianDistribution> {
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
