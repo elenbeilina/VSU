@@ -16,10 +16,10 @@ import java.util.List;
 public abstract class FactorGraphLayer<T> {
 
     private final List<Factor<T>> localFactors = new ArrayList<>();
-    private final List<KeyedVariable<User, GaussianDistribution>> outputVariables = new ArrayList<>();
+    private final List<KeyedVariable<Player, GaussianDistribution>> outputVariables = new ArrayList<>();
     private List<KeyedVariable<User, GaussianDistribution>> inputVariables = new ArrayList<>();
 
-    public void addToOutputVariables(KeyedVariable<User, GaussianDistribution> variable) {
+    public void addToOutputVariables(KeyedVariable<Player, GaussianDistribution> variable) {
         outputVariables.add(variable);
     }
 

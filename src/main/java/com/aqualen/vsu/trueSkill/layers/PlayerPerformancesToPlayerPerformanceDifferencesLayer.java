@@ -25,7 +25,7 @@ public class PlayerPerformancesToPlayerPerformanceDifferencesLayer extends TrueS
             addLayerFactor(createPlayerPerformanceToDifferenceFactor(stronger, weaker, currentDifference));
 
             // REVIEW: Does it make sense to have groups of one?
-            addToOutputVariables((KeyedVariable<User, GaussianDistribution>) currentDifference);
+            addToOutputVariables((KeyedVariable<Player, GaussianDistribution>) currentDifference);
         }
     }
 
