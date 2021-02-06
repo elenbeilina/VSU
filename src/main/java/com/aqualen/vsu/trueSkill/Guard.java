@@ -1,0 +1,28 @@
+package com.aqualen.vsu.trueSkill;
+
+public  class Guard
+    {
+        public static void ArgumentNotNull(Object value, String parameterName)
+        {
+            if (value == null)
+            {
+                throw new NullPointerException(parameterName);
+            }
+        }
+
+        public static void ArgumentIsValidIndex(int index, int count, String parameterName)
+        {
+            if ((index < 0) || (index >= count))
+            {
+                throw new ArrayIndexOutOfBoundsException(parameterName);
+            }
+        }
+
+        public static void ArgumentInRangeInclusive(double value, double min, double max, String parameterName)
+        {
+            if ((value < min) || (value > max))
+            {
+                throw new ArrayIndexOutOfBoundsException(parameterName);
+            }
+        }
+    }
