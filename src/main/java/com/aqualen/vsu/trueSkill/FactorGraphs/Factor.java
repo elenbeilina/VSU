@@ -1,5 +1,6 @@
 package com.aqualen.vsu.trueSkill.FactorGraphs;
 
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
 import lombok.Getter;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 

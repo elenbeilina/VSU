@@ -2,7 +2,7 @@ package com.aqualen.vsu.trueSkill.Factors;
 
 import com.aqualen.vsu.trueSkill.FactorGraphs.Factor;
 import com.aqualen.vsu.trueSkill.FactorGraphs.Message;
-import com.aqualen.vsu.trueSkill.FactorGraphs.Variable;
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 
 import static com.aqualen.vsu.trueSkill.GaussianDistribution.operatorMultiplication;
