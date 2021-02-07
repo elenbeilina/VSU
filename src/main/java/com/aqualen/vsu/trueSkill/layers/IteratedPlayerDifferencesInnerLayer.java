@@ -1,6 +1,6 @@
 package com.aqualen.vsu.trueSkill.layers;// The whole purpose of this is to do a loop on the bottom
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;

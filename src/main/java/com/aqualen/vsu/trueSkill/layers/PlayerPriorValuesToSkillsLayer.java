@@ -1,10 +1,10 @@
 package com.aqualen.vsu.trueSkill.layers;
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
-import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleStep;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.DefaultVariable;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
-import com.aqualen.vsu.trueSkill.Factors.GaussianPriorFactor;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleStep;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.DefaultVariable;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
+import com.aqualen.vsu.trueSkill.factors.GaussianPriorFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;

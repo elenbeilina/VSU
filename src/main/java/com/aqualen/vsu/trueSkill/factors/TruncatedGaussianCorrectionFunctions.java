@@ -1,4 +1,4 @@
-package com.aqualen.vsu.trueSkill.Factors;
+package com.aqualen.vsu.trueSkill.factors;
 
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 

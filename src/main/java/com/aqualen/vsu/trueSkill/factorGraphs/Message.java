@@ -1,4 +1,4 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs;
+package com.aqualen.vsu.trueSkill.factorGraphs;
 
 import java.util.Arrays;
 

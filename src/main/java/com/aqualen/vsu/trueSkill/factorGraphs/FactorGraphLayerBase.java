@@ -1,6 +1,6 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs;
+package com.aqualen.vsu.trueSkill.factorGraphs;
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.Player;
 

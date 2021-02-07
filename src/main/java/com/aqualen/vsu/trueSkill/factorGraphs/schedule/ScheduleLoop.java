@@ -1,4 +1,4 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs.schedule;
+package com.aqualen.vsu.trueSkill.factorGraphs.schedule;
 
 public class ScheduleLoop<T> extends Schedule<T> {
     private final double maxDelta;

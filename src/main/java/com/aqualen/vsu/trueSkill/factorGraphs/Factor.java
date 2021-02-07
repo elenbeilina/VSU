@@ -1,7 +1,7 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs;
+package com.aqualen.vsu.trueSkill.factorGraphs;
 
 import com.aqualen.vsu.exceptions.ReadableException;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;

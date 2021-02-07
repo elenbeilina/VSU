@@ -1,6 +1,6 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs.schedule;
+package com.aqualen.vsu.trueSkill.factorGraphs.schedule;
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.Factor;
+import com.aqualen.vsu.trueSkill.factorGraphs.Factor;
 
 public class ScheduleStep<T> extends Schedule<T> {
     private final Factor<T> factor;

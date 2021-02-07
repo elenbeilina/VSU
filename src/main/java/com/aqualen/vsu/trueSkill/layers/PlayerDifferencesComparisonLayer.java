@@ -1,10 +1,10 @@
 package com.aqualen.vsu.trueSkill.layers;
 
 import com.aqualen.vsu.trueSkill.DrawMargin;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.DefaultVariable;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
-import com.aqualen.vsu.trueSkill.Factors.GaussianFactor;
-import com.aqualen.vsu.trueSkill.Factors.GaussianGreaterThanFactor;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.DefaultVariable;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
+import com.aqualen.vsu.trueSkill.factors.GaussianFactor;
+import com.aqualen.vsu.trueSkill.factors.GaussianGreaterThanFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;

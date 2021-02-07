@@ -1,7 +1,7 @@
-package com.aqualen.vsu.trueSkill.Factors;
+package com.aqualen.vsu.trueSkill.factors;
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.Message;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
+import com.aqualen.vsu.trueSkill.factorGraphs.Message;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 
 import static com.aqualen.vsu.trueSkill.GaussianDistribution.*;

@@ -1,4 +1,4 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs.schedule;
+package com.aqualen.vsu.trueSkill.factorGraphs.schedule;
 
 import lombok.ToString;
 

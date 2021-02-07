@@ -1,4 +1,4 @@
-package com.aqualen.vsu.trueSkill.FactorGraphs.variable;
+package com.aqualen.vsu.trueSkill.factorGraphs.variable;
 
 import lombok.*;
 

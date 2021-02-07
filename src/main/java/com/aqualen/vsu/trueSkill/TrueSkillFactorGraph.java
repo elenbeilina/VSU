@@ -1,9 +1,9 @@
 package com.aqualen.vsu.trueSkill;
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.FactorGraphLayerBase;
-import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
-import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleSequence;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
+import com.aqualen.vsu.trueSkill.factorGraphs.FactorGraphLayerBase;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleSequence;
+import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.layers.IteratedPlayerDifferencesInnerLayer;
 import com.aqualen.vsu.trueSkill.layers.PlayerPriorValuesToSkillsLayer;
 import com.aqualen.vsu.trueSkill.layers.PlayerSkillsToPerformancesLayer;
