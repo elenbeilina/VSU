@@ -1,7 +1,6 @@
 package com.aqualen.vsu.trueSkill.layers;
 
 import com.aqualen.vsu.trueSkill.FactorGraphs.FactorGraphLayer;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.Factors.GaussianWeightedSumFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
@@ -13,11 +12,12 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class PlayerPerformancesToPlayerPerformanceDifferencesLayer extends FactorGraphLayer<GaussianDistribution> {
+public class PlayerPerformancesToPlayerPerformanceDifferencesLayer extends
+        FactorGraphLayer<Variable<GaussianDistribution>, Variable<GaussianDistribution>> {
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
-        List<KeyedVariable<Player, GaussianDistribution>> inputVariables = getInputVariables();
+        List<Variable<GaussianDistribution>> inputVariables = getInputVariables();
 
         for (int i = 0; i < inputVariables.size() - 1; i++) {
             Variable<GaussianDistribution> stronger = inputVariables.get(i);
@@ -27,7 +27,7 @@ public class PlayerPerformancesToPlayerPerformanceDifferencesLayer extends Facto
             addLayerFactor(createPlayerPerformanceToDifferenceFactor(stronger, weaker, currentDifference));
 
             // REVIEW: Does it make sense to have groups of one?
-            addToOutputVariables((KeyedVariable<Player, GaussianDistribution>) currentDifference);
+            addToOutputVariables(currentDifference);
         }
     }
 

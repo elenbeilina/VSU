@@ -7,6 +7,7 @@ import com.aqualen.vsu.trueSkill.Factors.GaussianLikelihoodFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -15,7 +16,9 @@ import java.util.stream.Collectors;
 import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 @Component
-public class PlayerSkillsToPerformancesLayer extends TrueSkillFactorGraphLayer<GaussianDistribution> {
+@Order(2)
+public class PlayerSkillsToPerformancesLayer extends
+        TrueSkillFactorGraphLayer<KeyedVariable<Player, GaussianDistribution>, KeyedVariable<Player, GaussianDistribution>> {
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {

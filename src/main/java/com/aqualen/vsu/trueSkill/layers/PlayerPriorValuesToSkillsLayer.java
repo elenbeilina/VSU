@@ -2,12 +2,14 @@ package com.aqualen.vsu.trueSkill.layers;
 
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleStep;
+import com.aqualen.vsu.trueSkill.FactorGraphs.variable.DefaultVariable;
 import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.Factors.GaussianPriorFactor;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;
 import com.aqualen.vsu.trueSkill.Rating;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +19,9 @@ import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 // We intentionally have no Posterior schedule since the only purpose here is to
 @Component
-public class PlayerPriorValuesToSkillsLayer extends TrueSkillFactorGraphLayer<GaussianDistribution> {
+@Order(1)
+public class PlayerPriorValuesToSkillsLayer extends
+        TrueSkillFactorGraphLayer<DefaultVariable<GaussianDistribution>,KeyedVariable<Player,GaussianDistribution>> {
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {

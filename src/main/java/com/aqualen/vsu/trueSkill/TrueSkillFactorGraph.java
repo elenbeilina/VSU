@@ -1,29 +1,35 @@
 package com.aqualen.vsu.trueSkill;
 
-import com.aqualen.vsu.trueSkill.FactorGraphs.FactorGraphLayer;
+import com.aqualen.vsu.trueSkill.FactorGraphs.FactorGraphLayerBase;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleSequence;
 import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
+import com.aqualen.vsu.trueSkill.layers.IteratedPlayerDifferencesInnerLayer;
 import com.aqualen.vsu.trueSkill.layers.PlayerPriorValuesToSkillsLayer;
-import com.aqualen.vsu.trueSkill.layers.TrueSkillFactorGraphLayer;
-import lombok.AllArgsConstructor;
+import com.aqualen.vsu.trueSkill.layers.PlayerSkillsToPerformancesLayer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
 public class TrueSkillFactorGraph {
-    //TODO:fix layers order
-    private final List<TrueSkillFactorGraphLayer<GaussianDistribution>> layers;
+
+    private final List<FactorGraphLayerBase<GaussianDistribution>> layers;
     private final PlayerPriorValuesToSkillsLayer priorLayer;
+
+    public TrueSkillFactorGraph(PlayerPriorValuesToSkillsLayer priorLayer, PlayerSkillsToPerformancesLayer performancesLayer,
+                                IteratedPlayerDifferencesInnerLayer iteratedPlayerDifferencesLayer) {
+        this.layers = Arrays.asList(priorLayer,performancesLayer,iteratedPlayerDifferencesLayer);
+        this.priorLayer = priorLayer;
+    }
 
     public void buildGraph(GameInfo gameInfo, List<Player> players) {
         Object lastOutput = null;
 
-        for (FactorGraphLayer<GaussianDistribution> currentLayer : layers) {
+        for (FactorGraphLayerBase<GaussianDistribution> currentLayer : layers) {
             if (lastOutput != null) {
                 currentLayer.setRawInputVariablesGroups(lastOutput);
             }
@@ -42,7 +48,7 @@ public class TrueSkillFactorGraph {
     private Schedule<GaussianDistribution> createFullSchedule() {
         List<Schedule<GaussianDistribution>> fullSchedule = new ArrayList<>();
 
-        for (TrueSkillFactorGraphLayer<GaussianDistribution> currentLayer : layers) {
+        for (FactorGraphLayerBase<GaussianDistribution> currentLayer : layers) {
             Schedule<GaussianDistribution> currentPriorSchedule = currentLayer.createPriorSchedule();
             if (currentPriorSchedule != null) {
                 fullSchedule.add(currentPriorSchedule);
@@ -50,10 +56,10 @@ public class TrueSkillFactorGraph {
         }
 
         // Casting to IEnumerable to get the LINQ Reverse()
-        List<TrueSkillFactorGraphLayer<GaussianDistribution>> allLayers = layers;
+        List<FactorGraphLayerBase<GaussianDistribution>> allLayers = layers;
         Collections.reverse(allLayers);
 
-        for (TrueSkillFactorGraphLayer<GaussianDistribution> currentLayer : allLayers) {
+        for (FactorGraphLayerBase<GaussianDistribution> currentLayer : allLayers) {
             Schedule<GaussianDistribution> currentPosteriorSchedule = currentLayer.createPosteriorSchedule();
             if (currentPosteriorSchedule != null) {
                 fullSchedule.add(currentPosteriorSchedule);

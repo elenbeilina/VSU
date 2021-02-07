@@ -1,9 +1,7 @@
 package com.aqualen.vsu.trueSkill.FactorGraphs;
 
-import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.FactorGraphs.schedule.ScheduleSequence;
-import com.aqualen.vsu.trueSkill.FactorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;
@@ -13,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public abstract class FactorGraphLayer<T> {
+public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBase<GaussianDistribution> {
 
-    private final List<Factor<T>> localFactors = new ArrayList<>();
-    private final List<KeyedVariable<Player, GaussianDistribution>> outputVariables = new ArrayList<>();
-    private List<KeyedVariable<Player, GaussianDistribution>> inputVariables = new ArrayList<>();
+    private final List<Factor<GaussianDistribution>> localFactors = new ArrayList<>();
+    private final List<Output> outputVariables = new ArrayList<>();
+    private List<Input> inputVariables = new ArrayList<>();
 
-    public void addToOutputVariables(KeyedVariable<Player, GaussianDistribution> variable) {
+    public void addToOutputVariables(Output variable) {
         outputVariables.add(variable);
     }
 
@@ -30,7 +28,7 @@ public abstract class FactorGraphLayer<T> {
             throw new IllegalArgumentException();
         }
 
-        inputVariables = (List<KeyedVariable<Player, GaussianDistribution>>) value;
+        inputVariables = (List<Input>) value;
     }
 
     public abstract void buildLayer(GameInfo gameInfo, List<Player> players);
@@ -39,7 +37,7 @@ public abstract class FactorGraphLayer<T> {
         return outputVariables;
     }
 
-    protected void addLayerFactor(Factor<T> factor) {
+    protected void addLayerFactor(Factor<GaussianDistribution> factor) {
         localFactors.add(factor);
     }
 
