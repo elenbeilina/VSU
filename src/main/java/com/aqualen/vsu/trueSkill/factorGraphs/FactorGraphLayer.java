@@ -1,10 +1,10 @@
 package com.aqualen.vsu.trueSkill.factorGraphs;
 
-import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
-import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleSequence;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
+import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleSequence;
 import lombok.Getter;
 
 import java.util.ArrayList;
