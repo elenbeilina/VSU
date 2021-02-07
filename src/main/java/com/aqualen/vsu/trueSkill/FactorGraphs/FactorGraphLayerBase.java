@@ -17,7 +17,6 @@ public abstract class FactorGraphLayerBase<TValue> {
         return null;
     }
 
-    // HACK
     public abstract void setRawInputVariablesGroups(Object value);
 
     public abstract Object getRawOutputVariablesGroups();

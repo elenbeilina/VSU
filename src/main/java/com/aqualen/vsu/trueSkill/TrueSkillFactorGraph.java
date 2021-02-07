@@ -28,7 +28,7 @@ public class TrueSkillFactorGraph {
     public void buildGraph(GameInfo gameInfo, List<Player> players) {
         Object lastOutput = null;
 
-        for (FactorGraphLayerBase<GaussianDistribution> currentLayer : layers) {
+        for (var currentLayer : layers) {
             if (lastOutput != null) {
                 currentLayer.setRawInputVariablesGroups(lastOutput);
             }
@@ -42,12 +42,13 @@ public class TrueSkillFactorGraph {
     public void runSchedule() {
         Schedule<GaussianDistribution> fullSchedule = createFullSchedule();
         double fullScheduleDelta = fullSchedule.visit();
+        System.out.println(fullScheduleDelta);
     }
 
     private Schedule<GaussianDistribution> createFullSchedule() {
         List<Schedule<GaussianDistribution>> fullSchedule = new ArrayList<>();
 
-        for (FactorGraphLayerBase<GaussianDistribution> currentLayer : layers) {
+        for (var currentLayer : layers) {
             Schedule<GaussianDistribution> currentPriorSchedule = currentLayer.createPriorSchedule();
             if (currentPriorSchedule != null) {
                 fullSchedule.add(currentPriorSchedule);
@@ -58,7 +59,7 @@ public class TrueSkillFactorGraph {
         List<FactorGraphLayerBase<GaussianDistribution>> allLayers = new ArrayList<>(layers);
         Collections.reverse(allLayers);
 
-        for (FactorGraphLayerBase<GaussianDistribution> currentLayer : allLayers) {
+        for (var currentLayer : allLayers) {
             Schedule<GaussianDistribution> currentPosteriorSchedule = currentLayer.createPosteriorSchedule();
             if (currentPosteriorSchedule != null) {
                 fullSchedule.add(currentPosteriorSchedule);

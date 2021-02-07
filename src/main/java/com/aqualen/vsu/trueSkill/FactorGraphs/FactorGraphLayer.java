@@ -43,8 +43,8 @@ public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBa
 
     protected Schedule<GaussianDistribution> scheduleSequence(List<Schedule<GaussianDistribution>> itemsToSequence,
                                                               String nameFormat,
-                                                              Object[]... args) {
+                                                              Object... args) {
         String formattedName = String.format(nameFormat, args);
-        return new ScheduleSequence(formattedName, itemsToSequence);
+        return new ScheduleSequence<>(formattedName, itemsToSequence);
     }
 }
