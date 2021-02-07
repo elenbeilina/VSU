@@ -1,9 +1,8 @@
 package com.aqualen.vsu.trueSkill.FactorGraphs;
 
+import com.aqualen.vsu.exceptions.ReadableException;
 import com.aqualen.vsu.trueSkill.FactorGraphs.variable.Variable;
 import lombok.Getter;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,7 @@ public abstract class Factor<TValue> {
     }
 
     protected double updateMessage(Message<TValue> message, Variable<TValue> variable) {
-        throw new NotImplementedException();
+        throw new ReadableException("Not implemented!");
     }
 
     /// Resets the marginal of the variables a factor is connected to

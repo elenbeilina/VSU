@@ -10,7 +10,6 @@ import com.aqualen.vsu.trueSkill.layers.PlayerSkillsToPerformancesLayer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class TrueSkillFactorGraph {
 
     public TrueSkillFactorGraph(PlayerPriorValuesToSkillsLayer priorLayer, PlayerSkillsToPerformancesLayer performancesLayer,
                                 IteratedPlayerDifferencesInnerLayer iteratedPlayerDifferencesLayer) {
-        this.layers = Arrays.asList(priorLayer,performancesLayer,iteratedPlayerDifferencesLayer);
+        this.layers = List.of(priorLayer, performancesLayer, iteratedPlayerDifferencesLayer);
         this.priorLayer = priorLayer;
     }
 
@@ -56,7 +55,7 @@ public class TrueSkillFactorGraph {
         }
 
         // Casting to IEnumerable to get the LINQ Reverse()
-        List<FactorGraphLayerBase<GaussianDistribution>> allLayers = layers;
+        List<FactorGraphLayerBase<GaussianDistribution>> allLayers = new ArrayList<>(layers);
         Collections.reverse(allLayers);
 
         for (FactorGraphLayerBase<GaussianDistribution> currentLayer : allLayers) {
