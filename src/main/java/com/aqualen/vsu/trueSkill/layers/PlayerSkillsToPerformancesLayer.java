@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.GAUSSIAN_LINE;
 import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 @Component
@@ -42,7 +43,7 @@ public class PlayerSkillsToPerformancesLayer extends
         return new KeyedVariable<>(
                 key,
                 String.format("%s's performance", key),
-                new GaussianDistribution());
+                GAUSSIAN_LINE);
     }
 
     @Override

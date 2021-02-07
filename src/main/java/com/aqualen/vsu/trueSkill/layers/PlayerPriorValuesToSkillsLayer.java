@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.*;
 
 // We intentionally have no Posterior schedule since the only purpose here is to
 @Component
@@ -40,7 +40,7 @@ public class PlayerPriorValuesToSkillsLayer extends
         return new KeyedVariable<>(
                 key,
                 String.format("%s's skill", key),
-                new GaussianDistribution());
+                GAUSSIAN_LINE);
     }
 
     private GaussianPriorFactor createPriorFactor(Rating priorRating,

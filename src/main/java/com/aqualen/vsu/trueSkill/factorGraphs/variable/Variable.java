@@ -1,7 +1,9 @@
 package com.aqualen.vsu.trueSkill.factorGraphs.variable;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 public class Variable<T> {
     private String name;

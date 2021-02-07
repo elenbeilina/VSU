@@ -27,6 +27,18 @@ public class GaussianLikelihoodFactor extends GaussianFactor {
         return logRatioNormalization(getVariables().get(0).value, getMessages().get(0).value);
     }
 
+    public double updateMessage(int messageIndex) {
+        List<Message<GaussianDistribution>> messages = getMessages();
+        List<Variable<GaussianDistribution>> variables = getVariables();
+        return switch (messageIndex) {
+            case 0 -> updateHelper(messages.get(0), messages.get(1),
+                    variables.get(0), variables.get(1));
+            case 1 -> updateHelper(messages.get(1), messages.get(0),
+                    variables.get(1), variables.get(0));
+            default -> throw new ArrayIndexOutOfBoundsException();
+        };
+    }
+
     private double updateHelper(Message<GaussianDistribution> message1, Message<GaussianDistribution> message2,
                                 Variable<GaussianDistribution> variable1, Variable<GaussianDistribution> variable2) {
         GaussianDistribution message1Value = new GaussianDistribution(message1.value);
@@ -50,20 +62,5 @@ public class GaussianLikelihoodFactor extends GaussianFactor {
 
         /// Return the difference in the new marginal
         return GaussianDistribution.operatorMinus(newMarginal, marginal1);
-    }
-
-    public double updateMessage(int messageIndex) {
-        List<Message<GaussianDistribution>> messages = getMessages();
-        List<Variable<GaussianDistribution>> variables = getVariables();
-        switch (messageIndex) {
-            case 0:
-                return updateHelper(messages.get(0), messages.get(1),
-                        variables.get(0), variables.get(1));
-            case 1:
-                return updateHelper(messages.get(1), messages.get(0),
-                        variables.get(1), variables.get(0));
-            default:
-                throw new ArrayIndexOutOfBoundsException();
-        }
     }
 }

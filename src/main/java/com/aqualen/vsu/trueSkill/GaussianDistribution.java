@@ -1,13 +1,20 @@
 package com.aqualen.vsu.trueSkill;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
 public class GaussianDistribution {
     // Intentionally, we're not going to derive related things, but set them all at once
     // to get around some NaN issues
     public double mean;
     public double standardDeviation;
+
+    /**
+     * The Gaussian representation of a flat line.
+     **/
+    public static final GaussianDistribution GAUSSIAN_LINE = fromPrecisionMean(0, 0);
 
     // precision and precisionMean are used because they make multiplying and dividing simpler
     // (the the accompanying math paper for more details)

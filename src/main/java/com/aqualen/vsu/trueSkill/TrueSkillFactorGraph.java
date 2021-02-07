@@ -73,7 +73,7 @@ public class TrueSkillFactorGraph {
         List<Player> result = new ArrayList<>();
 
         for (KeyedVariable<Player, GaussianDistribution> currentPlayer : priorLayer.getOutputVariables()) {
-            Rating rating = new Rating(currentPlayer.value.mean, currentPlayer.value.standardDeviation);
+            Rating rating = new Rating(currentPlayer.getValue().getMean(), currentPlayer.getValue().getStandardDeviation());
             Player player = currentPlayer.getKey();
             player.setRating(rating);
             result.add(player);

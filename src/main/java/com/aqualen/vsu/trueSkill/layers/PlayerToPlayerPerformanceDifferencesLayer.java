@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.GAUSSIAN_LINE;
+
 @Component
 public class PlayerToPlayerPerformanceDifferencesLayer extends
         FactorGraphLayer<Variable<GaussianDistribution>, Variable<GaussianDistribution>> {
@@ -32,7 +34,7 @@ public class PlayerToPlayerPerformanceDifferencesLayer extends
     }
 
     private Variable<GaussianDistribution> createOutputVariable() {
-        return new Variable<>("Players performance difference", new GaussianDistribution());
+        return new Variable<>("Players performance difference", GAUSSIAN_LINE);
     }
 
     private GaussianWeightedSumFactor createPlayerPerformanceToDifferenceFactor(

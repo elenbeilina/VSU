@@ -1,8 +1,8 @@
 package com.aqualen.vsu.trueSkill;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class Rating {
     private final double conservativeStandardDeviationMultiplier;
     private final double mean;
@@ -65,7 +65,7 @@ public class Rating {
     @Override
     public String toString() {
         return String.format(
-                "μ={0:0.0000}, σ={1:0.0000}",
+                "μ=%s, σ=%s",
                 mean, standardDeviation);
     }
 }
