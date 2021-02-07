@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class PlayerPerformancesToPlayerPerformanceDifferencesLayer extends
+public class PlayerToPlayerPerformanceDifferencesLayer extends
         FactorGraphLayer<Variable<GaussianDistribution>, Variable<GaussianDistribution>> {
 
     @Override
