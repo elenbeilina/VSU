@@ -1,6 +1,5 @@
 FROM openjdk:8-jdk-alpine
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+COPY target/*.jar app.jar
 
 ENV app_port=- \
     server_postgres=-
