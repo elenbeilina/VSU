@@ -8,10 +8,9 @@ import java.util.List;
 
 import static com.aqualen.vsu.trueSkill.GaussianDistribution.*;
 
-/// <summary>
-/// Connects two variables and adds uncertainty.
-/// </summary>
-/// <remarks>See the accompanying math paper for more details.</remarks>
+/**
+ * Connects two variables and adds uncertainty.
+ */
 public class GaussianLikelihoodFactor extends GaussianFactor {
     private final double precision;
 

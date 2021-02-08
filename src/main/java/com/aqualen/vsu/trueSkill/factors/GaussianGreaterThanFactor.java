@@ -6,10 +6,9 @@ import com.aqualen.vsu.trueSkill.GaussianDistribution;
 
 import static com.aqualen.vsu.trueSkill.GaussianDistribution.*;
 
-/// <summary>
-/// Factor representing a team difference that has exceeded the draw margin.
-/// </summary>
-/// <remarks>See the accompanying math paper for more details.</remarks>
+/**
+ * Factor representing a team difference that has exceeded the draw margin.
+ */
 public class GaussianGreaterThanFactor extends GaussianFactor {
 
     private final double epsilon;

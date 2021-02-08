@@ -52,8 +52,8 @@ public class PlayerPriorValuesToSkillsLayer extends
     }
 
     @Override
-    public Schedule<GaussianDistribution> createPriorSchedule() {
-        List<Schedule<GaussianDistribution>> priorToSkillStep = getLocalFactors()
+    public Schedule createPriorSchedule() {
+        List<Schedule> priorToSkillStep = getLocalFactors()
                 .stream()
                 .map(prior -> new ScheduleStep<>("Prior to Skill Step", prior, 0))
                 .collect(Collectors.toList());

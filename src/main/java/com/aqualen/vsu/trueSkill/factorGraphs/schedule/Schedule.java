@@ -3,7 +3,7 @@ package com.aqualen.vsu.trueSkill.factorGraphs.schedule;
 import lombok.ToString;
 
 @ToString
-public abstract class Schedule<T> {
+public abstract class Schedule {
     private final String name;
 
     protected Schedule(String name) {

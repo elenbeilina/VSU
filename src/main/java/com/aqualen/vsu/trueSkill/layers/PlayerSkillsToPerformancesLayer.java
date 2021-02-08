@@ -47,8 +47,8 @@ public class PlayerSkillsToPerformancesLayer extends
     }
 
     @Override
-    public Schedule<GaussianDistribution> createPriorSchedule() {
-        List<Schedule<GaussianDistribution>> skillToPerfStep = getLocalFactors()
+    public Schedule createPriorSchedule() {
+        List<Schedule> skillToPerfStep = getLocalFactors()
                 .stream()
                 .map(likelihood -> new ScheduleStep<>("Skill to Perf step", likelihood, 0))
                 .collect(Collectors.toList());
@@ -57,8 +57,8 @@ public class PlayerSkillsToPerformancesLayer extends
     }
 
     @Override
-    public Schedule<GaussianDistribution> createPosteriorSchedule() {
-        List<Schedule<GaussianDistribution>> names = getLocalFactors()
+    public Schedule createPosteriorSchedule() {
+        List<Schedule> names = getLocalFactors()
                 .stream()
                 .map(likelihood -> new ScheduleStep<>("name", likelihood, 1))
                 .collect(Collectors.toList());

@@ -1,10 +1,10 @@
 package com.aqualen.vsu.trueSkill.factorGraphs.schedule;
 
-public class ScheduleLoop<T> extends Schedule<T> {
+public class ScheduleLoop extends Schedule {
     private final double maxDelta;
-    private final Schedule<T> scheduleToLoop;
+    private final Schedule scheduleToLoop;
 
-    public ScheduleLoop(String name, Schedule<T> scheduleToLoop, double maxDelta) {
+    public ScheduleLoop(String name, Schedule scheduleToLoop, double maxDelta) {
         super(name);
         this.scheduleToLoop = scheduleToLoop;
         this.maxDelta = maxDelta;

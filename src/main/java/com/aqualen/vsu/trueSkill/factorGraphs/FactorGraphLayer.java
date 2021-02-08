@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBase<GaussianDistribution> {
+public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBase {
 
     private final List<Factor<GaussianDistribution>> localFactors = new ArrayList<>();
     private final List<Output> outputVariables = new ArrayList<>();
@@ -24,7 +24,6 @@ public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBa
 
     public void setRawInputVariablesGroups(Object value) {
         if (value == null) {
-            // TODO: message
             throw new IllegalArgumentException();
         }
 
@@ -41,10 +40,10 @@ public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBa
         localFactors.add(factor);
     }
 
-    protected Schedule<GaussianDistribution> scheduleSequence(List<Schedule<GaussianDistribution>> itemsToSequence,
-                                                              String nameFormat,
-                                                              Object... args) {
+    protected Schedule scheduleSequence(List<Schedule> itemsToSequence,
+                                        String nameFormat,
+                                        Object... args) {
         String formattedName = String.format(nameFormat, args);
-        return new ScheduleSequence<>(formattedName, itemsToSequence);
+        return new ScheduleSequence(formattedName, itemsToSequence);
     }
 }

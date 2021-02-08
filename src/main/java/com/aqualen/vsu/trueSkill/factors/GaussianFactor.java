@@ -12,7 +12,7 @@ public abstract class GaussianFactor extends Factor<GaussianDistribution> {
         super(name);
     }
 
-    /// Sends the factor-graph message with and returns the log-normalization constant
+    /** Sends the factor-graph message with and returns the log-normalization constant **/
     @Override
     protected double sendMessage(Message<GaussianDistribution> message,
                                  Variable<GaussianDistribution> variable)

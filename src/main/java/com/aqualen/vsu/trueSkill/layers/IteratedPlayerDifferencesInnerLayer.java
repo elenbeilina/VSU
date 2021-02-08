@@ -37,9 +37,9 @@ public class IteratedPlayerDifferencesInnerLayer extends
     }
 
     @Override
-    public Schedule<GaussianDistribution> createPriorSchedule() {
+    public Schedule createPriorSchedule() {
 
-        Schedule<GaussianDistribution> loop = switch (getInputVariables().size()) {
+        Schedule loop = switch (getInputVariables().size()) {
             case 0, 1 -> throw new ReadableException("Invalid operation");
             case 2 -> createTwoPlayerInnerPriorLoopSchedule();
             default -> createMultiplePlayerInnerPriorLoopSchedule();
@@ -48,7 +48,7 @@ public class IteratedPlayerDifferencesInnerLayer extends
         // When dealing with differences, there are always (n-1) differences, so add in the 1
         int totalPlayerDifferences = playerToPlayerPerformanceDifferencesLayer.getLocalFactors().size();
 
-        return new ScheduleSequence<>(
+        return new ScheduleSequence(
                 "inner schedule",
                 List.of(loop,
                         new ScheduleStep<>(
@@ -60,7 +60,7 @@ public class IteratedPlayerDifferencesInnerLayer extends
                                 playerToPlayerPerformanceDifferencesLayer.getLocalFactors().get(totalPlayerDifferences - 1), 2)));
     }
 
-    private Schedule<GaussianDistribution> createTwoPlayerInnerPriorLoopSchedule() {
+    private Schedule createTwoPlayerInnerPriorLoopSchedule() {
         return scheduleSequence(
                 List.of(
                         new ScheduleStep<>(
@@ -75,13 +75,13 @@ public class IteratedPlayerDifferencesInnerLayer extends
                 "loop of just two players inner sequence");
     }
 
-    private Schedule<GaussianDistribution> createMultiplePlayerInnerPriorLoopSchedule() {
+    private Schedule createMultiplePlayerInnerPriorLoopSchedule() {
         int totalTeamDifferences = playerToPlayerPerformanceDifferencesLayer.getLocalFactors().size();
 
-        var forwardScheduleList = new ArrayList<Schedule<GaussianDistribution>>();
+        var forwardScheduleList = new ArrayList<Schedule>();
 
         for (int i = 0; i < totalTeamDifferences - 1; i++) {
-            Schedule<GaussianDistribution> currentForwardSchedulePiece =
+            Schedule currentForwardSchedulePiece =
                     scheduleSequence(List.of(
                             new ScheduleStep<>(
                                     String.format("team perf to perf diff %s", i),
@@ -97,12 +97,12 @@ public class IteratedPlayerDifferencesInnerLayer extends
             forwardScheduleList.add(currentForwardSchedulePiece);
         }
 
-        var forwardSchedule = new ScheduleSequence<>("forward schedule", forwardScheduleList);
+        var forwardSchedule = new ScheduleSequence("forward schedule", forwardScheduleList);
 
-        var backwardScheduleList = new ArrayList<Schedule<GaussianDistribution>>();
+        var backwardScheduleList = new ArrayList<Schedule>();
 
         for (int i = 0; i < totalTeamDifferences - 1; i++) {
-            var currentBackwardSchedulePiece = new ScheduleSequence<>(
+            var currentBackwardSchedulePiece = new ScheduleSequence(
                     "current backward schedule piece",
                     List.of(
                             new ScheduleStep<>(
@@ -123,18 +123,18 @@ public class IteratedPlayerDifferencesInnerLayer extends
         }
 
         var backwardSchedule =
-                new ScheduleSequence<>(
+                new ScheduleSequence(
                         "backward schedule",
                         backwardScheduleList);
 
         var forwardBackwardScheduleToLoop =
-                new ScheduleSequence<>(
+                new ScheduleSequence(
                         "forward Backward Schedule To Loop",
                         List.of(forwardSchedule, backwardSchedule));
 
         double initialMaxDelta = 0.0001;
 
-        return new ScheduleLoop<>(
+        return new ScheduleLoop(
                 String.format("loop with max delta of %s", initialMaxDelta),
                 forwardBackwardScheduleToLoop,
                 initialMaxDelta);

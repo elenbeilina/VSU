@@ -2,7 +2,7 @@ package com.aqualen.vsu.trueSkill.factorGraphs.schedule;
 
 import com.aqualen.vsu.trueSkill.factorGraphs.Factor;
 
-public class ScheduleStep<T> extends Schedule<T> {
+public class ScheduleStep<T> extends Schedule {
     private final Factor<T> factor;
     private final int index;
 

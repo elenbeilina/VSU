@@ -10,10 +10,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-/// <summary>
-/// Factor that sums together multiple Gaussians.
-/// </summary>
-/// <remarks>See the accompanying math paper for more details.</remarks>
+/**
+ * Factor that sums together multiple Gaussians.
+ */
 public class GaussianWeightedSumFactor extends GaussianFactor {
     private final List<int[]> variableIndexOrdersForWeights = new ArrayList<>();
 

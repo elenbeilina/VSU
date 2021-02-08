@@ -6,14 +6,14 @@ import com.aqualen.vsu.trueSkill.Player;
 
 import java.util.List;
 
-public abstract class FactorGraphLayerBase<TValue> {
+public abstract class FactorGraphLayerBase {
     public abstract void buildLayer(GameInfo gameInfo, List<Player> players);
 
-    public Schedule<TValue> createPriorSchedule() {
+    public Schedule createPriorSchedule() {
         return null;
     }
 
-    public Schedule<TValue> createPosteriorSchedule() {
+    public Schedule createPosteriorSchedule() {
         return null;
     }
 

@@ -4,10 +4,9 @@ import com.aqualen.vsu.trueSkill.factorGraphs.Message;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 
-/// <summary>
-/// Supplies the factor graph with prior information.
-/// </summary>
-/// <remarks>See the accompanying math paper for more details.</remarks>
+/**
+ * Supplies the factor graph with prior information.
+ */
 public class GaussianPriorFactor extends GaussianFactor {
     private final GaussianDistribution newMessage;
 

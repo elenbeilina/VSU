@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 public class TrueSkillFactorGraph {
 
-    private final List<FactorGraphLayerBase<GaussianDistribution>> layers;
+    private final List<FactorGraphLayerBase> layers;
     private final PlayerPriorValuesToSkillsLayer priorLayer;
 
     public TrueSkillFactorGraph(PlayerPriorValuesToSkillsLayer priorLayer, PlayerSkillsToPerformancesLayer performancesLayer,
@@ -40,33 +40,32 @@ public class TrueSkillFactorGraph {
     }
 
     public void runSchedule() {
-        Schedule<GaussianDistribution> fullSchedule = createFullSchedule();
+        Schedule fullSchedule = createFullSchedule();
         double fullScheduleDelta = fullSchedule.visit();
         System.out.println(fullScheduleDelta);
     }
 
-    private Schedule<GaussianDistribution> createFullSchedule() {
-        List<Schedule<GaussianDistribution>> fullSchedule = new ArrayList<>();
+    private Schedule createFullSchedule() {
+        List<Schedule> fullSchedule = new ArrayList<>();
 
         for (var currentLayer : layers) {
-            Schedule<GaussianDistribution> currentPriorSchedule = currentLayer.createPriorSchedule();
+            Schedule currentPriorSchedule = currentLayer.createPriorSchedule();
             if (currentPriorSchedule != null) {
                 fullSchedule.add(currentPriorSchedule);
             }
         }
 
-        // Casting to IEnumerable to get the LINQ Reverse()
-        List<FactorGraphLayerBase<GaussianDistribution>> allLayers = new ArrayList<>(layers);
+        List<FactorGraphLayerBase> allLayers = new ArrayList<>(layers);
         Collections.reverse(allLayers);
 
         for (var currentLayer : allLayers) {
-            Schedule<GaussianDistribution> currentPosteriorSchedule = currentLayer.createPosteriorSchedule();
+            Schedule currentPosteriorSchedule = currentLayer.createPosteriorSchedule();
             if (currentPosteriorSchedule != null) {
                 fullSchedule.add(currentPosteriorSchedule);
             }
         }
 
-        return new ScheduleSequence<>("Full schedule", fullSchedule);
+        return new ScheduleSequence("Full schedule", fullSchedule);
     }
 
     public List<Player> getUpdatedRatings() {

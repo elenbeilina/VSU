@@ -32,9 +32,7 @@ public class Rating {
     }
 
 
-    /// <summary>
-    /// A conservative estimate of skill based on the mean and standard deviation.
-    /// </summary>
+    /** A conservative estimate of skill based on the mean and standard deviation.*/
     public double getConservativeRating()
     {
         return mean - conservativeStandardDeviationMultiplier * standardDeviation;
@@ -45,9 +43,6 @@ public class Rating {
         GaussianDistribution priorGaussian = new GaussianDistribution(prior.mean, prior.standardDeviation);
         GaussianDistribution posteriorGaussian = new GaussianDistribution(fullPosterior.mean, fullPosterior.standardDeviation);
 
-        // From a clarification email from Ralf Herbrich:
-        // "the idea is to compute a linear interpolation between the prior and posterior skills of each player
-        //  ... in the canonical space of parameters"
         double precisionDifference = posteriorGaussian.precision - priorGaussian.precision;
         double partialPrecisionDifference = updatePercentage*precisionDifference;
 
