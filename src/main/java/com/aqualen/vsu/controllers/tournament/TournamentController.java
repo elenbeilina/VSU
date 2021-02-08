@@ -1,5 +1,6 @@
 package com.aqualen.vsu.controllers.tournament;
 
+import com.aqualen.vsu.dto.AddTournament;
 import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.services.TournamentsService;
@@ -34,7 +35,7 @@ public class TournamentController {
 
     @SimpleLog
     @PostMapping
-    public ResponseEntity<Tournament> add(@RequestBody Tournament tournament) {
-        return ResponseEntity.ok(tournamentsService.update(tournament));
+    public ResponseEntity<Tournament> add(@RequestBody AddTournament tournament) {
+        return ResponseEntity.ok(tournamentsService.add(tournament));
     }
 }

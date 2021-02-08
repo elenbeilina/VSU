@@ -4,6 +4,7 @@ import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "tournament",schema="vsu")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Tournament {
@@ -23,11 +25,6 @@ public class Tournament {
     @SequenceGenerator(name="seq_tournaments",
             sequenceName="vsu.tournaments_seq", allocationSize=1)
     private int id;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", nullable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private Department department;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sponsor_id", nullable = false)
