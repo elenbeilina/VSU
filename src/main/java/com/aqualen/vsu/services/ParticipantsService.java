@@ -40,4 +40,8 @@ public class ParticipantsService {
                 .stream().map(TournamentForParticipant::toDto)
                 .collect(Collectors.toList());
     }
+
+    public void updateTask(int tournamentId, String task){
+        repository.updateTask(tournamentId, getUserId(), task);
+    }
 }

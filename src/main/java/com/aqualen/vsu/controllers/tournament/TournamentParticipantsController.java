@@ -37,4 +37,10 @@ public class TournamentParticipantsController {
     public ResponseEntity<List<TournamentForParticipant>> getTournaments(){
         return ResponseEntity.ok(participantsService.getTournaments());
     }
+
+    @SimpleLog
+    @PutMapping
+    public void updateTask(@RequestParam int tournamentId, @RequestParam String task){
+        participantsService.updateTask(tournamentId, task);
+    }
 }

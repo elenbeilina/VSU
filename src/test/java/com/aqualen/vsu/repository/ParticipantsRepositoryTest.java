@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.DirtiesContext;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ParticipantsRepositoryTest {
     @Autowired
     private ParticipantsRepository repository;
@@ -62,5 +64,16 @@ class ParticipantsRepositoryTest {
 
         List<Participants> emptyResult = repository.findByUserIdAndTournamentStatusNot(2, CREATED);
         assertThat(emptyResult).isEmpty();
+    }
+
+    @Test
+    void updateTask() {
+        repository.updateTask(1,2,"task1");
+        Participants result = repository.getOne(new ParticipantKey(1, 2));
+
+        String singleResult = testEntityManager.getEntityManager()
+                .createNativeQuery("select p.task from vsu.participants p where user_id = 2 and tournament_id = 1")
+                .getSingleResult().toString();
+        assertThat(singleResult).isEqualTo("task1");
     }
 }
