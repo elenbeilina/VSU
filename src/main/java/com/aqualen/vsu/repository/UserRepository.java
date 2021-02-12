@@ -1,13 +1,11 @@
 package com.aqualen.vsu.repository;
 
-import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.entity.User;
+import com.aqualen.vsu.enums.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsername(String username);
