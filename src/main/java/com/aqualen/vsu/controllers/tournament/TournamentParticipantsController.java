@@ -1,12 +1,14 @@
 package com.aqualen.vsu.controllers.tournament;
 
+import com.aqualen.vsu.dto.ParticipantResponse;
 import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.services.ParticipantsService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("tournament/participant")
@@ -16,7 +18,15 @@ public class TournamentParticipantsController {
 
     @SimpleLog
     @PostMapping
-    public void addParticipant(@RequestParam long tournamentId){
+    @ApiOperation("Method for adding user to tournament")
+    public void addParticipant(@RequestParam int tournamentId){
         participantsService.addParticipant(tournamentId);
+    }
+
+    @SimpleLog
+    @GetMapping("all")
+    @ApiOperation("Method for getting all participants with their tasks to rate")
+    public ResponseEntity<List<ParticipantResponse>> getAllParticipants(@RequestParam int tournamentId){
+        return ResponseEntity.ok(participantsService.getAllParticipants(tournamentId));
     }
 }

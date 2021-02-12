@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ParticipantKey implements Serializable {
     @Column(name = "tournament_id")
-    private long tournamentId;
+    private int tournamentId;
 
     @Column(name = "user_id")
     private long userId;

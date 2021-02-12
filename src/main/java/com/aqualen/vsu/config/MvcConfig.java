@@ -7,6 +7,7 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.mappers.ModelMapper;
 
 @Configuration
 @EnableSwagger2
@@ -21,5 +22,11 @@ public class MvcConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select().apis(RequestHandlerSelectors.basePackage("com.aqualen.vsu.controller"))
                 .build();
+    }
+
+    //TODO: add modelMapper
+    @Bean
+    public ModelMapper mapper(){
+        return null;
     }
 }

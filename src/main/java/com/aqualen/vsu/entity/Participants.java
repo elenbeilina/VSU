@@ -32,4 +32,5 @@ public class Participants {
     private User user;
 
     private long grade;
+    private String task;
 }

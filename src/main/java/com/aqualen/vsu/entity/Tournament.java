@@ -33,12 +33,12 @@ public class Tournament {
     private User sponsor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "winner_id", nullable = false)
+    @JoinColumn(name = "winner_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User winnerId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "prize_id", nullable = false)
+    @JoinColumn(name = "prize_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Prize prize;
 
