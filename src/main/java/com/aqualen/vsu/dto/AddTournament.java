@@ -6,22 +6,25 @@ import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Builder;
-import lombok.Value;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Value
+@Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddTournament {
-    Long sponsorId;
-    Prize prize;
+    private String name;
+    private String task;
+    private Long sponsorId;
+    private Prize prize;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDateTime startDate;
+    private LocalDateTime startDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    LocalDateTime endDate;
-    TournamentStatus status;
-    TournamentLabel label;
+    private LocalDateTime endDate;
+    private TournamentStatus status;
+    private TournamentLabel label;
 
     public static Tournament toEntity(AddTournament from) {
         return Tournament.builder()

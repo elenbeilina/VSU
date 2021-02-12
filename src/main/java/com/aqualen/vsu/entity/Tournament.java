@@ -26,6 +26,9 @@ public class Tournament {
             sequenceName="vsu.tournaments_seq", allocationSize=1)
     private int id;
 
+    private String name;
+    private String task;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sponsor_id", nullable = false)
     @NotNull

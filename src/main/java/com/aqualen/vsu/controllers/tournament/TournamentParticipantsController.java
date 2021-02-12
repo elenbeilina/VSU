@@ -1,6 +1,7 @@
 package com.aqualen.vsu.controllers.tournament;
 
 import com.aqualen.vsu.dto.ParticipantResponse;
+import com.aqualen.vsu.dto.TournamentForParticipant;
 import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.services.ParticipantsService;
 import io.swagger.annotations.ApiOperation;
@@ -28,5 +29,12 @@ public class TournamentParticipantsController {
     @ApiOperation("Method for getting all participants with their tasks to rate")
     public ResponseEntity<List<ParticipantResponse>> getAllParticipants(@RequestParam int tournamentId){
         return ResponseEntity.ok(participantsService.getAllParticipants(tournamentId));
+    }
+
+    @SimpleLog
+    @GetMapping
+    @ApiOperation("Method for getting all tournaments for participant")
+    public ResponseEntity<List<TournamentForParticipant>> getTournaments(){
+        return ResponseEntity.ok(participantsService.getTournaments());
     }
 }

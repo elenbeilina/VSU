@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static com.aqualen.vsu.dto.AddNews.toEntity;
+import static com.aqualen.vsu.utils.UserUtils.getUserId;
 
 @Service
 @RequiredArgsConstructor
@@ -37,7 +38,7 @@ public class NewsService {
     }
 
     public News add(AddNews addNews) {
-        News news = toEntity(addNews);
+        News news = toEntity(addNews, getUserId());
 
         return newsRepository.saveAndFlush(news);
     }

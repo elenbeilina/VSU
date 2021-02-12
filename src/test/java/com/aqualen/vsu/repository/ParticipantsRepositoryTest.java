@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import java.util.List;
 
 import static com.aqualen.vsu.enums.TournamentLabel.JAVA;
+import static com.aqualen.vsu.enums.TournamentStatus.CLOSED;
 import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
 import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,5 +53,14 @@ class ParticipantsRepositoryTest {
 
         assertThat(result).isNotEmpty();
         assertThat(result).hasSize(2);
+    }
+
+    @Test
+    void findByUserIdAndTournamentStatusNot() {
+        List<Participants> result = repository.findByUserIdAndTournamentStatusNot(2, CLOSED);
+        assertThat(result).isNotEmpty().hasSize(1);
+
+        List<Participants> emptyResult = repository.findByUserIdAndTournamentStatusNot(2, CREATED);
+        assertThat(emptyResult).isEmpty();
     }
 }
