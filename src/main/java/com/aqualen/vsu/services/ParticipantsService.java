@@ -7,6 +7,7 @@ import com.aqualen.vsu.entity.Participants;
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.aqualen.vsu.repository.ParticipantsRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import static com.aqualen.vsu.utils.UserUtils.getUserId;
 @AllArgsConstructor
 public class ParticipantsService {
 
-    //private final ModelMapper mapper;
+    private final ModelMapper mapper;
     private final ParticipantsRepository repository;
 
     public void addParticipant(int tournamentId) {
@@ -29,10 +30,10 @@ public class ParticipantsService {
                 .build());
     }
 
-    //TODO:use mapper
     public List<ParticipantResponse> getAllParticipants(int tournamentId) {
-        //return repository.findByTournamentId(tournamentId).stream().map().collect(Collectors.toList());
-        return null;
+        return repository.findByTournamentId(tournamentId).stream()
+                .map(participants -> mapper.map(participants, ParticipantResponse.class))
+                .collect(Collectors.toList());
     }
 
     public List<TournamentForParticipant> getTournaments() {

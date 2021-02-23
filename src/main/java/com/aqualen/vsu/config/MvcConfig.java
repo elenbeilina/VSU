@@ -1,21 +1,16 @@
 package com.aqualen.vsu.config;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-import springfox.documentation.swagger2.mappers.ModelMapper;
 
 @Configuration
 @EnableSwagger2
 public class MvcConfig {
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public Docket productApi() {
@@ -24,9 +19,8 @@ public class MvcConfig {
                 .build();
     }
 
-    //TODO: add modelMapper
     @Bean
     public ModelMapper mapper(){
-        return null;
+        return new ModelMapper();
     }
 }
