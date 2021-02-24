@@ -1,4 +1,4 @@
 #!/bin/sh
 
-docker build -t elenbeilina/vsu-service:1 .
-docker push elenbeilina/vsu-service:1
+docker build -t elenbeilina/vsu-service:latest .
+docker push elenbeilina/vsu-service:latest
