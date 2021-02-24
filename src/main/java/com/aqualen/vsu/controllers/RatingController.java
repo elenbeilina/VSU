@@ -1,14 +1,12 @@
 package com.aqualen.vsu.controllers;
 
+import com.aqualen.vsu.dto.RateRequest;
 import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.logic.RatingLogic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +27,11 @@ public class RatingController {
     @GetMapping
     public ResponseEntity<List<User>> getExactAmount(@RequestParam int count) {
         return ResponseEntity.ok(ratingLogic.getUsersList(count));
+    }
+
+    @SimpleLog
+    @PutMapping("rate")
+    public void rateUsers(@RequestBody List<RateRequest> requests) {
+        ratingLogic.rateUsers(requests);
     }
 }

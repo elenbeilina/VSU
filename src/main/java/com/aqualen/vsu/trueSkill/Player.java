@@ -1,11 +1,15 @@
 package com.aqualen.vsu.trueSkill;
 
 import com.aqualen.vsu.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Player implements Comparable<Player> {
     private User user;
     private Rating rating;
