@@ -51,9 +51,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webjars/**", "/v2/api-docs/**", "/configuration/ui/**", "/swagger-resources/**",
                         "/configuration/security/**", "/swagger-ui.html/**", "/swagger-ui.html#/**");
     }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
