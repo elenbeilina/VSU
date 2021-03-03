@@ -17,7 +17,7 @@ import java.util.List;
 import static com.aqualen.vsu.enums.TournamentLabel.JAVA;
 import static com.aqualen.vsu.enums.TournamentStatus.CLOSED;
 import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
-import static java.time.LocalDateTime.now;
+import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -38,7 +38,7 @@ class ParticipantsRepositoryTest {
                 .status(CREATED)
                 .startDate(now())
                 .endDate(now())
-                .sponsor(User.builder().id(1).build()).build());
+                .sponsorId(1).build());
 
         testEntityManager.flush();
         for (long i = 2; i <= 3; i++) {
@@ -69,7 +69,6 @@ class ParticipantsRepositoryTest {
     @Test
     void updateTask() {
         repository.updateTask(1,2,"task1");
-        Participants result = repository.getOne(new ParticipantKey(1, 2));
 
         String singleResult = testEntityManager.getEntityManager()
                 .createNativeQuery("select p.task from vsu.participants p where user_id = 2 and tournament_id = 1")

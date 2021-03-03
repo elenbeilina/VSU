@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "tournament",schema="vsu")
+@Table(name = "tournament", schema = "vsu")
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,18 +22,20 @@ public class Tournament {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tournaments")
-    @SequenceGenerator(name="seq_tournaments",
-            sequenceName="vsu.tournaments_seq", allocationSize=1)
+    @SequenceGenerator(name = "seq_tournaments",
+            sequenceName = "vsu.tournaments_seq", allocationSize = 1)
     private int id;
 
     private String name;
     private String task;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sponsor_id", nullable = false)
-    @NotNull
+    @JoinColumn(name = "sponsor_id", insertable = false, updatable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User sponsor;
+    @NotNull
+    @Column(name = "sponsor_id")
+    private long sponsorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner_id")
@@ -46,10 +48,10 @@ public class Tournament {
     private Prize prize;
 
     @NotNull
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @NotNull
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @NotNull
     private TournamentStatus status;

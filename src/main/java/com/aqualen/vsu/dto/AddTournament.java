@@ -2,13 +2,15 @@ package com.aqualen.vsu.dto;
 
 import com.aqualen.vsu.entity.Prize;
 import com.aqualen.vsu.entity.Tournament;
-import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Builder
@@ -20,18 +22,17 @@ public class AddTournament {
     private Long sponsorId;
     private Prize prize;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime startDate;
+    private LocalDate startDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDateTime endDate;
-    private TournamentStatus status;
+    private LocalDate endDate;
     private TournamentLabel label;
 
     public static Tournament toEntity(AddTournament from) {
         return Tournament.builder()
-                .sponsor(User.builder().id(from.sponsorId).build())
+                .sponsorId(from.sponsorId)
                 .startDate(from.startDate)
                 .endDate(from.endDate)
-                .status(from.status)
+                .status(TournamentStatus.CREATED)
                 .label(from.label).build();
     }
 }

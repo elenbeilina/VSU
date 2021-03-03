@@ -22,7 +22,7 @@ public class Prize {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner", nullable = false)
+    @JoinColumn(name = "owner")
     private User user;
 
     @NotNull
