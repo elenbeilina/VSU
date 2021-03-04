@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -17,14 +18,17 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddTournament {
+    @NotNull
     private String name;
     private String task;
+    @NotNull
     private Long sponsorId;
     private Prize prize;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate startDate;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate endDate;
+    @NotNull
     private TournamentLabel label;
 
     public static Tournament toEntity(AddTournament from) {

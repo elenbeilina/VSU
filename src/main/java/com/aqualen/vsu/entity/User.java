@@ -28,10 +28,8 @@ public class User {
     private long id;
 
     @Column(name = "role_id")
-    @NotNull
     private UserRole role;
 
-    @NotNull
     private String studentBookId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -39,9 +37,7 @@ public class User {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Department department;
 
-    @NotNull
     private String username;
-    @NotNull
     private String firstName;
     private String secondName;
     private String description;

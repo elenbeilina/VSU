@@ -35,7 +35,7 @@ public class TournamentController {
 
     @SimpleLog
     @PostMapping
-    public ResponseEntity<Tournament> add(@RequestBody AddTournament tournament) {
-        return ResponseEntity.ok(tournamentsService.add(tournament));
+    public ResponseEntity<Tournament> add(@RequestBody AddTournament addTournament) {
+        return ResponseEntity.ok(tournamentsService.add(addTournament));
     }
 }

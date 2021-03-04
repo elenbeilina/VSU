@@ -33,7 +33,6 @@ public class Tournament {
     @JoinColumn(name = "sponsor_id", insertable = false, updatable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User sponsor;
-    @NotNull
     @Column(name = "sponsor_id")
     private long sponsorId;
 
@@ -47,15 +46,11 @@ public class Tournament {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Prize prize;
 
-    @NotNull
     private LocalDate startDate;
-
-    @NotNull
     private LocalDate endDate;
 
     @NotNull
     private TournamentStatus status;
 
-    @NotNull
     private TournamentLabel label;
 }

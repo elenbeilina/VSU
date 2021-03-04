@@ -1,7 +1,7 @@
 package com.aqualen.vsu.controllers.security;
 
 import com.aqualen.vsu.config.jwt.JwtProvider;
-import com.aqualen.vsu.dto.RegistrationResponse;
+import com.aqualen.vsu.dto.RegistrationRequest;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.dto.AuthRequest;
 import com.aqualen.vsu.dto.AuthResponse;
@@ -18,7 +18,7 @@ public class AuthController {
     private final JwtProvider jwtProvider;
 
     @PostMapping("register")
-    public void registerUser(@RequestBody RegistrationResponse user) {
+    public void registerUser(@RequestBody RegistrationRequest user) {
         userService.add(user);
     }
 
