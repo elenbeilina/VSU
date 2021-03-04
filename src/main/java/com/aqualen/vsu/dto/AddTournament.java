@@ -33,6 +33,9 @@ public class AddTournament {
 
     public static Tournament toEntity(AddTournament from) {
         return Tournament.builder()
+                .name(from.name)
+                .task(from.task)
+                .prize(from.prize)
                 .sponsorId(from.sponsorId)
                 .startDate(from.startDate)
                 .endDate(from.endDate)
