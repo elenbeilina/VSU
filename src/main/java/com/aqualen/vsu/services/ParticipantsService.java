@@ -4,6 +4,8 @@ import com.aqualen.vsu.dto.ParticipantResponse;
 import com.aqualen.vsu.dto.TournamentForParticipant;
 import com.aqualen.vsu.entity.ParticipantKey;
 import com.aqualen.vsu.entity.Participants;
+import com.aqualen.vsu.entity.Tournament;
+import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.aqualen.vsu.repository.ParticipantsRepository;
 import lombok.AllArgsConstructor;
@@ -27,6 +29,8 @@ public class ParticipantsService {
 
         repository.save(Participants.builder()
                 .id(new ParticipantKey(tournamentId, userId))
+                .tournament(Tournament.builder().id(tournamentId).build())
+                .user(User.builder().id(userId).build())
                 .build());
     }
 
