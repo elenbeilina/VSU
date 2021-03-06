@@ -24,7 +24,7 @@ public class Tournament {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tournaments")
     @SequenceGenerator(name = "seq_tournaments",
             sequenceName = "vsu.tournaments_seq", allocationSize = 1)
-    private int id;
+    private Long id;
 
     private String name;
     private String task;

@@ -2,9 +2,11 @@ package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.dto.AddTournament;
 import com.aqualen.vsu.entity.Tournament;
+import com.aqualen.vsu.repository.ParticipantsRepository;
 import com.aqualen.vsu.repository.TournamentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,6 +17,7 @@ import static com.aqualen.vsu.dto.AddTournament.toEntity;
 public class TournamentsService {
 
     private final TournamentRepository tournamentRepository;
+    private final ParticipantsRepository participantsRepository;
 
     public List<Tournament> getAll() {
         return tournamentRepository.findAll();
@@ -34,7 +37,9 @@ public class TournamentsService {
         return tournamentRepository.saveAndFlush(tournament);
     }
 
+    @Transactional
     public void delete(Long id) {
+        participantsRepository.deleteByTournamentId(id);
         tournamentRepository.deleteById(id);
     }
 }

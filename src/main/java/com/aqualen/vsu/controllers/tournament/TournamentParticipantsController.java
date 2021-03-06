@@ -20,7 +20,7 @@ public class TournamentParticipantsController {
     @SimpleLog
     @PostMapping
     @ApiOperation("Method for adding user to tournament")
-    public void addParticipant(@RequestParam int tournamentId){
+    public void addParticipant(@RequestParam long tournamentId){
         participantsService.addParticipant(tournamentId);
     }
 
@@ -40,7 +40,7 @@ public class TournamentParticipantsController {
 
     @SimpleLog
     @PutMapping
-    public void updateTask(@RequestParam int tournamentId, @RequestParam String task){
+    public void updateTask(@RequestParam long tournamentId, @RequestParam String task){
         participantsService.updateTask(tournamentId, task);
     }
 }

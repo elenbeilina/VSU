@@ -44,7 +44,7 @@ class ParticipantsRepositoryTest {
         for (long i = 2; i <= 3; i++) {
             repository.save(Participants.builder()
                     .id(new ParticipantKey(1, i))
-                    .tournament(Tournament.builder().id(1).build())
+                    .tournament(Tournament.builder().id(1L).build())
                     .user(User.builder().id(i).build()).build());
         }
     }
@@ -68,11 +68,22 @@ class ParticipantsRepositoryTest {
 
     @Test
     void updateTask() {
-        repository.updateTask(1,2,"task1");
+        repository.updateTask(1, 2, "task1");
 
         String singleResult = testEntityManager.getEntityManager()
                 .createNativeQuery("select p.task from vsu.participants p where user_id = 2 and tournament_id = 1")
                 .getSingleResult().toString();
         assertThat(singleResult).isEqualTo("task1");
+    }
+
+    @Test
+    void deleteByTournamentId() {
+        List<Participants> participants = repository.findAll();
+        assertThat(participants).hasSize(2);
+
+        repository.deleteByTournamentId(participants.get(0).getTournament().getId());
+
+        List<Participants> afterDeletion = repository.findAll();
+        assertThat(afterDeletion).hasSize(0);
     }
 }

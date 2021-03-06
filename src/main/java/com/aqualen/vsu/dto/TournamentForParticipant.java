@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TournamentForParticipant {
-    private int tournamentId;
+    private Long tournamentId;
     private String tournamentName;
     private TournamentLabel label;
     private String task;

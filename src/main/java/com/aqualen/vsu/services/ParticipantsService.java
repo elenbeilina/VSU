@@ -24,10 +24,10 @@ public class ParticipantsService {
     private final ModelMapper mapper;
     private final ParticipantsRepository repository;
 
-    public void addParticipant(int tournamentId) {
+    public void addParticipant(Long tournamentId) {
         Long userId = getUserId();
 
-        repository.save(Participants.builder()
+        repository.saveAndFlush(Participants.builder()
                 .id(new ParticipantKey(tournamentId, userId))
                 .tournament(Tournament.builder().id(tournamentId).build())
                 .user(User.builder().id(userId).build())
@@ -46,7 +46,7 @@ public class ParticipantsService {
                 .collect(Collectors.toList());
     }
 
-    public void updateTask(int tournamentId, String task){
+    public void updateTask(long tournamentId, String task){
         repository.updateTask(tournamentId, getUserId(), task);
     }
 }
