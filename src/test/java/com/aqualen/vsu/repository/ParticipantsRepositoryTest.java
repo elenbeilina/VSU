@@ -86,4 +86,16 @@ class ParticipantsRepositoryTest {
         List<Participants> afterDeletion = repository.findAll();
         assertThat(afterDeletion).hasSize(0);
     }
+
+    @Test
+    void deleteByTournamentIdAndUserId() {
+        List<Participants> participants = repository.findAll();
+        assertThat(participants).hasSize(2);
+
+        Participants participant = participants.get(0);
+        repository.deleteByTournamentIdAndUserId(participant.getTournament().getId(),participant.getUser().getId());
+
+        List<Participants> afterDeletion = repository.findAll();
+        assertThat(afterDeletion).hasSize(1);
+    }
 }

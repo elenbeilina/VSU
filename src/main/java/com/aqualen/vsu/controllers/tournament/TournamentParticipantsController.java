@@ -25,6 +25,13 @@ public class TournamentParticipantsController {
     }
 
     @SimpleLog
+    @DeleteMapping
+    @ApiOperation("Method for deleting user from tournament")
+    public void deleteParticipant(@RequestParam long tournamentId){
+        participantsService.deleteParticipant(tournamentId);
+    }
+
+    @SimpleLog
     @GetMapping("all")
     @ApiOperation("Method for getting all participants with their tasks to rate")
     public ResponseEntity<List<ParticipantResponse>> getAllParticipants(@RequestParam int tournamentId){

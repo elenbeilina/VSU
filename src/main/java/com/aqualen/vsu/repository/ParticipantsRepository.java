@@ -22,4 +22,7 @@ public interface ParticipantsRepository extends JpaRepository<Participants, Part
 
     @Transactional
     void deleteByTournamentId(long tournamentId);
+
+    @Transactional
+    void deleteByTournamentIdAndUserId(long tournamentId, long userId);
 }

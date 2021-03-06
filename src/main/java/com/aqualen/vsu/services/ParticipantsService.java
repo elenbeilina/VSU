@@ -34,6 +34,12 @@ public class ParticipantsService {
                 .build());
     }
 
+    public void deleteParticipant(Long tournamentId) {
+        Long userId = getUserId();
+
+        repository.deleteByTournamentIdAndUserId(tournamentId, userId);
+    }
+
     public List<ParticipantResponse> getAllParticipants(int tournamentId) {
         return repository.findByTournamentId(tournamentId).stream()
                 .map(participants -> mapper.map(participants, ParticipantResponse.class))
@@ -46,7 +52,7 @@ public class ParticipantsService {
                 .collect(Collectors.toList());
     }
 
-    public void updateTask(long tournamentId, String task){
+    public void updateTask(long tournamentId, String task) {
         repository.updateTask(tournamentId, getUserId(), task);
     }
 }
