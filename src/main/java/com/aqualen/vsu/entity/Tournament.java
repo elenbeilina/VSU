@@ -43,6 +43,7 @@ public class Tournament {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "prize_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Prize prize;
 
     private LocalDate startDate;

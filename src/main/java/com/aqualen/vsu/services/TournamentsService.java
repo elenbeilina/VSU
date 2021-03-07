@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.aqualen.vsu.dto.AddTournament.toEntity;
+import static com.aqualen.vsu.utils.UserUtils.getUserId;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +43,11 @@ public class TournamentsService {
     public void delete(Long id) {
         participantsRepository.deleteByTournamentId(id);
         tournamentRepository.deleteById(id);
+    }
+
+    public List<Tournament> getTournamentsForSponsor(Long sponsorId){
+        sponsorId = Optional.ofNullable(sponsorId).orElse(getUserId());
+
+        return tournamentRepository.findBySponsorId(sponsorId);
     }
 }

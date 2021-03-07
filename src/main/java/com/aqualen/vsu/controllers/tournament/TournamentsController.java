@@ -21,4 +21,10 @@ public class TournamentsController {
     public ResponseEntity<List<Tournament>> get() {
         return ResponseEntity.ok(tournamentsService.getAll());
     }
+
+    @SimpleLog
+    @GetMapping("sponsor")
+    public ResponseEntity<List<Tournament>> getForSponsor(@RequestParam(required = false) Long sponsorId) {
+        return ResponseEntity.ok(tournamentsService.getTournamentsForSponsor(sponsorId));
+    }
 }
