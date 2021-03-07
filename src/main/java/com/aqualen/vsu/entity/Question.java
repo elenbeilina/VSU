@@ -31,7 +31,7 @@ public class Question {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
-    @OneToOne (fetch = FetchType.LAZY)
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "answer_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Answer answer;

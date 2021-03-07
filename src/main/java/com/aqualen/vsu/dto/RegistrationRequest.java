@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Value
 @Builder
@@ -20,7 +21,7 @@ public class RegistrationRequest {
     @NotNull
     UserRole role;
     String studentBookId;
-    long departmentId;
+    Long departmentId;
     @NotNull
     String username;
     @NotNull
@@ -43,7 +44,7 @@ public class RegistrationRequest {
     public static User toEntity(RegistrationRequest from) {
         return User.builder()
                 .birthday(from.birthday)
-                .department(Department.builder().id(from.departmentId).build())
+                .department(Objects.nonNull(from.departmentId) ? Department.builder().id(from.departmentId).build() : null)
                 .description(from.description)
                 .facebook(from.facebook)
                 .firstName(from.firstName)
