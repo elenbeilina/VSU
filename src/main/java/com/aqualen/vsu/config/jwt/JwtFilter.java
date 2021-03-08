@@ -14,8 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static io.jsonwebtoken.lang.Strings.hasText;
 
@@ -30,9 +29,14 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        if (isPublicUri(request)){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String token = getTokenFromRequest(request);
 
-        if (token == null || isPublicHttpMethod(request) || isPublicUri(request)) {
+        if (token == null || isPublicHttpMethod(request)) {
             filterChain.doFilter(request, response);
             return;
         }

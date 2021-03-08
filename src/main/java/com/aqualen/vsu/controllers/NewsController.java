@@ -5,6 +5,7 @@ import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.News;
 import com.aqualen.vsu.services.NewsService;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("news")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class NewsController {
 
     private final NewsService newsService;

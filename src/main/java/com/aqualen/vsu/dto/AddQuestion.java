@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 import static com.aqualen.vsu.utils.UserUtils.getUserId;
@@ -16,12 +17,13 @@ import static com.aqualen.vsu.utils.UserUtils.getUserId;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddQuestion {
+    @NotNull
     private String description;
 
     public static Question toEntity(AddQuestion from){
         return Question.builder()
                 .user(User.builder().id(getUserId()).build())
                 .description(from.description)
-                .dateCreated(LocalDate.now()).build();
+                .startDate(LocalDate.now()).build();
     }
 }

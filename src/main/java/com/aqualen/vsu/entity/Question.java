@@ -31,15 +31,13 @@ public class Question {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
-    @OneToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "answer_id", nullable = false)
+    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "answer_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Answer answer;
 
-    @NotNull
     private String description;
 
     @NotNull
-    @Column(name = "start_date")
-    private LocalDate dateCreated;
+    private LocalDate startDate;
 }

@@ -11,16 +11,22 @@ import lombok.Builder;
 import lombok.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Value
 @Builder
-public class RegistrationResponse {
+public class RegistrationRequest {
+    @NotNull
     UserRole role;
     String studentBookId;
-    long departmentId;
+    Long departmentId;
+    @NotNull
     String username;
+    @NotNull
     String firstName;
+    @NotNull
     String secondName;
     String description;
     String password;
@@ -35,10 +41,10 @@ public class RegistrationResponse {
     @JsonSerialize(using = LocalDateSerializer.class)
     LocalDate birthday;
 
-    public static User toEntity(RegistrationResponse from) {
+    public static User toEntity(RegistrationRequest from) {
         return User.builder()
                 .birthday(from.birthday)
-                .department(Department.builder().id(from.departmentId).build())
+                .department(Objects.nonNull(from.departmentId) ? Department.builder().id(from.departmentId).build() : null)
                 .description(from.description)
                 .facebook(from.facebook)
                 .firstName(from.firstName)
