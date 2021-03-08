@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.aqualen.vsu.dto.ParticipantResponse.toEntity;
+import static com.aqualen.vsu.enums.TournamentStatus.CLOSED;
 import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
 import static com.aqualen.vsu.utils.UserUtils.getUserId;
 
@@ -50,7 +51,7 @@ public class ParticipantsService {
     }
 
     public List<TournamentForParticipant> getTournaments() {
-        return repository.findByUserIdAndTournamentStatusNot(getUserId(), CREATED)
+        return repository.findByUserIdAndTournamentStatusNotIn(getUserId(), List.of(CREATED,CLOSED))
                 .stream().map(TournamentForParticipant::toDto)
                 .collect(Collectors.toList());
     }

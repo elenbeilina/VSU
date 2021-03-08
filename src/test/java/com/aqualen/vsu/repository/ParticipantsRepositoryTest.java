@@ -59,11 +59,14 @@ class ParticipantsRepositoryTest {
 
     @Test
     void findByUserIdAndTournamentStatusNot() {
-        List<Participants> result = repository.findByUserIdAndTournamentStatusNot(2, CLOSED);
+        List<Participants> result = repository.findByUserIdAndTournamentStatusNotIn(2, List.of(CLOSED));
         assertThat(result).isNotEmpty().hasSize(1);
 
-        List<Participants> emptyResult = repository.findByUserIdAndTournamentStatusNot(2, CREATED);
+        List<Participants> emptyResult = repository.findByUserIdAndTournamentStatusNotIn(2, List.of(CREATED));
         assertThat(emptyResult).isEmpty();
+
+        List<Participants> bothResult = repository.findByUserIdAndTournamentStatusNotIn(2, List.of(CREATED, CLOSED));
+        assertThat(bothResult).isEmpty();
     }
 
     @Test
@@ -71,7 +74,7 @@ class ParticipantsRepositoryTest {
         repository.updateTask(1, 2, "task1");
 
         String singleResult = testEntityManager.getEntityManager()
-                .createNativeQuery("select p.task from vsu.participants p where user_id = 2 and tournament_id = 1")
+                .createQuery("select p.task from Participants p where p.user.id = 2 and p.tournament.id = 1")
                 .getSingleResult().toString();
         assertThat(singleResult).isEqualTo("task1");
     }

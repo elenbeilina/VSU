@@ -13,7 +13,7 @@ import java.util.List;
 public interface ParticipantsRepository extends JpaRepository<Participants, ParticipantKey> {
     List<Participants> findByTournamentId(long tournamentId);
 
-    List<Participants> findByUserIdAndTournamentStatusNot(long userId, TournamentStatus status);
+    List<Participants> findByUserIdAndTournamentStatusNotIn(long userId, List<TournamentStatus> statuses);
 
     @Modifying(flushAutomatically = true)
     @Transactional
