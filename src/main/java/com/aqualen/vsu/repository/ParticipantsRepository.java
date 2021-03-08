@@ -16,6 +16,7 @@ public interface ParticipantsRepository extends JpaRepository<Participants, Part
     List<Participants> findByUserIdAndTournamentStatusNot(long userId, TournamentStatus status);
 
     @Modifying(flushAutomatically = true)
+    @Transactional
     @Query("update Participants p set p.task =:task " +
             "where p.tournament.id =:tournamentId and p.user.id =:userId")
     void updateTask(long tournamentId, long userId, String task);

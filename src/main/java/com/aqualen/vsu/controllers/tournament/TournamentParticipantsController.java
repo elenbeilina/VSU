@@ -50,4 +50,10 @@ public class TournamentParticipantsController {
     public void updateTask(@RequestParam long tournamentId, @RequestParam String task){
         participantsService.updateTask(tournamentId, task);
     }
+
+    @SimpleLog
+    @PutMapping("grade")
+    public void gradeParticipants(@RequestParam long tournamentId, @RequestBody List<ParticipantResponse> participants){
+        participantsService.gradeParticipants(tournamentId, participants);
+    }
 }

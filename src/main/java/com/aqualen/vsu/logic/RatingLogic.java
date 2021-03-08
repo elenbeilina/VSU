@@ -1,6 +1,6 @@
 package com.aqualen.vsu.logic;
 
-import com.aqualen.vsu.dto.RateRequest;
+import com.aqualen.vsu.dto.ParticipantResponse;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.UserRole;
 import com.aqualen.vsu.repository.UserRepository;
@@ -34,15 +34,19 @@ public class RatingLogic {
     }
 
     private void sortByRating(List<User> users) {
-        users.sort(Comparator.comparingLong(User::getRating)
+        users.sort(Comparator.comparingDouble(User::getRating)
                 .reversed());
     }
 
-    public void rateUsers(List<RateRequest> requests) {
+    public void rateUsers(List<ParticipantResponse> requests) {
         List<Player> players = requests.stream()
-                .map(RateRequest::toPlayer)
+                .map(ParticipantResponse::toPlayer)
                 .collect(Collectors.toList());
 
         trueSkillCalculator.calculateNewRatings(new GameInfo(), players);
+
+        userRepository.saveAll(players.stream()
+                .map(Player::getUserWithUpdatedRating)
+                .collect(Collectors.toList()));
     }
 }

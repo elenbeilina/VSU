@@ -43,7 +43,7 @@ public class User {
     private String description;
     private String password;
 
-    private long rating;
+    private double rating;
     private LocalDate birthday;
     private String picture;
     private String vk;
