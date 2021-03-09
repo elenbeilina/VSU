@@ -1,42 +1,44 @@
 package com.aqualen.vsu.trueSkill.layers;
 
+import com.aqualen.vsu.trueSkill.*;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleStep;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.DefaultVariable;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.factors.GaussianPriorFactor;
-import com.aqualen.vsu.trueSkill.GameInfo;
-import com.aqualen.vsu.trueSkill.GaussianDistribution;
-import com.aqualen.vsu.trueSkill.Player;
-import com.aqualen.vsu.trueSkill.Rating;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.aqualen.vsu.trueSkill.GaussianDistribution.*;
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.GAUSSIAN_LINE;
+import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
-// We intentionally have no Posterior schedule since the only purpose here is to
 @Component
 @Order(1)
-public class PlayerPriorValuesToSkillsLayer extends
-        TrueSkillFactorGraphLayer<DefaultVariable<GaussianDistribution>,KeyedVariable<Player,GaussianDistribution>> {
+public class PlayerTechnologyKnowledgePriorValuesToSkillsLayer extends
+        TrueSkillFactorGraphLayer<DefaultVariable<GaussianDistribution>, KeyedVariable<Technology, GaussianDistribution>> {
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
-        for (Player currentPlayer : players) {
-            KeyedVariable<Player, GaussianDistribution> playerSkill =
-                    createSkillOutputVariable(currentPlayer);
+        for (Player player : players) {
+            List<KeyedVariable<Technology, GaussianDistribution>> playerSkills = new ArrayList<>();
+            for (Technology scope : player.getSkills()) {
+                KeyedVariable<Technology, GaussianDistribution> playerSkill =
+                        createSkillOutputVariable(scope);
 
-            addLayerFactor(createPriorFactor(currentPlayer.getRating(),
-                    playerSkill, gameInfo));
+                addLayerFactor(createPriorFactor(scope.getRating(),
+                        playerSkill, gameInfo));
 
-            addToOutputVariables(playerSkill);
+                playerSkills.add(playerSkill);
+            }
+            addToOutputVariables(playerSkills);
         }
     }
 
-    private KeyedVariable<Player, GaussianDistribution> createSkillOutputVariable(Player key) {
+    private KeyedVariable<Technology, GaussianDistribution> createSkillOutputVariable(Technology key) {
         return new KeyedVariable<>(
                 key,
                 String.format("%s's skill", key),
@@ -44,7 +46,7 @@ public class PlayerPriorValuesToSkillsLayer extends
     }
 
     private GaussianPriorFactor createPriorFactor(Rating priorRating,
-                                                  KeyedVariable<Player, GaussianDistribution> skillsVariable,
+                                                  KeyedVariable<Technology, GaussianDistribution> skillsVariable,
                                                   GameInfo gameInfo) {
         return new GaussianPriorFactor(priorRating.getMean(),
                 square(priorRating.getStandardDeviation()) +
