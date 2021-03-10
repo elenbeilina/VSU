@@ -14,11 +14,11 @@ import java.util.List;
 public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBase {
 
     private final List<Factor<GaussianDistribution>> localFactors = new ArrayList<>();
-    private final List<Output> outputVariables = new ArrayList<>();
-    private List<Input> inputVariables = new ArrayList<>();
+    private final List<List<Output>> outputVariables = new ArrayList<>();
+    private List<List<Input>> inputVariables = new ArrayList<>();
 
-    public void addToOutputVariables(Output variable) {
-        outputVariables.add(variable);
+    public void addToOutputVariables(List<Output> variables) {
+        outputVariables.add(variables);
     }
 
 
@@ -27,7 +27,7 @@ public abstract class FactorGraphLayer<Input, Output> extends FactorGraphLayerBa
             throw new IllegalArgumentException();
         }
 
-        inputVariables = (List<Input>) value;
+        inputVariables = (List<List<Input>>) value;
     }
 
     public abstract void buildLayer(GameInfo gameInfo, List<Player> players);

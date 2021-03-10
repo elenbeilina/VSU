@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@Order(3)
+@Order(4)
 @AllArgsConstructor
 // The whole purpose of this is to do a loop on the bottom
 public class IteratedPlayerDifferencesInnerLayer extends

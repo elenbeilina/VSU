@@ -1,5 +1,6 @@
 package com.aqualen.vsu.trueSkill.layers;
 
+import com.aqualen.vsu.trueSkill.Technology;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleStep;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
@@ -10,6 +11,7 @@ import com.aqualen.vsu.trueSkill.Player;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,28 +20,35 @@ import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 @Component
 @Order(2)
-public class PlayerSkillsToPerformancesLayer extends
-        TrueSkillFactorGraphLayer<KeyedVariable<Player, GaussianDistribution>, KeyedVariable<Player, GaussianDistribution>> {
+public class PlayerTechnologySkillsToPerformancesLayer extends
+        TrueSkillFactorGraphLayer<KeyedVariable<Technology, GaussianDistribution>, KeyedVariable<Technology, GaussianDistribution>> {
 
     @Override
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
-        for (KeyedVariable<Player, GaussianDistribution> playerSkillVariable : getInputVariables()) {
-            KeyedVariable<Player, GaussianDistribution> playerPerformance =
-                    createOutputVariable(playerSkillVariable.getKey());
+        for (List<KeyedVariable<Technology, GaussianDistribution>> technologySkills : getInputVariables()) {
+            List<KeyedVariable<Technology, GaussianDistribution>> technologyPlayerPerformances = new ArrayList<>();
 
-            addLayerFactor(createLikelihood(playerSkillVariable, playerPerformance, gameInfo));
+            for (KeyedVariable<Technology,GaussianDistribution> technologySkill : technologySkills) {
 
-            addToOutputVariables(playerPerformance);
+                KeyedVariable<Technology, GaussianDistribution> playerTechnologyPerformance =
+                        createOutputVariable(technologySkill.getKey());
+
+                addLayerFactor(createLikelihood(technologySkill, playerTechnologyPerformance, gameInfo));
+
+                technologyPlayerPerformances.add(playerTechnologyPerformance);
+            }
+
+            addToOutputVariables(technologyPlayerPerformances);
         }
     }
 
-    private GaussianLikelihoodFactor createLikelihood(KeyedVariable<Player, GaussianDistribution> playerSkill,
-                                                      KeyedVariable<Player, GaussianDistribution> playerPerformance,
+    private GaussianLikelihoodFactor createLikelihood(KeyedVariable<Technology, GaussianDistribution> playerTechnologySkill,
+                                                      KeyedVariable<Technology, GaussianDistribution> playerTechnologyPerformance,
                                                       GameInfo gameInfo) {
-        return new GaussianLikelihoodFactor(square(gameInfo.getBeta()), playerPerformance, playerSkill);
+        return new GaussianLikelihoodFactor(square(gameInfo.getBeta()), playerTechnologyPerformance, playerTechnologySkill);
     }
 
-    private KeyedVariable<Player, GaussianDistribution> createOutputVariable(Player key) {
+    private KeyedVariable<Technology, GaussianDistribution> createOutputVariable(Technology key) {
         return new KeyedVariable<>(
                 key,
                 String.format("%s's performance", key),

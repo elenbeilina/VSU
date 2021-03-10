@@ -47,7 +47,7 @@ public abstract class Factor<TValue> {
     /// Resets the marginal of the variables a factor is connected to
     public void resetMarginals() {
         for (Variable<TValue> currentVariable : messageToVariableBinding.values()) {
-            currentVariable.ResetToPrior();
+            currentVariable.resetToPrior();
         }
     }
 

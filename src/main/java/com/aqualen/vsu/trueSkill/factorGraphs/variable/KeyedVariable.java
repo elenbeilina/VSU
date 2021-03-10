@@ -11,7 +11,7 @@ public class KeyedVariable<TKey, TValue> extends Variable<TValue> {
     private TKey key;
 
     public KeyedVariable(TKey key, String name, TValue prior) {
-        super(name, prior);
+        super(prior, name);
         this.key = key;
     }
 }
