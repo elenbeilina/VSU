@@ -1,12 +1,14 @@
 package com.aqualen.vsu.dto;
 
 import com.aqualen.vsu.entity.Participants;
+import com.aqualen.vsu.entity.Technology;
 import com.aqualen.vsu.entity.Tournament;
-import com.aqualen.vsu.enums.TournamentLabel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class TournamentForParticipant {
     private Long tournamentId;
     private String tournamentName;
-    private TournamentLabel label;
+    private List<Technology> technologies;
     private String task;
     private long grade;
 
@@ -24,7 +26,7 @@ public class TournamentForParticipant {
         return TournamentForParticipant.builder()
                 .tournamentId(tournament.getId())
                 .tournamentName(tournament.getName())
-                .label(tournament.getLabel())
+                .technologies(tournament.getTechnologies())
                 .task(from.getTask())
                 .grade(from.getGrade())
                 .build();

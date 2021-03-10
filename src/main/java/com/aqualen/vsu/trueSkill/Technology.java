@@ -1,6 +1,6 @@
 package com.aqualen.vsu.trueSkill;
 
-import com.aqualen.vsu.enums.TournamentLabel;
+import com.aqualen.vsu.enums.TechnologyName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Technology {
-    private TournamentLabel language;
+    private TechnologyName language;
     private Rating rating;
     private int percent;
 

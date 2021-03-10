@@ -1,6 +1,5 @@
 package com.aqualen.vsu.entity;
 
-import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -52,5 +52,9 @@ public class Tournament {
     @NotNull
     private TournamentStatus status;
 
-    private TournamentLabel label;
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private List<Technology> technologies;
+
+
 }
