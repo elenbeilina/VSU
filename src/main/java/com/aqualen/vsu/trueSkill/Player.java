@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -16,6 +17,10 @@ public class Player implements Comparable<Player> {
     private User user;
     private List<Technology> skills;
     private int rank;
+
+    public void emptySkills(){
+        setSkills(new ArrayList<>());
+    }
 
     @Override
     public int compareTo(Player o) {

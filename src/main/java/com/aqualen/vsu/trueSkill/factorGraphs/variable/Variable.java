@@ -8,16 +8,15 @@ import lombok.NoArgsConstructor;
 public class Variable<T> {
     private String name;
     private T prior;
-
-    public Variable(String name, T prior) {
-        this.name = "Variable[" + name + "]";
-        this.prior = prior;
-        ResetToPrior();
-    }
-
     public T value;
 
-    public void ResetToPrior() {
+    public Variable(T prior, String name, Object... args) {
+        this.name = "Variable[" + String.format(name, args) + "]";
+        this.prior = prior;
+        resetToPrior();
+    }
+
+    public void resetToPrior() {
         value = prior;
     }
 

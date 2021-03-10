@@ -18,11 +18,11 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
 
     // This following is used for convenience, for example, the first entry is [0, 1, 2]
     // corresponding to v[0] = a1*v[1] + a2*v[2]
-    private double[][] weights;
-    private double[][] weightsSquared;
+    private final double[][] weights;
+    private final double[][] weightsSquared;
 
     public GaussianWeightedSumFactor(Variable<GaussianDistribution> sumVariable,
-                                     List<Variable<GaussianDistribution>> variablesToSum,
+                                     List<? extends Variable<GaussianDistribution>> variablesToSum,
                                      double[] variableWeights) {
         super(createName(sumVariable, variablesToSum, variableWeights));
         weights = new double[variableWeights.length + 1][];
@@ -188,7 +188,7 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
     }
 
     private static String createName(Variable<GaussianDistribution> sumVariable,
-                                     List<Variable<GaussianDistribution>> variablesToSum, double[] weights) {
+                                     List<? extends Variable<GaussianDistribution>> variablesToSum, double[] weights) {
         StringBuilder sb = new StringBuilder();
         sb.append(sumVariable.toString());
         sb.append(" = ");
