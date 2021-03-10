@@ -4,9 +4,8 @@ import com.aqualen.vsu.trueSkill.factorGraphs.FactorGraphLayerBase;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleSequence;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
-import com.aqualen.vsu.trueSkill.layers.IteratedPlayerDifferencesInnerLayer;
-import com.aqualen.vsu.trueSkill.layers.PlayerPriorValuesToSkillsLayer;
-import com.aqualen.vsu.trueSkill.layers.PlayerSkillsToPerformancesLayer;
+import com.aqualen.vsu.trueSkill.layers.PlayerTechnologyKnowledgePriorValuesToSkillsLayer;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,16 +13,11 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class TrueSkillFactorGraph {
 
     private final List<FactorGraphLayerBase> layers;
-    private final PlayerPriorValuesToSkillsLayer priorLayer;
-
-    public TrueSkillFactorGraph(PlayerPriorValuesToSkillsLayer priorLayer, PlayerSkillsToPerformancesLayer performancesLayer,
-                                IteratedPlayerDifferencesInnerLayer iteratedPlayerDifferencesLayer) {
-        this.layers = List.of(priorLayer, performancesLayer, iteratedPlayerDifferencesLayer);
-        this.priorLayer = priorLayer;
-    }
+    private final PlayerTechnologyKnowledgePriorValuesToSkillsLayer priorLayer;
 
     public void buildGraph(GameInfo gameInfo, List<Player> players) {
         Object lastOutput = null;
@@ -68,16 +62,20 @@ public class TrueSkillFactorGraph {
         return new ScheduleSequence("Full schedule", fullSchedule);
     }
 
-    public List<Player> getUpdatedRatings() {
-        List<Player> result = new ArrayList<>();
+    public List<Player> getUpdatedRatings(List<Player> players) {
+        List<List<KeyedVariable<Technology, GaussianDistribution>>> outputVariables = priorLayer.getOutputVariables();
+        for (int i = 0; i < outputVariables.size(); i++) {
+            List<Technology> skills = new ArrayList<>();
+            for (KeyedVariable<Technology, GaussianDistribution> technologyKnowledge : outputVariables.get(i)) {
+                final Rating rating = new Rating(technologyKnowledge.getValue().getMean(),
+                        technologyKnowledge.getValue().getStandardDeviation());
+                Technology technology = technologyKnowledge.getKey();
+                technology.setRating(rating);
 
-        for (KeyedVariable<Player, GaussianDistribution> currentPlayer : priorLayer.getOutputVariables()) {
-            Rating rating = new Rating(currentPlayer.getValue().getMean(), currentPlayer.getValue().getStandardDeviation());
-            Player player = currentPlayer.getKey();
-            player.setRating(rating);
-            result.add(player);
+                skills.add(technology);
+            }
+            players.get(i).setSkills(skills);
         }
-
-        return result;
+        return players;
     }
 }

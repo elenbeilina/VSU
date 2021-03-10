@@ -20,6 +20,6 @@ public class TrueSkillCalculator {
         trueSkillFactorGraph.buildGraph(gameInfo, players);
         trueSkillFactorGraph.runSchedule();
 
-        return trueSkillFactorGraph.getUpdatedRatings();
+        return trueSkillFactorGraph.getUpdatedRatings(players);
     }
 }

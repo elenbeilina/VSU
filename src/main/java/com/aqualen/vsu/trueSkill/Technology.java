@@ -15,6 +15,10 @@ public class Technology {
     private Rating rating;
     private int percent;
 
+    public int getPercent(){
+        return percent == 0 ? 1 : percent;
+    }
+
     @Override
     public String toString() {
         return language.toString();

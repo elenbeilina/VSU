@@ -18,10 +18,6 @@ public class Player implements Comparable<Player> {
     private List<Technology> skills;
     private int rank;
 
-    public void emptySkills(){
-        setSkills(new ArrayList<>());
-    }
-
     @Override
     public int compareTo(Player o) {
         return rank - o.getRank();
