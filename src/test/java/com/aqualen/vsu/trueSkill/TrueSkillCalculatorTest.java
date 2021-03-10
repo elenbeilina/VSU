@@ -103,6 +103,42 @@ class TrueSkillCalculatorTest {
         assertRating(15.636864294158848, 6.136152879829349, player5NewRating);
     }
 
+    @Test
+    void TwoOnTwoUpsetTest() {
+        Player player1 = Player.builder()
+                .user(User.builder().id(1).build())
+                .rank(1)
+                .skills(List.of(Technology.builder().language(TournamentLabel.JAVA).rating(new Rating(20, 8)).build(),
+                        Technology.builder().language(TournamentLabel.PYTHON).rating(new Rating(25, 6)).build()))
+                .build();
+
+        Player player2 = Player.builder()
+                .user(User.builder().id(2).build())
+                .rank(2)
+                .skills(List.of(Technology.builder().language(TournamentLabel.JAVA).rating(new Rating(35, 7)).build(),
+                        Technology.builder().language(TournamentLabel.PYTHON).rating(new Rating(40, 5)).build()))
+                .build();
+
+
+        GameInfo gameInfo = new GameInfo();
+
+
+        List<Player> result = trueSkillCalculator.calculateNewRatings(gameInfo, new ArrayList<>() {{
+            add(player1);
+            add(player2);
+        }});
+
+        assertThat(result).isNotNull();
+
+        // Winner
+        assertRating(29.698, 7.008, result.get(0).getSkills().get(0).getRating());
+        assertRating(30.455, 5.594, result.get(0).getSkills().get(1).getRating());
+
+        // Loser
+        assertRating(27.575, 6.346, result.get(1).getSkills().get(0).getRating());
+        assertRating(36.211, 4.768, result.get(1).getSkills().get(1).getRating());
+    }
+
     private static void assertRating(double expectedMean, double expectedStandardDeviation, Rating actual) {
         assertEquals(actual.getMean(), expectedMean, ErrorTolerance);
         assertEquals(actual.getStandardDeviation(), expectedStandardDeviation, ErrorTolerance);
