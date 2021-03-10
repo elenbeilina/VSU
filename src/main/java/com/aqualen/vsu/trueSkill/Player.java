@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -21,13 +20,6 @@ public class Player implements Comparable<Player> {
     @Override
     public int compareTo(Player o) {
         return rank - o.getRank();
-    }
-
-    public static User getUserWithUpdatedRating(Player from){
-        User user = from.getUser();
-//        user.setRating(from.getRating().getConservativeRating());
-
-        return user;
     }
 
     @Override

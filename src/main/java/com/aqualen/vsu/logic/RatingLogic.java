@@ -38,15 +38,12 @@ public class RatingLogic {
                 .reversed());
     }
 
+    //TODO: finish logic
     public void rateUsers(List<ParticipantResponse> requests) {
         List<Player> players = requests.stream()
                 .map(ParticipantResponse::toPlayer)
                 .collect(Collectors.toList());
 
         trueSkillCalculator.calculateNewRatings(new GameInfo(), players);
-
-        userRepository.saveAll(players.stream()
-                .map(Player::getUserWithUpdatedRating)
-                .collect(Collectors.toList()));
     }
 }

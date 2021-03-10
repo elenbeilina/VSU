@@ -1,7 +1,7 @@
 package com.aqualen.vsu.trueSkill;
 
 import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.enums.TournamentLabel;
+import com.aqualen.vsu.enums.TechnologyName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +31,7 @@ class TrueSkillCalculatorTest {
             players.add(Player.builder()
                     .user(User.builder().id(i).build())
                     .rank(i)
-                    .skills(Collections.singletonList(Technology.builder().language(TournamentLabel.JAVA).rating(gameInfo.getDefaultRating()).build()))
+                    .skills(Collections.singletonList(Technology.builder().language(TechnologyName.JAVA).rating(gameInfo.getDefaultRating()).build()))
                     .build());
         }
 
@@ -56,7 +56,7 @@ class TrueSkillCalculatorTest {
             players.add(Player.builder()
                     .user(User.builder().id(i).build())
                     .rank(i)
-                    .skills(Collections.singletonList(Technology.builder().language(TournamentLabel.JAVA).rating(gameInfo.getDefaultRating()).build()))
+                    .skills(Collections.singletonList(Technology.builder().language(TechnologyName.JAVA).rating(gameInfo.getDefaultRating()).build()))
                     .build());
         }
 
@@ -83,7 +83,7 @@ class TrueSkillCalculatorTest {
             players.add(Player.builder()
                     .user(User.builder().id(i).build())
                     .rank(i)
-                    .skills(Collections.singletonList(Technology.builder().language(TournamentLabel.JAVA).rating(gameInfo.getDefaultRating()).build()))
+                    .skills(Collections.singletonList(Technology.builder().language(TechnologyName.JAVA).rating(gameInfo.getDefaultRating()).build()))
                     .build());
         }
 
@@ -108,15 +108,15 @@ class TrueSkillCalculatorTest {
         Player player1 = Player.builder()
                 .user(User.builder().id(1).build())
                 .rank(1)
-                .skills(List.of(Technology.builder().language(TournamentLabel.JAVA).rating(new Rating(20, 8)).build(),
-                        Technology.builder().language(TournamentLabel.PYTHON).rating(new Rating(25, 6)).build()))
+                .skills(List.of(Technology.builder().language(TechnologyName.JAVA).rating(new Rating(20, 8)).build(),
+                        Technology.builder().language(TechnologyName.PYTHON).rating(new Rating(25, 6)).build()))
                 .build();
 
         Player player2 = Player.builder()
                 .user(User.builder().id(2).build())
                 .rank(2)
-                .skills(List.of(Technology.builder().language(TournamentLabel.JAVA).rating(new Rating(35, 7)).build(),
-                        Technology.builder().language(TournamentLabel.PYTHON).rating(new Rating(40, 5)).build()))
+                .skills(List.of(Technology.builder().language(TechnologyName.JAVA).rating(new Rating(35, 7)).build(),
+                        Technology.builder().language(TechnologyName.PYTHON).rating(new Rating(40, 5)).build()))
                 .build();
 
 
