@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -43,11 +43,13 @@ public class User {
     private String description;
     private String password;
 
-    private double rating;
     private LocalDate birthday;
     private String picture;
     private String vk;
     private String facebook;
     private String instagram;
     private String twitter;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<RatingByTechnology> ratings;
 }
