@@ -10,6 +10,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.stream.Collectors;
+
+import static com.aqualen.vsu.trueSkill.Technology.toTechnology;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -19,7 +23,7 @@ public class ParticipantResponse {
     private int grade;
     private String task;
 
-    public static Participants toEntity(ParticipantResponse from, long tournamentId){
+    public static Participants toEntity(ParticipantResponse from, long tournamentId) {
         return Participants.builder()
                 .id(new ParticipantKey(tournamentId, from.user.getId()))
                 .user(from.user)
@@ -29,9 +33,12 @@ public class ParticipantResponse {
                 .build();
     }
 
-    public static Player toPlayer(ParticipantResponse from){
+    public static Player toPlayer(ParticipantResponse from, Tournament tournament) {
         return Player.builder()
                 .user(from.user)
+                .skills(tournament.getTechnologies().stream()
+                        .map(technology -> toTechnology(technology, from.user.getRatings()))
+                        .collect(Collectors.toList()))
                 .rank(from.grade).build();
     }
 }
