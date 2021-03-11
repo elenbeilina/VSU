@@ -65,6 +65,6 @@ public class ParticipantsService {
                 .map(participant -> toEntity(participant, tournamentId))
                 .collect(Collectors.toList()));
 
-        logic.rateUsers(participantList);
+        logic.rateUsers(tournamentId,participantList);
     }
 }
