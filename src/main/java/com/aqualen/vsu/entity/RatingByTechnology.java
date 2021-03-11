@@ -2,6 +2,7 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.trueSkill.Rating;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,13 +25,13 @@ public class RatingByTechnology {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private TechnologyName technology;
-    private Integer mean;
-    private Integer deviation;
+    private Double mean;
+    private Double deviation;
     private Double rating;
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
+    @JsonBackReference
     private User user;
 
     @PrePersist
@@ -39,5 +40,16 @@ public class RatingByTechnology {
         if (Objects.nonNull(mean) && Objects.nonNull(deviation)) {
             setRating(new Rating(mean, deviation).getConservativeRating());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "RatingByTechnology{" +
+                "id=" + id +
+                ", technology=" + technology +
+                ", mean=" + mean +
+                ", deviation=" + deviation +
+                ", rating=" + rating +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.UserRole;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,6 +51,7 @@ public class User {
     private String instagram;
     private String twitter;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RatingByTechnology> ratings;
 }
