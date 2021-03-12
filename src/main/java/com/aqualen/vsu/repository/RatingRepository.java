@@ -1,6 +1,7 @@
 package com.aqualen.vsu.repository;
 
 import com.aqualen.vsu.entity.RatingByTechnology;
+import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.enums.UserRole;
 import org.springframework.data.domain.Pageable;
@@ -10,4 +11,6 @@ import java.util.List;
 
 public interface RatingRepository extends JpaRepository<RatingByTechnology, Long> {
     List<RatingByTechnology> findByTechnologyAndUserRoleOrderByRating(TechnologyName technologyName, UserRole userRole, Pageable pageable);
+
+    boolean existsByTechnologyAndUser(TechnologyName technology, User user);
 }

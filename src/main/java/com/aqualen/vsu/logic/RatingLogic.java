@@ -2,6 +2,8 @@ package com.aqualen.vsu.logic;
 
 import com.aqualen.vsu.dto.ParticipantResponse;
 import com.aqualen.vsu.entity.RatingByTechnology;
+import com.aqualen.vsu.entity.Technology;
+import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.enums.UserRole;
@@ -10,6 +12,7 @@ import com.aqualen.vsu.repository.TournamentRepository;
 import com.aqualen.vsu.repository.UserRepository;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.Player;
+import com.aqualen.vsu.trueSkill.Rating;
 import com.aqualen.vsu.trueSkill.TrueSkillCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -36,8 +39,14 @@ public class RatingLogic {
     }
 
     public void rateUsers(long tournamentId, List<ParticipantResponse> requests) {
+        Tournament tournament = tournamentRepository.getOne(tournamentId);
+
+        requests.stream()
+                .map(ParticipantResponse::getUser)
+                .forEach(user -> addDefaultRatingIfNeeded(tournament, user));
+
         List<Player> players = requests.stream()
-                .map(player -> toPlayer(player, tournamentRepository.getOne(tournamentId)))
+                .map(player -> toPlayer(player, tournament))
                 .collect(Collectors.toList());
 
         trueSkillCalculator.calculateNewRatings(new GameInfo(), players);
@@ -46,5 +55,26 @@ public class RatingLogic {
                 .map(Player::getUserWithUpdatedRating)
                 .collect(Collectors.toList());
         userRepository.saveAll(usersWithUpdatedRating);
+    }
+
+    void addDefaultRatingIfNeeded(Tournament tournament, User user) {
+        List<RatingByTechnology> defaultRatings = tournament
+                .getTechnologies().stream()
+                .map(Technology::getTechnology)
+                .filter(technology -> !ratingRepository.existsByTechnologyAndUser(technology, user))
+                .map(technology -> getDefaultRating(technology, user))
+                .collect(Collectors.toList());
+
+        ratingRepository.saveAll(defaultRatings);
+    }
+
+    private RatingByTechnology getDefaultRating(TechnologyName technology, User user) {
+        Rating rating = new GameInfo().getDefaultRating();
+        return RatingByTechnology.builder()
+                        .user(user)
+                        .technology(technology)
+                        .deviation(rating.getStandardDeviation())
+                        .mean(rating.getMean())
+                        .build();
     }
 }

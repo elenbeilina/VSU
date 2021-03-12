@@ -3,7 +3,6 @@ package com.aqualen.vsu.entity;
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.trueSkill.Rating;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,7 +35,7 @@ public class RatingByTechnology {
 
     @PrePersist
     @PreUpdate
-    public void generateRating(){
+    public void generateRating() {
         if (Objects.nonNull(mean) && Objects.nonNull(deviation)) {
             setRating(new Rating(mean, deviation).getConservativeRating());
         }

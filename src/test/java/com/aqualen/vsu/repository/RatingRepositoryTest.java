@@ -1,8 +1,6 @@
 package com.aqualen.vsu.repository;
 
 import com.aqualen.vsu.entity.RatingByTechnology;
-import com.aqualen.vsu.entity.Technology;
-import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.UserRole;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,11 +16,9 @@ import java.util.List;
 
 import static com.aqualen.vsu.enums.TechnologyName.JAVA;
 import static com.aqualen.vsu.enums.TechnologyName.PYTHON;
-import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
-import static java.time.LocalDate.now;
-import static java.time.LocalDate.parse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
@@ -52,7 +48,7 @@ class RatingRepositoryTest {
     }
 
     @Test
-    void checkPageable(){
+    void checkPageable() {
         PageRequest request = PageRequest.of(0, 1);
         List<RatingByTechnology> result = repository.findByTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
 
@@ -67,5 +63,13 @@ class RatingRepositoryTest {
         rating.setDeviation(2.0);
         repository.saveAndFlush(rating);
         assertThat(rating.getRating()).isNotEqualTo(23);
+    }
+
+    @Test
+    void existsByTechnologyAndUserId() {
+        User user = User.builder().id(2L).build();
+        assertTrue(repository.existsByTechnologyAndUser(JAVA, user));
+
+        assertFalse(repository.existsByTechnologyAndUser(PYTHON, user));
     }
 }

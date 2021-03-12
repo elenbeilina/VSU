@@ -21,11 +21,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static com.aqualen.vsu.dto.ParticipantResponse.toPlayer;
 import static com.aqualen.vsu.enums.TechnologyName.JAVA;
+import static com.aqualen.vsu.enums.TechnologyName.JS;
 import static com.aqualen.vsu.trueSkill.Player.getUserWithUpdatedRating;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,9 +52,10 @@ class RatingLogicTest {
 
     @Captor
     ArgumentCaptor<List<User>> users;
-
     @Captor
     ArgumentCaptor<List<Player>> players;
+    @Captor
+    ArgumentCaptor<List<RatingByTechnology>> ratingCapture;
 
     private ParticipantResponse rateRequest;
     private Tournament tournament;
@@ -65,8 +68,8 @@ class RatingLogicTest {
         user.setRatings(rating);
         rateRequest = new ParticipantResponse(user, 1, "1");
 
-        tournament = Tournament.builder().technologies(Collections.singletonList(Technology.builder()
-                .technology(JAVA).percent(100).build())).build();
+        tournament = Tournament.builder().technologies(new ArrayList<>(){{add(Technology.builder()
+                .technology(JAVA).percent(100).build());}}).build();
     }
 
     @Test
@@ -111,5 +114,21 @@ class RatingLogicTest {
         verify(userRepository).saveAll(users.capture());
         List<User> userList = users.getValue();
         assertThat(userList.get(0).getRatings()).hasSize(2);
+    }
+
+    @Test
+    void addDefaultRating() {
+        tournament.getTechnologies().add(Technology.builder().technology(JS).build());
+        when(ratingRepository.existsByTechnologyAndUser(any(),any()))
+                .thenReturn(true)
+                .thenReturn(false);
+        logic.addDefaultRatingIfNeeded(tournament, rateRequest.getUser());
+
+        verify(ratingRepository).saveAll(ratingCapture.capture());
+        List<RatingByTechnology> result = ratingCapture.getValue();
+
+        assertThat(result).hasSize(1);
+        assert result.get(0).getMean() == 25;
+        assert result.get(0).getTechnology() == JS;
     }
 }
