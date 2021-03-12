@@ -17,7 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Technology {
     @EmbeddedId
-    private TechnologyKey key;
+    private Key key;
     private Integer percent;
 
     @Getter
@@ -26,7 +26,7 @@ public class Technology {
     @EqualsAndHashCode
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class TechnologyKey implements Serializable {
+    public static class Key implements Serializable {
         @ManyToOne
         @JoinColumn(name = "tournament_id")
         @JsonBackReference

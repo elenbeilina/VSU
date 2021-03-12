@@ -34,12 +34,12 @@ class TournamentRepositoryTest {
         for (int i = 1; i <= 2; i++) {
             Tournament tournament = Tournament.builder()
                     .name("tournament" + i)
-                    .technologies(Collections.singletonList(Technology.builder().key(Technology.TechnologyKey.builder().technology(JAVA).build()).build()))
+                    .technologies(Collections.singletonList(Technology.builder().key(Technology.Key.builder().technology(JAVA).build()).build()))
                     .status(CREATED)
                     .startDate(now())
                     .endDate(now())
                     .sponsorId(1).build();
-            tournament.setTechnologies(Collections.singletonList(Technology.builder().key(Technology.TechnologyKey.builder().technology(JAVA).tournament(tournament).build()).build()));
+            tournament.setTechnologies(Collections.singletonList(Technology.builder().key(Technology.Key.builder().technology(JAVA).tournament(tournament).build()).build()));
             testEntityManager.persistAndFlush(tournament);
         }
     }

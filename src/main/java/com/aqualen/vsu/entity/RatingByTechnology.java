@@ -3,13 +3,11 @@ package com.aqualen.vsu.entity;
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.trueSkill.Rating;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Data
@@ -20,18 +18,11 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RatingByTechnology {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private TechnologyName technology;
+    @EmbeddedId
+    private Key key;
     private Double mean;
     private Double deviation;
     private Double rating;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private User user;
 
     @PrePersist
     @PreUpdate
@@ -41,11 +32,31 @@ public class RatingByTechnology {
         }
     }
 
+    public User getUser() {
+        return key.user;
+    }
+
+    public TechnologyName getTechnology() {
+        return key.technology;
+    }
+
+    @Embeddable
+    @Builder
+    @EqualsAndHashCode
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Key implements Serializable {
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        @JsonBackReference
+        private User user;
+        private TechnologyName technology;
+    }
+
     @Override
     public String toString() {
         return "RatingByTechnology{" +
-                "id=" + id +
-                ", technology=" + technology +
+                ", technology=" + key.technology +
                 ", mean=" + mean +
                 ", deviation=" + deviation +
                 ", rating=" + rating +

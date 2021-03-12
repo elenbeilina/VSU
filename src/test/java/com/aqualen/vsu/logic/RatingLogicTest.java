@@ -5,7 +5,6 @@ import com.aqualen.vsu.entity.RatingByTechnology;
 import com.aqualen.vsu.entity.Technology;
 import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.entity.User;
-import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.repository.RatingRepository;
 import com.aqualen.vsu.repository.TournamentRepository;
 import com.aqualen.vsu.repository.UserRepository;
@@ -26,8 +25,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static com.aqualen.vsu.dto.ParticipantResponse.toPlayer;
-import static com.aqualen.vsu.enums.TechnologyName.JAVA;
-import static com.aqualen.vsu.enums.TechnologyName.JS;
+import static com.aqualen.vsu.enums.TechnologyName.*;
 import static com.aqualen.vsu.trueSkill.Player.getUserWithUpdatedRating;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -63,13 +61,13 @@ class RatingLogicTest {
     @BeforeEach
     void setUp() {
         User user = User.builder().id(1).build();
-        List<RatingByTechnology> rating = List.of(RatingByTechnology.builder().technology(JAVA).deviation(21.0).mean(2.0).user(user).build(),
-                RatingByTechnology.builder().technology(TechnologyName.PYTHON).deviation(11.0).mean(3.0).user(user).build());
+        List<RatingByTechnology> rating = List.of(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(JAVA).user(user).build()).deviation(21.0).mean(2.0).build(),
+                RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(PYTHON).user(user).build()).deviation(11.0).mean(3.0).build());
         user.setRatings(rating);
         rateRequest = new ParticipantResponse(user, 1, "1");
 
         tournament = Tournament.builder().technologies(new ArrayList<>(){{add(Technology.builder()
-                .key(Technology.TechnologyKey.builder().technology(JAVA).build()).percent(100).build());}}).build();
+                .key(Technology.Key.builder().technology(JAVA).build()).percent(100).build());}}).build();
     }
 
     @Test
@@ -118,8 +116,8 @@ class RatingLogicTest {
 
     @Test
     void addDefaultRating() {
-        tournament.getTechnologies().add(Technology.builder().key(Technology.TechnologyKey.builder().technology(JS).build()).build());
-        when(ratingRepository.existsByTechnologyAndUser(any(),any()))
+        tournament.getTechnologies().add(Technology.builder().key(Technology.Key.builder().technology(JS).build()).build());
+        when(ratingRepository.existsByKeyTechnologyAndKeyUser(any(),any()))
                 .thenReturn(true)
                 .thenReturn(false);
         logic.addDefaultRatingIfNeeded(tournament, rateRequest.getUser());

@@ -33,7 +33,7 @@ public class RatingLogic {
     private final UserRepository userRepository;
 
     public List<User> getUsersList(TechnologyName name, Pageable page) {
-        return ratingRepository.findByTechnologyAndUserRoleOrderByRating(name, UserRole.USER, page)
+        return ratingRepository.findByKeyTechnologyAndKeyUserRoleOrderByRating(name, UserRole.USER, page)
                 .stream().map(RatingByTechnology::getUser)
                 .collect(Collectors.toList());
     }
@@ -61,7 +61,7 @@ public class RatingLogic {
         List<RatingByTechnology> defaultRatings = tournament
                 .getTechnologies().stream()
                 .map(Technology::getTechnology)
-                .filter(technology -> !ratingRepository.existsByTechnologyAndUser(technology, user))
+                .filter(technology -> !ratingRepository.existsByKeyTechnologyAndKeyUser(technology, user))
                 .map(technology -> getDefaultRating(technology, user))
                 .collect(Collectors.toList());
 
@@ -71,8 +71,9 @@ public class RatingLogic {
     private RatingByTechnology getDefaultRating(TechnologyName technology, User user) {
         Rating rating = new GameInfo().getDefaultRating();
         return RatingByTechnology.builder()
-                        .user(user)
-                        .technology(technology)
+                        .key(RatingByTechnology.Key.builder()
+                                .user(user)
+                                .technology(technology).build())
                         .deviation(rating.getStandardDeviation())
                         .mean(rating.getMean())
                         .build();

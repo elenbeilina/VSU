@@ -52,6 +52,6 @@ public class User {
     private String twitter;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "key.user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RatingByTechnology> ratings;
 }

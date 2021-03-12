@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RatingRepository extends JpaRepository<RatingByTechnology, Long> {
-    List<RatingByTechnology> findByTechnologyAndUserRoleOrderByRating(TechnologyName technologyName, UserRole userRole, Pageable pageable);
+public interface RatingRepository extends JpaRepository<RatingByTechnology, RatingByTechnology.Key> {
+    List<RatingByTechnology> findByKeyTechnologyAndKeyUserRoleOrderByRating(TechnologyName technologyName, UserRole userRole, Pageable pageable);
 
-    boolean existsByTechnologyAndUser(TechnologyName technology, User user);
+    boolean existsByKeyTechnologyAndKeyUser(TechnologyName technology, User user);
 }

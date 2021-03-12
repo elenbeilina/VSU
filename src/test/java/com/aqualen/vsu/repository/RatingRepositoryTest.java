@@ -33,16 +33,16 @@ class RatingRepositoryTest {
     void setUp() {
         for (double i = 1; i <= 2; i++) {
             User user = User.builder().username("user" + i).firstName("user" + i).studentBookId(String.valueOf(i)).role(UserRole.USER).build();
-            user.setRatings(Collections.singletonList(RatingByTechnology.builder().deviation(i).technology(JAVA).mean(i + 25).user(user).build()));
+            user.setRatings(Collections.singletonList(RatingByTechnology.builder().deviation(i).key(RatingByTechnology.Key.builder().technology(JAVA).user(user).build()).mean(i + 25).build()));
             testEntityManager.persistAndFlush(user);
-            testEntityManager.persistAndFlush(RatingByTechnology.builder().technology(PYTHON).user(User.builder().id(1L).build()).build());
         }
+        testEntityManager.persistAndFlush(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(PYTHON).user(User.builder().id(1L).build()).build()).build());
     }
 
     @Test
     void findByTechnologyOrderByRating() {
         PageRequest request = PageRequest.of(0, 2);
-        List<RatingByTechnology> result = repository.findByTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
+        List<RatingByTechnology> result = repository.findByKeyTechnologyAndKeyUserRoleOrderByRating(JAVA, UserRole.USER, request);
 
         assertThat(result).hasSize(2);
     }
@@ -50,14 +50,14 @@ class RatingRepositoryTest {
     @Test
     void checkPageable() {
         PageRequest request = PageRequest.of(0, 1);
-        List<RatingByTechnology> result = repository.findByTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
+        List<RatingByTechnology> result = repository.findByKeyTechnologyAndKeyUserRoleOrderByRating(JAVA, UserRole.USER, request);
 
         assertThat(result).hasSize(1);
     }
 
     @Test
     void checkRating() {
-        RatingByTechnology rating = repository.getOne(1L);
+        RatingByTechnology rating = repository.getOne(RatingByTechnology.Key.builder().user(User.builder().id(1).build()).technology(JAVA).build());
         assertThat(rating.getRating()).isEqualTo(23);
 
         rating.setDeviation(2.0);
@@ -68,8 +68,8 @@ class RatingRepositoryTest {
     @Test
     void existsByTechnologyAndUserId() {
         User user = User.builder().id(2L).build();
-        assertTrue(repository.existsByTechnologyAndUser(JAVA, user));
+        assertTrue(repository.existsByKeyTechnologyAndKeyUser(JAVA, user));
 
-        assertFalse(repository.existsByTechnologyAndUser(PYTHON, user));
+        assertFalse(repository.existsByKeyTechnologyAndKeyUser(PYTHON, user));
     }
 }
