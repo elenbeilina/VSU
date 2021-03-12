@@ -1,32 +1,52 @@
 package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TechnologyName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
-@Table(name = "technology",schema="vsu")
+@Table(name = "technology", schema = "vsu")
 @DynamicUpdate
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Technology {
-    @Id
-    @Column(name = "tournament_id")
-    private Long id;
-    private TechnologyName technology;
+    @EmbeddedId
+    private TechnologyKey key;
     private Integer percent;
 
-    @ManyToOne
-    @MapsId
-    @JoinColumn(name = "tournament_id")
-    @JsonIgnore
-    private Tournament tournament;
+    @Getter
+    @Embeddable
+    @Builder
+    @EqualsAndHashCode
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class TechnologyKey implements Serializable {
+        @ManyToOne
+        @JoinColumn(name = "tournament_id")
+        @JsonBackReference
+        private Tournament tournament;
+        private TechnologyName technology;
+    }
+
+    public TechnologyName getTechnology() {
+        return key.technology;
+    }
+
+    public void setTournament(Tournament tournament){
+        key.tournament = tournament;
+    }
+
+    @Override
+    public String toString() {
+        return "Technology{" +
+                "key=" + key +
+                ", percent=" + percent +
+                '}';
+    }
 }

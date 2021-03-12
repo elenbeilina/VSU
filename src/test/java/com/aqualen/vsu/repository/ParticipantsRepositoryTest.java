@@ -36,7 +36,7 @@ class ParticipantsRepositoryTest {
                 .startDate(now())
                 .endDate(now())
                 .sponsorId(1).build();
-        tournament.setTechnologies(Collections.singletonList(Technology.builder().tournament(tournament).technology(JAVA).build()));
+        tournament.setTechnologies(Collections.singletonList(Technology.builder().key(Technology.TechnologyKey.builder().tournament(tournament).technology(JAVA).build()).build()));
         testEntityManager.persistAndFlush(tournament);
 
         testEntityManager.flush();

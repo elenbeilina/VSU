@@ -25,7 +25,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
     @SequenceGenerator(name = "seq_user",
-            sequenceName = "vsu.user_seq", allocationSize = 1)
+            sequenceName = "vsu.users_id_seq", allocationSize = 1)
     private long id;
 
     @Column(name = "role_id")

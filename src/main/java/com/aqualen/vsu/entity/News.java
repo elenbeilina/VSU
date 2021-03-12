@@ -19,9 +19,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class News {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_news")
-    @SequenceGenerator(name = "seq_news",
-            sequenceName = "vsu.news_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -21,9 +21,7 @@ import java.time.LocalDate;
 public class Question {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_qa")
-    @SequenceGenerator(name="seq_qa",
-            sequenceName="vsu.question_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)

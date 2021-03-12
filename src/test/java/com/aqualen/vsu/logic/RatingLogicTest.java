@@ -69,7 +69,7 @@ class RatingLogicTest {
         rateRequest = new ParticipantResponse(user, 1, "1");
 
         tournament = Tournament.builder().technologies(new ArrayList<>(){{add(Technology.builder()
-                .technology(JAVA).percent(100).build());}}).build();
+                .key(Technology.TechnologyKey.builder().technology(JAVA).build()).percent(100).build());}}).build();
     }
 
     @Test
@@ -118,7 +118,7 @@ class RatingLogicTest {
 
     @Test
     void addDefaultRating() {
-        tournament.getTechnologies().add(Technology.builder().technology(JS).build());
+        tournament.getTechnologies().add(Technology.builder().key(Technology.TechnologyKey.builder().technology(JS).build()).build());
         when(ratingRepository.existsByTechnologyAndUser(any(),any()))
                 .thenReturn(true)
                 .thenReturn(false);
