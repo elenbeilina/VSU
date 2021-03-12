@@ -1,7 +1,6 @@
 package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TechnologyName;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -29,7 +28,6 @@ public class Technology {
     public static class Key implements Serializable {
         @ManyToOne
         @JoinColumn(name = "tournament_id")
-        @JsonBackReference
         private Tournament tournament;
         private TechnologyName technology;
     }
@@ -38,7 +36,7 @@ public class Technology {
         return key.technology;
     }
 
-    public void setTournament(Tournament tournament){
+    public void setTournament(Tournament tournament) {
         key.tournament = tournament;
     }
 

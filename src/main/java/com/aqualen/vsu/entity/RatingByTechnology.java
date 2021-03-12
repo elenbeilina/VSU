@@ -2,7 +2,7 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.trueSkill.Rating;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -48,7 +48,7 @@ public class RatingByTechnology {
     public static class Key implements Serializable {
         @ManyToOne
         @JoinColumn(name = "user_id")
-        @JsonBackReference
+        @JsonIgnore
         private User user;
         private TechnologyName technology;
     }

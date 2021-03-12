@@ -2,7 +2,6 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TournamentStatus;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -54,6 +53,5 @@ public class Tournament {
     private TournamentStatus status;
 
     @OneToMany(mappedBy = "key.tournament", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonManagedReference
     private List<Technology> technologies;
 }
