@@ -12,8 +12,8 @@ public abstract class Schedule {
 
     public abstract double visit(int depth, int maxDepth);
 
-    public double visit() {
-        return visit(-1, 0);
+    public void visit() {
+        visit(-1, 0);
     }
 }
 
