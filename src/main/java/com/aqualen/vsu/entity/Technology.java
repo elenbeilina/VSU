@@ -1,6 +1,7 @@
 package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TechnologyName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -26,13 +27,15 @@ public class Technology {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Key implements Serializable {
-        @ManyToOne
-        @JoinColumn(name = "tournament_id")
+        @JsonIgnore
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "tournament_id", insertable = false, updatable = false)
         private Tournament tournament;
+
         private TechnologyName technology;
     }
 
-    public TechnologyName getTechnology() {
+    public TechnologyName extractTechnology() {
         return key.technology;
     }
 
@@ -43,7 +46,7 @@ public class Technology {
     @Override
     public String toString() {
         return "Technology{" +
-                "key=" + key +
+                "technology=" + (key == null ? null : key.technology) +
                 ", percent=" + percent +
                 '}';
     }

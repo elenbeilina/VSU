@@ -60,7 +60,7 @@ public class RatingLogic {
     void addDefaultRatingIfNeeded(Tournament tournament, User user) {
         List<RatingByTechnology> defaultRatings = tournament
                 .getTechnologies().stream()
-                .map(Technology::getTechnology)
+                .map(Technology::extractTechnology)
                 .filter(technology -> !ratingRepository.existsByKeyTechnologyAndKeyUser(technology, user))
                 .map(technology -> getDefaultRating(technology, user))
                 .collect(Collectors.toList());

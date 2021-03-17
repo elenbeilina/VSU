@@ -29,12 +29,12 @@ public class Technology {
 
     public static Technology toTechnology(com.aqualen.vsu.entity.Technology technology, List<RatingByTechnology> ratings) {
         RatingByTechnology ratingByTechnology = ratings.stream()
-                .filter(rating -> technologyName.test(rating, technology.getTechnology()))
+                .filter(rating -> technologyName.test(rating, technology.extractTechnology()))
                 .findFirst().get();
 
         return Technology.builder()
                 .rating(new Rating(ratingByTechnology.getMean(), ratingByTechnology.getDeviation()))
-                .language(technology.getTechnology())
+                .language(technology.extractTechnology())
                 .percent(technology.getPercent())
                 .build();
     }

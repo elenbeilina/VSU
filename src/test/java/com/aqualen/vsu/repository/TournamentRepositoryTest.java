@@ -57,6 +57,6 @@ class TournamentRepositoryTest {
 
         assertThat(tournament.getTechnologies()).hasSize(1);
         Technology technology = tournament.getTechnologies().get(0);
-        assertThat(technology.getTechnology()).isEqualTo(JAVA);
+        assertThat(technology.extractTechnology()).isEqualTo(JAVA);
     }
 }
