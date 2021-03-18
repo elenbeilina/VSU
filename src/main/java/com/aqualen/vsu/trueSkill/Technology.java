@@ -17,13 +17,13 @@ import java.util.function.BiPredicate;
 public class Technology {
     private TechnologyName language;
     private Rating rating;
-    private int percent;
+    private double percent;
 
     public static final BiPredicate<RatingByTechnology, TechnologyName> technologyName =
             (ratingByTechnology, technologyName) -> ratingByTechnology.getTechnology() == technologyName;
 
-    public int getPercent() {
-        return percent == 0 ? 1 : percent;
+    public double getPercent() {
+        return percent == 0 ? 1 : percent/100;
     }
 
 

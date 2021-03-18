@@ -22,7 +22,7 @@ public class RatingByTechnology {
     private Key key;
     private Double mean;
     private Double deviation;
-    private Double rating;
+    private Long rating;
 
     @PrePersist
     @PreUpdate

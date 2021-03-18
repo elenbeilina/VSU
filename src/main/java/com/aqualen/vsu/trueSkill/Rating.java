@@ -20,8 +20,8 @@ public class Rating {
     }
 
     /** A conservative estimate of skill based on the mean and standard deviation.*/
-    public double getConservativeRating() {
-        return mean - conservativeStandardDeviationMultiplier * standardDeviation;
+    public long getConservativeRating() {
+        return Math.round(mean - conservativeStandardDeviationMultiplier * standardDeviation);
     }
 
     @Override
