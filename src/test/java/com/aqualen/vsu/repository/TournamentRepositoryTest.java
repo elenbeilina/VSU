@@ -39,7 +39,7 @@ class TournamentRepositoryTest {
                     .startDate(now())
                     .endDate(now())
                     .sponsorId(1).build();
-            tournament.setTechnologies(Collections.singletonList(Technology.builder().key(Technology.Key.builder().technology(JAVA).tournament(tournament).build()).build()));
+            tournament.setTechnologies(Collections.singletonList(Technology.builder().tournament(tournament).key(Technology.Key.builder().technology(JAVA).build()).build()));
             testEntityManager.persistAndFlush(tournament);
         }
     }
@@ -52,7 +52,7 @@ class TournamentRepositoryTest {
     }
 
     @Test
-    void getTechnologies(){
+    void getTechnologies() {
         Tournament tournament = repository.getOne(1L);
 
         assertThat(tournament.getTechnologies()).hasSize(1);

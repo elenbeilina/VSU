@@ -1,7 +1,9 @@
 package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TournamentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,10 +31,6 @@ public class Tournament {
     private String name;
     private String task;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sponsor_id", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private User sponsor;
     @Column(name = "sponsor_id")
     private long sponsorId;
 
@@ -52,6 +50,7 @@ public class Tournament {
     @NotNull
     private TournamentStatus status;
 
-    @OneToMany(mappedBy = "key.tournament", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Technology> technologies;
 }

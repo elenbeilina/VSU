@@ -23,6 +23,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static com.aqualen.vsu.dto.ParticipantResponse.toPlayer;
 import static com.aqualen.vsu.enums.TechnologyName.*;
@@ -61,8 +62,9 @@ class RatingLogicTest {
     @BeforeEach
     void setUp() {
         User user = User.builder().id(1).build();
-        List<RatingByTechnology> rating = List.of(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(JAVA).user(user).build()).deviation(21.0).mean(2.0).build(),
-                RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(PYTHON).user(user).build()).deviation(11.0).mean(3.0).build());
+        List<RatingByTechnology> rating = new ArrayList<>(){{
+            add(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(JAVA).user(user).build()).deviation(21.0).mean(2.0).build());
+               add(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(PYTHON).user(user).build()).deviation(11.0).mean(3.0).build());}};
         user.setRatings(rating);
         rateRequest = new ParticipantResponse(user, 1, "1");
 
@@ -103,6 +105,9 @@ class RatingLogicTest {
     @Test
     void rateUsers() {
         when(tournamentRepository.getOne(anyLong())).thenReturn(tournament);
+        when(userRepository.findById(anyLong())).thenReturn(Optional.of(rateRequest.getUser()));
+        when(ratingRepository.existsByKeyTechnologyAndKeyUser(any(),any()))
+                .thenReturn(true);
         logic.rateUsers(1L, Collections.singletonList(rateRequest));
 
         verify(trueSkillCalculator).calculateNewRatings(any(), players.capture());

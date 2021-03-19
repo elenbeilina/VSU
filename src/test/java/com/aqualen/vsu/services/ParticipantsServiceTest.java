@@ -33,7 +33,7 @@ class ParticipantsServiceTest {
                         .grade(1)
                         .user(User.builder().id(1).build()).build()));
 
-        verify(repository, times(1)).saveAll(anyIterable());
+        verify(repository, times(1)).updateGrade(anyLong(),anyLong(),anyLong());
         verify(logic, times(1)).rateUsers(anyLong(), anyList());
     }
 }
