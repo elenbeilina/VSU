@@ -42,7 +42,7 @@ class ParticipantsRepositoryTest {
         testEntityManager.flush();
         for (long i = 2; i <= 3; i++) {
             repository.save(Participants.builder()
-                    .id(new ParticipantKey(1, i))
+                    .id(new Participants.Key(1, i))
                     .tournament(Tournament.builder().id(1L).build())
                     .user(User.builder().id(i).build()).build());
         }
@@ -76,6 +76,16 @@ class ParticipantsRepositoryTest {
                 .createQuery("select p.task from Participants p where p.user.id = 2 and p.tournament.id = 1")
                 .getSingleResult().toString();
         assertThat(singleResult).isEqualTo("task1");
+    }
+
+    @Test
+    void updateGrade() {
+        repository.updateGrade(1, 2, 21);
+
+        String singleResult = testEntityManager.getEntityManager()
+                .createQuery("select p.grade from Participants p where p.user.id = 2 and p.tournament.id = 1")
+                .getSingleResult().toString();
+        assertThat(singleResult).isEqualTo("21");
     }
 
     @Test

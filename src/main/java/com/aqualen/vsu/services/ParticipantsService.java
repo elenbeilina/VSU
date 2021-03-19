@@ -2,7 +2,6 @@ package com.aqualen.vsu.services;
 
 import com.aqualen.vsu.dto.ParticipantResponse;
 import com.aqualen.vsu.dto.TournamentForParticipant;
-import com.aqualen.vsu.entity.ParticipantKey;
 import com.aqualen.vsu.entity.Participants;
 import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.entity.User;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.aqualen.vsu.dto.ParticipantResponse.toEntity;
 import static com.aqualen.vsu.enums.TournamentStatus.CLOSED;
 import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
 import static com.aqualen.vsu.utils.UserUtils.getUserId;
@@ -32,7 +30,7 @@ public class ParticipantsService {
         Long userId = getUserId();
 
         repository.saveAndFlush(Participants.builder()
-                .id(new ParticipantKey(tournamentId, userId))
+                .id(new Participants.Key(tournamentId, userId))
                 .tournament(Tournament.builder().id(tournamentId).build())
                 .user(User.builder().id(userId).build())
                 .build());
@@ -51,7 +49,7 @@ public class ParticipantsService {
     }
 
     public List<TournamentForParticipant> getTournaments() {
-        return repository.findByUserIdAndTournamentStatusNotIn(getUserId(), List.of(CREATED,CLOSED))
+        return repository.findByUserIdAndTournamentStatusNotIn(getUserId(), List.of(CREATED, CLOSED))
                 .stream().map(TournamentForParticipant::toDto)
                 .collect(Collectors.toList());
     }
@@ -61,10 +59,10 @@ public class ParticipantsService {
     }
 
     public void gradeParticipants(long tournamentId, List<ParticipantResponse> participantList) {
-        repository.saveAll(participantList.stream()
-                .map(participant -> toEntity(participant, tournamentId))
-                .collect(Collectors.toList()));
+        participantList
+                .forEach(participant -> repository
+                        .updateGrade(tournamentId, participant.getUser().getId(), participant.getGrade()));
 
-        logic.rateUsers(tournamentId,participantList);
+        logic.rateUsers(tournamentId, participantList);
     }
 }
