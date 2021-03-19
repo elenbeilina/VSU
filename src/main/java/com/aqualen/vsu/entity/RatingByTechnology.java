@@ -2,7 +2,7 @@ package com.aqualen.vsu.entity;
 
 import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.trueSkill.Rating;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -24,16 +24,18 @@ public class RatingByTechnology {
     private Double deviation;
     private Long rating;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @MapsId("userId")
+    @JsonBackReference
+    private User user;
+
     @PrePersist
     @PreUpdate
     public void generateRating() {
         if (Objects.nonNull(mean) && Objects.nonNull(deviation)) {
             setRating(new Rating(mean, deviation).getConservativeRating());
         }
-    }
-
-    public User extractUser() {
-        return key.user;
     }
 
     public TechnologyName extractTechnology() {
@@ -46,10 +48,8 @@ public class RatingByTechnology {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Key implements Serializable {
-        @ManyToOne
-        @JoinColumn(name = "user_id")
-        @JsonIgnore
-        private User user;
+        @Column(name = "user_id")
+        private Long userId;
         private TechnologyName technology;
     }
 

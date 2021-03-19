@@ -34,7 +34,7 @@ public class Technology {
     @AllArgsConstructor
     public static class Key implements Serializable {
         @Column(name = "tournament_id")
-        private long tournamentId;
+        private Long tournamentId;
 
         private TechnologyName technology;
     }

@@ -63,8 +63,8 @@ class RatingLogicTest {
     void setUp() {
         User user = User.builder().id(1).build();
         List<RatingByTechnology> rating = new ArrayList<>(){{
-            add(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(JAVA).user(user).build()).deviation(21.0).mean(2.0).build());
-               add(RatingByTechnology.builder().key(RatingByTechnology.Key.builder().technology(PYTHON).user(user).build()).deviation(11.0).mean(3.0).build());}};
+            add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(JAVA).build()).deviation(21.0).mean(2.0).build());
+               add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(PYTHON).build()).deviation(11.0).mean(3.0).build());}};
         user.setRatings(rating);
         rateRequest = new ParticipantResponse(user, 1, "1");
 
@@ -106,7 +106,7 @@ class RatingLogicTest {
     void rateUsers() {
         when(tournamentRepository.getOne(anyLong())).thenReturn(tournament);
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(rateRequest.getUser()));
-        when(ratingRepository.existsByKeyTechnologyAndKeyUser(any(),any()))
+        when(ratingRepository.existsByKeyTechnologyAndUser(any(),any()))
                 .thenReturn(true);
         logic.rateUsers(1L, Collections.singletonList(rateRequest));
 
@@ -122,7 +122,7 @@ class RatingLogicTest {
     @Test
     void addDefaultRating() {
         tournament.getTechnologies().add(Technology.builder().key(Technology.Key.builder().technology(JS).build()).build());
-        when(ratingRepository.existsByKeyTechnologyAndKeyUser(any(),any()))
+        when(ratingRepository.existsByKeyTechnologyAndUser(any(),any()))
                 .thenReturn(true)
                 .thenReturn(false);
         logic.addDefaultRatingIfNeeded(tournament, rateRequest.getUser());
