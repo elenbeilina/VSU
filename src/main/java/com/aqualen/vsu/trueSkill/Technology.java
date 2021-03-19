@@ -20,7 +20,7 @@ public class Technology {
     private double percent;
 
     public static final BiPredicate<RatingByTechnology, TechnologyName> technologyName =
-            (ratingByTechnology, technologyName) -> ratingByTechnology.getTechnology() == technologyName;
+            (ratingByTechnology, technologyName) -> ratingByTechnology.extractTechnology() == technologyName;
 
     public double getPercent() {
         return percent == 0 ? 1 : percent/100;

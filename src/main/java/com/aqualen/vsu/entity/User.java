@@ -53,4 +53,8 @@ public class User {
 
     @OneToMany(mappedBy = "key.user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<RatingByTechnology> ratings;
+
+    public void addRating(RatingByTechnology rating){
+        ratings.add(rating);
+    }
 }

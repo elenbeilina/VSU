@@ -29,7 +29,7 @@ public class Technology {
     public static class Key implements Serializable {
         @JsonIgnore
         @ManyToOne(fetch = FetchType.LAZY)
-        @JoinColumn(name = "tournament_id", insertable = false, updatable = false)
+        @JoinColumn(name = "tournament_id")
         private Tournament tournament;
 
         private TechnologyName technology;

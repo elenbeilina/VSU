@@ -32,11 +32,11 @@ public class RatingByTechnology {
         }
     }
 
-    public User getUser() {
+    public User extractUser() {
         return key.user;
     }
 
-    public TechnologyName getTechnology() {
+    public TechnologyName extractTechnology() {
         return key.technology;
     }
 

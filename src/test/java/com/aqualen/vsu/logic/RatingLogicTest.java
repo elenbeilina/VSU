@@ -94,7 +94,7 @@ class RatingLogicTest {
 
         assertThat(result.getRatings()).hasSize(2);
         RatingByTechnology rating = result.getRatings().get(0);
-        assert rating.getTechnology() == JAVA;
+        assert rating.extractTechnology() == JAVA;
         assert rating.getMean() == 50;
         assert rating.getDeviation() == 10;
 
@@ -127,6 +127,6 @@ class RatingLogicTest {
 
         assertThat(result).hasSize(1);
         assert result.get(0).getMean() == 25;
-        assert result.get(0).getTechnology() == JS;
+        assert result.get(0).extractTechnology() == JS;
     }
 }
