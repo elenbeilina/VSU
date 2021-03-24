@@ -5,6 +5,7 @@ import com.aqualen.vsu.log.SimpleLog;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.logic.RatingLogic;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class RatingController {
 
     @SimpleLog
     @GetMapping
-    public ResponseEntity<List<User>> getAll(@PageableDefault(size = 50) Pageable pageable, @RequestParam TechnologyName technologyName) {
+    public ResponseEntity<Page<User>> getAll(@PageableDefault(size = 50) Pageable pageable, @RequestParam TechnologyName technologyName) {
         return ResponseEntity.ok(ratingLogic.getUsersList(technologyName, pageable));
     }
 }

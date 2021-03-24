@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.DirtiesContext;
 
@@ -45,7 +46,7 @@ class RatingRepositoryTest {
     @Test
     void findByTechnologyOrderByRating() {
         PageRequest request = PageRequest.of(0, 2);
-        List<RatingByTechnology> result = repository.findByKeyTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
+        Page<RatingByTechnology> result = repository.findByKeyTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
 
         assertThat(result).hasSize(2);
     }
@@ -53,7 +54,7 @@ class RatingRepositoryTest {
     @Test
     void checkPageable() {
         PageRequest request = PageRequest.of(0, 1);
-        List<RatingByTechnology> result = repository.findByKeyTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
+        Page<RatingByTechnology> result = repository.findByKeyTechnologyAndUserRoleOrderByRating(JAVA, UserRole.USER, request);
 
         assertThat(result).hasSize(1);
     }

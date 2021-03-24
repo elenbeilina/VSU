@@ -15,6 +15,7 @@ import com.aqualen.vsu.trueSkill.Player;
 import com.aqualen.vsu.trueSkill.Rating;
 import com.aqualen.vsu.trueSkill.TrueSkillCalculator;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -32,10 +33,9 @@ public class RatingLogic {
     private final TournamentRepository tournamentRepository;
     private final UserRepository userRepository;
 
-    public List<User> getUsersList(TechnologyName name, Pageable page) {
+    public Page<User> getUsersList(TechnologyName name, Pageable page) {
         return ratingRepository.findByKeyTechnologyAndUserRoleOrderByRating(name, UserRole.USER, page)
-                .stream().map(RatingByTechnology::getUser)
-                .collect(Collectors.toList());
+                .map(RatingByTechnology::getUser);
     }
 
     public void rateUsers(long tournamentId, List<ParticipantResponse> requests) {
