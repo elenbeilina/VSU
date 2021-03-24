@@ -12,9 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyIterable;
-import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -35,7 +33,7 @@ class ParticipantsServiceTest {
                         .grade(1)
                         .user(User.builder().id(1).build()).build()));
 
-        verify(repository,times(1)).saveAll(anyIterable());
-        verify(logic,times(1)).rateUsers(anyList());
+        verify(repository, times(1)).updateGrade(anyLong(),anyLong(),anyLong());
+        verify(logic, times(1)).rateUsers(anyLong(), anyList());
     }
 }

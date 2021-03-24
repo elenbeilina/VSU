@@ -16,9 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class Prize {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_prize")
-    @SequenceGenerator(name="seq_prize",
-            sequenceName="vsu.prize_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)

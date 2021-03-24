@@ -1,5 +1,6 @@
 package com.aqualen.vsu.trueSkill;
 
+import com.aqualen.vsu.utils.ArgumentUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class TrueSkillCalculator {
 
     public List<Player> calculateNewRatings(GameInfo gameInfo, List<Player> players) {
 
-        Guard.argumentNotNull(gameInfo, "gameInfo");
+        ArgumentUtils.argumentNotNull(gameInfo, "gameInfo");
         Collections.sort(players);
 
         trueSkillFactorGraph.buildGraph(gameInfo, players);

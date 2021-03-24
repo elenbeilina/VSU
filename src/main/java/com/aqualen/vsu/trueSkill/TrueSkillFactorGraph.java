@@ -35,8 +35,7 @@ public class TrueSkillFactorGraph {
 
     public void runSchedule() {
         Schedule fullSchedule = createFullSchedule();
-        double fullScheduleDelta = fullSchedule.visit();
-        System.out.println(fullScheduleDelta);
+        fullSchedule.visit();
     }
 
     private Schedule createFullSchedule() {

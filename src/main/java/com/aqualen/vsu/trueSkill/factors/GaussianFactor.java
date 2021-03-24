@@ -24,10 +24,10 @@ public abstract class GaussianFactor extends Factor<GaussianDistribution> {
         return logZ;
     }
     @Override
-    public Message<GaussianDistribution> createVariableToMessageBinding(
+    public void createVariableToMessageBinding(
             Variable<GaussianDistribution> variable)
     {
-        return createVariableToMessageBinding(variable,
+        createVariableToMessageBinding(variable,
                 new Message<>(
                         GaussianDistribution.fromPrecisionMean(0, 0),
                         "message from {0} to {1}", this, variable));

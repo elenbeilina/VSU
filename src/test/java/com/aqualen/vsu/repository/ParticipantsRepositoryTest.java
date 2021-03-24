@@ -1,9 +1,6 @@
 package com.aqualen.vsu.repository;
 
-import com.aqualen.vsu.entity.ParticipantKey;
-import com.aqualen.vsu.entity.Participants;
-import com.aqualen.vsu.entity.Tournament;
-import com.aqualen.vsu.entity.User;
+import com.aqualen.vsu.entity.*;
 import com.aqualen.vsu.enums.UserRole;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,9 +9,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.Collections;
 import java.util.List;
 
-import static com.aqualen.vsu.enums.TournamentLabel.JAVA;
+import static com.aqualen.vsu.enums.TechnologyName.JAVA;
 import static com.aqualen.vsu.enums.TournamentStatus.CLOSED;
 import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
 import static java.time.LocalDate.now;
@@ -33,17 +31,18 @@ class ParticipantsRepositoryTest {
         for (int i = 1; i <= 3; i++) {
             testEntityManager.persistAndFlush(User.builder().username("user" + i).firstName("user" + i).studentBookId(String.valueOf(i)).role(UserRole.USER).build());
         }
-        testEntityManager.persistAndFlush(Tournament.builder()
-                .label(JAVA)
+        Tournament tournament = Tournament.builder()
                 .status(CREATED)
                 .startDate(now())
                 .endDate(now())
-                .sponsorId(1).build());
+                .sponsorId(1).build();
+        tournament.setTechnologies(Collections.singletonList(Technology.builder().key(Technology.Key.builder().technology(JAVA).build()).tournament(tournament).build()));
+        testEntityManager.persistAndFlush(tournament);
 
         testEntityManager.flush();
         for (long i = 2; i <= 3; i++) {
             repository.save(Participants.builder()
-                    .id(new ParticipantKey(1, i))
+                    .id(new Participants.Key(1, i))
                     .tournament(Tournament.builder().id(1L).build())
                     .user(User.builder().id(i).build()).build());
         }
@@ -77,6 +76,16 @@ class ParticipantsRepositoryTest {
                 .createQuery("select p.task from Participants p where p.user.id = 2 and p.tournament.id = 1")
                 .getSingleResult().toString();
         assertThat(singleResult).isEqualTo("task1");
+    }
+
+    @Test
+    void updateGrade() {
+        repository.updateGrade(1, 2, 21);
+
+        String singleResult = testEntityManager.getEntityManager()
+                .createQuery("select p.grade from Participants p where p.user.id = 2 and p.tournament.id = 1")
+                .getSingleResult().toString();
+        assertThat(singleResult).isEqualTo("21");
     }
 
     @Test

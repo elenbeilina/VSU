@@ -26,7 +26,7 @@ public class TournamentsService {
     }
 
     public Tournament getById(long id) {
-        return tournamentRepository.getOne(id);
+        return tournamentRepository.findById(id).orElse(null);
     }
 
     public Tournament update(Tournament tournament) {

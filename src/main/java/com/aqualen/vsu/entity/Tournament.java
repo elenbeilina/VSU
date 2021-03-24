@@ -1,8 +1,9 @@
 package com.aqualen.vsu.entity;
 
-import com.aqualen.vsu.enums.TournamentLabel;
 import com.aqualen.vsu.enums.TournamentStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -23,16 +25,12 @@ public class Tournament {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_tournaments")
     @SequenceGenerator(name = "seq_tournaments",
-            sequenceName = "vsu.tournaments_seq", allocationSize = 1)
+            sequenceName = "vsu.tournament_id_seq", allocationSize = 1)
     private Long id;
 
     private String name;
     private String task;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sponsor_id", insertable = false, updatable = false)
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private User sponsor;
     @Column(name = "sponsor_id")
     private long sponsorId;
 
@@ -52,5 +50,7 @@ public class Tournament {
     @NotNull
     private TournamentStatus status;
 
-    private TournamentLabel label;
+    @OneToMany(mappedBy = "tournament", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Technology> technologies;
 }

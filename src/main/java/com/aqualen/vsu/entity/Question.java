@@ -1,6 +1,7 @@
 package com.aqualen.vsu.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,27 +14,24 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-@Table(name = "question",schema="vsu")
+@Table(name = "question", schema = "vsu")
 @DynamicUpdate
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_qa")
-    @SequenceGenerator(name="seq_qa",
-            sequenceName="vsu.question_seq", allocationSize=1)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private User user;
 
-    @OneToOne (fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "answer_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToOne(mappedBy = "question", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @JsonManagedReference
     private Answer answer;
 
     private String description;

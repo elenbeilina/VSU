@@ -1,6 +1,6 @@
 package com.aqualen.vsu.enums;
 
-public enum TournamentLabel {
+public enum TechnologyName {
     JAVA,
     PYTHON,
     JS

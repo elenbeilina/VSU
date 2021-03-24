@@ -1,22 +1,42 @@
 package com.aqualen.vsu.trueSkill;
 
-import com.aqualen.vsu.enums.TournamentLabel;
+import com.aqualen.vsu.entity.RatingByTechnology;
+import com.aqualen.vsu.enums.TechnologyName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.function.BiPredicate;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Technology {
-    private TournamentLabel language;
+    private TechnologyName language;
     private Rating rating;
-    private int percent;
+    private double percent;
 
-    public int getPercent(){
-        return percent == 0 ? 1 : percent;
+    public static final BiPredicate<RatingByTechnology, TechnologyName> technologyName =
+            (ratingByTechnology, technologyName) -> ratingByTechnology.extractTechnology() == technologyName;
+
+    public double getPercent() {
+        return percent == 0 ? 1 : percent/100;
+    }
+
+
+    public static Technology toTechnology(com.aqualen.vsu.entity.Technology technology, List<RatingByTechnology> ratings) {
+        RatingByTechnology ratingByTechnology = ratings.stream()
+                .filter(rating -> technologyName.test(rating, technology.extractTechnology()))
+                .findFirst().get();
+
+        return Technology.builder()
+                .rating(new Rating(ratingByTechnology.getMean(), ratingByTechnology.getDeviation()))
+                .language(technology.extractTechnology())
+                .percent(technology.getPercent())
+                .build();
     }
 
     @Override

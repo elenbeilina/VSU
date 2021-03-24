@@ -1,13 +1,10 @@
 package com.aqualen.vsu.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @Entity
@@ -17,9 +14,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Participants {
-    @JsonIgnore
     @EmbeddedId
-    private ParticipantKey id;
+    private Key id;
 
     @ManyToOne
     @MapsId("tournamentId")
@@ -33,4 +29,16 @@ public class Participants {
 
     private long grade;
     private String task;
+
+    @Embeddable
+    @EqualsAndHashCode
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class Key implements Serializable {
+        @Column(name = "tournament_id")
+        private long tournamentId;
+
+        @Column(name = "user_id")
+        private long userId;
+    }
 }

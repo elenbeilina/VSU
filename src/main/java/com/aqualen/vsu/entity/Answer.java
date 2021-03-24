@@ -1,5 +1,6 @@
 package com.aqualen.vsu.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,10 +16,22 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_answer")
-    @SequenceGenerator(name = "seq_answer",
-            sequenceName = "vsu.answer_seq", allocationSize = 1)
-    private long id;
+    @Column(name = "question_id")
+    private Long id;
 
     private String description;
+
+    @OneToOne
+    @MapsId
+    @JoinColumn(name = "question_id")
+    @JsonBackReference
+    private Question question;
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

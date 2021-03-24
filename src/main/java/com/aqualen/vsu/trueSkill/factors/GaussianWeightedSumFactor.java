@@ -3,7 +3,7 @@ package com.aqualen.vsu.trueSkill.factors;
 import com.aqualen.vsu.trueSkill.factorGraphs.Message;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
-import com.aqualen.vsu.trueSkill.Guard;
+import com.aqualen.vsu.utils.ArgumentUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -169,7 +169,7 @@ public class GaussianWeightedSumFactor extends GaussianFactor {
         List<Message<GaussianDistribution>> allMessages = getMessages();
         List<Variable<GaussianDistribution>> allVariables = getVariables();
 
-        Guard.argumentIsValidIndex(messageIndex, allMessages.size(), "messageIndex");
+        ArgumentUtils.argumentIsValidIndex(messageIndex, allMessages.size(), "messageIndex");
 
         List<Message<GaussianDistribution>> updatedMessages = new ArrayList<>();
         List<Variable<GaussianDistribution>> updatedVariables = new ArrayList<>();

@@ -38,11 +38,6 @@ public class GaussianDistribution {
         this.precisionMean = gaussianDistribution.precisionMean;
     }
 
-    public double NormalizationConstant() {
-        // Great derivation of this is at http://www.astro.psu.edu/~mce/A451_2/A451/downloads/notes0.pdf
-        return 1.0 / (Math.sqrt(2 * Math.PI) * standardDeviation);
-    }
-
     public static GaussianDistribution fromPrecisionMean(double precisionMean, double precision) {
         GaussianDistribution gaussianDistribution = new GaussianDistribution();
         gaussianDistribution.precision = precision;
@@ -191,10 +186,6 @@ public class GaussianDistribution {
     public static double inverseCumulativeTo(double x, double mean, double standardDeviation) {
         // From numerical recipes, page 320
         return mean - Math.sqrt(2) * standardDeviation * inverseErrorFunctionCumulativeTo(2 * x);
-    }
-
-    public static double inverseCumulativeTo(double x) {
-        return inverseCumulativeTo(x, 0, 1);
     }
 
     @Override

@@ -20,9 +20,8 @@ public class PlayerDifferencesComparisonLayer extends
     public void buildLayer(GameInfo gameInfo, List<Player> players) {
         List<List<Variable<GaussianDistribution>>> inputVariables = getInputVariables();
 
-        double epsilon = DrawMargin.GetDrawMarginFromDrawProbability(gameInfo.getDrawProbability(), gameInfo.getBeta());
         for (List<Variable<GaussianDistribution>> playerDifference : inputVariables) {
-            GaussianFactor factor = new GaussianGreaterThanFactor(playerDifference.get(0), epsilon);
+            GaussianFactor factor = new GaussianGreaterThanFactor(playerDifference.get(0));
 
             addLayerFactor(factor);
         }

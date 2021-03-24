@@ -11,24 +11,9 @@ import static com.aqualen.vsu.trueSkill.GaussianDistribution.*;
  */
 public class GaussianGreaterThanFactor extends GaussianFactor {
 
-    private final double epsilon;
-
-    public GaussianGreaterThanFactor(Variable<GaussianDistribution> variable, double epsilon) {
+    public GaussianGreaterThanFactor(Variable<GaussianDistribution> variable) {
         super(String.format("%s", variable));
-        this.epsilon = epsilon;
         createVariableToMessageBinding(variable);
-    }
-
-
-    public double getLogNormalization() {
-        GaussianDistribution marginal = getVariables().get(0).value;
-        GaussianDistribution message = getMessages().get(0).value;
-        GaussianDistribution messageFromVariable = operatorDivision(marginal,message);
-        return -GaussianDistribution.logProductNormalization(messageFromVariable, message)
-                +
-                Math.log(
-                        GaussianDistribution.cumulativeTo((messageFromVariable.mean - epsilon) /
-                                messageFromVariable.standardDeviation));
     }
 
     protected double updateMessage(Message<GaussianDistribution> message,
@@ -44,22 +29,19 @@ public class GaussianGreaterThanFactor extends GaussianFactor {
 
         double dOnSqrtC = d / sqrtC;
 
-        double epsilsonTimesSqrtC = epsilon * sqrtC;
-        d = messageFromVar.precisionMean;
+        double newSqrtC = sqrtC * 0.75;
+        double denominator = 1.0 - TruncatedGaussianCorrectionFunctions.WExceedsMargin(dOnSqrtC, newSqrtC);
 
-        double denom = 1.0 - TruncatedGaussianCorrectionFunctions.WExceedsMargin(dOnSqrtC, epsilsonTimesSqrtC);
-
-        double newPrecision = c / denom;
+        double newPrecision = c / denominator;
         double newPrecisionMean = (d +
                 sqrtC *
-                        TruncatedGaussianCorrectionFunctions.VExceedsMargin(dOnSqrtC, epsilsonTimesSqrtC)) /
-                denom;
+                        TruncatedGaussianCorrectionFunctions.VExceedsMargin(dOnSqrtC, newSqrtC)) /
+                denominator;
 
         GaussianDistribution newMarginal = GaussianDistribution.fromPrecisionMean(newPrecisionMean, newPrecision);
-        GaussianDistribution newMessage = operatorDivision(operatorMultiplication(oldMessage, newMarginal), oldMarginal);
 
         /// Update the message and marginal
-        message.value = newMessage;
+        message.value = operatorDivision(operatorMultiplication(oldMessage, newMarginal), oldMarginal);
 
         variable.value = newMarginal;
 

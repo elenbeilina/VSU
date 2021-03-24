@@ -1,5 +1,6 @@
 package com.aqualen.vsu.repository;
 
+import com.aqualen.vsu.entity.Technology;
 import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.entity.User;
 import com.aqualen.vsu.enums.UserRole;
@@ -10,9 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.DirtiesContext;
 
+import java.util.Collections;
 import java.util.List;
 
-import static com.aqualen.vsu.enums.TournamentLabel.JAVA;
+import static com.aqualen.vsu.enums.TechnologyName.JAVA;
 import static com.aqualen.vsu.enums.TournamentStatus.CREATED;
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,13 +32,15 @@ class TournamentRepositoryTest {
     void setUp() {
         testEntityManager.persistAndFlush(User.builder().username("sponsor").firstName("sponsor").studentBookId("2").role(UserRole.SPONSOR).build());
         for (int i = 1; i <= 2; i++) {
-            testEntityManager.persistAndFlush(Tournament.builder()
+            Tournament tournament = Tournament.builder()
                     .name("tournament" + i)
-                    .label(JAVA)
+                    .technologies(Collections.singletonList(Technology.builder().key(Technology.Key.builder().technology(JAVA).build()).build()))
                     .status(CREATED)
                     .startDate(now())
                     .endDate(now())
-                    .sponsorId(1).build());
+                    .sponsorId(1).build();
+            tournament.setTechnologies(Collections.singletonList(Technology.builder().tournament(tournament).key(Technology.Key.builder().technology(JAVA).build()).build()));
+            testEntityManager.persistAndFlush(tournament);
         }
     }
 
@@ -45,5 +49,14 @@ class TournamentRepositoryTest {
         List<Tournament> tournaments = repository.findBySponsorId(1L);
 
         assertThat(tournaments).hasSize(2);
+    }
+
+    @Test
+    void getTechnologies() {
+        Tournament tournament = repository.getOne(1L);
+
+        assertThat(tournament.getTechnologies()).hasSize(1);
+        Technology technology = tournament.getTechnologies().get(0);
+        assertThat(technology.extractTechnology()).isEqualTo(JAVA);
     }
 }
