@@ -15,8 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import java.util.Collections;
 import java.util.List;
 
-import static com.aqualen.vsu.enums.TechnologyName.JAVA;
-import static com.aqualen.vsu.enums.TechnologyName.PYTHON;
+import static com.aqualen.vsu.enums.TechnologyName.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;

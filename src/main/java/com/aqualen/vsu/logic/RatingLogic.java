@@ -60,26 +60,24 @@ public class RatingLogic {
     }
 
     void addDefaultRatingIfNeeded(Tournament tournament, User user) {
-        List<RatingByTechnology> defaultRatings = tournament
+        tournament
                 .getTechnologies().stream()
                 .map(Technology::extractTechnology)
                 .filter(technology -> !ratingRepository.existsByKeyTechnologyAndUser(technology, user))
                 .map(technology -> getDefaultRating(technology, user))
-                .collect(Collectors.toList());
-
-        ratingRepository.saveAll(defaultRatings);
+                .forEach(user::addRating);
     }
 
     private RatingByTechnology getDefaultRating(TechnologyName technology, User user) {
         Rating rating = new GameInfo().getDefaultRating();
-        RatingByTechnology ratingByTechnology = RatingByTechnology.builder()
+
+        return RatingByTechnology.builder()
                 .key(RatingByTechnology.Key.builder()
+                        .userId(user.getId())
                         .technology(technology).build())
                 .user(user)
                 .deviation(rating.getStandardDeviation())
                 .mean(rating.getMean())
                 .build();
-        user.addRating(ratingByTechnology);
-        return ratingByTechnology;
     }
 }
