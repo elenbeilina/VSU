@@ -1,17 +1,18 @@
 package com.aqualen.vsu.trueSkill.layers;
 
 import com.aqualen.vsu.exceptions.ReadableException;
+import com.aqualen.vsu.trueSkill.GameInfo;
+import com.aqualen.vsu.trueSkill.GaussianDistribution;
+import com.aqualen.vsu.trueSkill.Player;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleLoop;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleSequence;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleStep;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
-import com.aqualen.vsu.trueSkill.GameInfo;
-import com.aqualen.vsu.trueSkill.GaussianDistribution;
-import com.aqualen.vsu.trueSkill.Player;
 import lombok.AllArgsConstructor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 @Component
 @Order(4)
 @AllArgsConstructor
+@RequestScope
 // The whole purpose of this is to do a loop on the bottom
 public class IteratedPlayerDifferencesInnerLayer extends
         TrueSkillFactorGraphLayer<Variable<GaussianDistribution>, Variable<GaussianDistribution>> {

@@ -8,6 +8,7 @@ import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.factors.GaussianPriorFactor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 @Component
 @Order(1)
+@RequestScope
 public class PlayerTechnologyKnowledgePriorValuesToSkillsLayer extends
         TrueSkillFactorGraphLayer<DefaultVariable<GaussianDistribution>, KeyedVariable<Technology, GaussianDistribution>> {
 

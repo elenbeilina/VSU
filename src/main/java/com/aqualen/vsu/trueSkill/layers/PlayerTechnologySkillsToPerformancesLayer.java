@@ -1,15 +1,16 @@
 package com.aqualen.vsu.trueSkill.layers;
 
+import com.aqualen.vsu.trueSkill.GameInfo;
+import com.aqualen.vsu.trueSkill.GaussianDistribution;
+import com.aqualen.vsu.trueSkill.Player;
 import com.aqualen.vsu.trueSkill.Technology;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.Schedule;
 import com.aqualen.vsu.trueSkill.factorGraphs.schedule.ScheduleStep;
 import com.aqualen.vsu.trueSkill.factorGraphs.variable.KeyedVariable;
 import com.aqualen.vsu.trueSkill.factors.GaussianLikelihoodFactor;
-import com.aqualen.vsu.trueSkill.GameInfo;
-import com.aqualen.vsu.trueSkill.GaussianDistribution;
-import com.aqualen.vsu.trueSkill.Player;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import static com.aqualen.vsu.trueSkill.GaussianDistribution.square;
 
 @Component
 @Order(2)
+@RequestScope
 public class PlayerTechnologySkillsToPerformancesLayer extends
         TrueSkillFactorGraphLayer<KeyedVariable<Technology, GaussianDistribution>, KeyedVariable<Technology, GaussianDistribution>> {
 
@@ -28,7 +30,7 @@ public class PlayerTechnologySkillsToPerformancesLayer extends
         for (List<KeyedVariable<Technology, GaussianDistribution>> technologySkills : getInputVariables()) {
             List<KeyedVariable<Technology, GaussianDistribution>> technologyPlayerPerformances = new ArrayList<>();
 
-            for (KeyedVariable<Technology,GaussianDistribution> technologySkill : technologySkills) {
+            for (KeyedVariable<Technology, GaussianDistribution> technologySkill : technologySkills) {
 
                 KeyedVariable<Technology, GaussianDistribution> playerTechnologyPerformance =
                         createOutputVariable(technologySkill.getKey());

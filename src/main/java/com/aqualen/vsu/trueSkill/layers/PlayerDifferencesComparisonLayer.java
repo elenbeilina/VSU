@@ -1,6 +1,5 @@
 package com.aqualen.vsu.trueSkill.layers;
 
-import com.aqualen.vsu.trueSkill.DrawMargin;
 import com.aqualen.vsu.trueSkill.GameInfo;
 import com.aqualen.vsu.trueSkill.GaussianDistribution;
 import com.aqualen.vsu.trueSkill.Player;
@@ -9,10 +8,12 @@ import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.factors.GaussianFactor;
 import com.aqualen.vsu.trueSkill.factors.GaussianGreaterThanFactor;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.List;
 
 @Component
+@RequestScope
 public class PlayerDifferencesComparisonLayer extends
         TrueSkillFactorGraphLayer<Variable<GaussianDistribution>, DefaultVariable<GaussianDistribution>> {
 

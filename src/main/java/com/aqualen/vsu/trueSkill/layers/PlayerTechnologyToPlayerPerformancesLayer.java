@@ -13,6 +13,7 @@ import com.aqualen.vsu.trueSkill.factorGraphs.variable.Variable;
 import com.aqualen.vsu.trueSkill.factors.GaussianWeightedSumFactor;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ import static com.aqualen.vsu.trueSkill.GaussianDistribution.GAUSSIAN_LINE;
 
 @Component
 @Order(3)
+@RequestScope
 public class PlayerTechnologyToPlayerPerformancesLayer extends
         FactorGraphLayer<KeyedVariable<Technology, GaussianDistribution>, Variable<GaussianDistribution>> {
 
