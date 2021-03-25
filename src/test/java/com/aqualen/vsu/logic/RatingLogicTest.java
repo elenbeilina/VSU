@@ -53,8 +53,6 @@ class RatingLogicTest {
     ArgumentCaptor<List<User>> users;
     @Captor
     ArgumentCaptor<List<Player>> players;
-    @Captor
-    ArgumentCaptor<List<RatingByTechnology>> ratingCapture;
 
     private ParticipantResponse rateRequest;
     private Tournament tournament;
@@ -125,13 +123,14 @@ class RatingLogicTest {
         when(ratingRepository.existsByKeyTechnologyAndUser(any(),any()))
                 .thenReturn(true)
                 .thenReturn(false);
+
+        assertThat(rateRequest.getUser().getRatings()).hasSize(2);
         logic.addDefaultRatingIfNeeded(tournament, rateRequest.getUser());
 
-        verify(ratingRepository).saveAll(ratingCapture.capture());
-        List<RatingByTechnology> result = ratingCapture.getValue();
+        List<RatingByTechnology> result = rateRequest.getUser().getRatings();
 
-        assertThat(result).hasSize(1);
-        assert result.get(0).getMean() == 25;
-        assert result.get(0).extractTechnology() == JS;
+        assertThat(result).hasSize(3);
+        assert result.get(2).getMean() == 25;
+        assert result.get(2).extractTechnology() == JS;
     }
 }
