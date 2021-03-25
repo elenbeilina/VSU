@@ -105,7 +105,7 @@ class ParticipantsRepositoryTest {
         assertThat(participants).hasSize(2);
 
         Participants participant = participants.get(0);
-        repository.deleteByTournamentIdAndUserId(participant.getTournament().getId(),participant.getUser().getId());
+        repository.deleteByUserId(participant.getUser().getId());
 
         List<Participants> afterDeletion = repository.findAll();
         assertThat(afterDeletion).hasSize(1);

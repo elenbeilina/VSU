@@ -23,8 +23,10 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordLogic passwordLogic;
+    private final ParticipantsService participantsService;
 
     public void delete(long id) {
+        participantsService.deleteParticipant(id);
         userRepository.deleteById(id);
     }
 
@@ -40,7 +42,7 @@ public class UserService {
         return userRepository.findAllByRole(role);
     }
 
-    public User getUser(){
+    public User getUser() {
         String username = getUsername();
 
         return userRepository.findByUsername(username);

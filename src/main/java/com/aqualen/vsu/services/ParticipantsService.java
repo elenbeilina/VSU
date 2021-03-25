@@ -36,10 +36,14 @@ public class ParticipantsService {
                 .build());
     }
 
-    public void deleteParticipant(Long tournamentId) {
+    public void deleteParticipantFromTournament(Long tournamentId) {
         Long userId = getUserId();
 
-        repository.deleteByTournamentIdAndUserId(tournamentId, userId);
+        repository.deleteById(new Participants.Key(tournamentId, userId));
+    }
+
+    public void deleteParticipant(long userId){
+        repository.deleteByUserId(userId);
     }
 
     public List<ParticipantResponse> getAllParticipants(int tournamentId) {

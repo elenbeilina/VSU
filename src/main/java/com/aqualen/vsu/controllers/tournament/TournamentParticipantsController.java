@@ -28,7 +28,7 @@ public class TournamentParticipantsController {
     @DeleteMapping
     @ApiOperation("Method for deleting user from tournament")
     public void deleteParticipant(@RequestParam long tournamentId){
-        participantsService.deleteParticipant(tournamentId);
+        participantsService.deleteParticipantFromTournament(tournamentId);
     }
 
     @SimpleLog
