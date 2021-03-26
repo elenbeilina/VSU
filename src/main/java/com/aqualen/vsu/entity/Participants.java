@@ -30,8 +30,8 @@ public class Participants {
     private long grade;
     private String task;
 
+    @Data
     @Embeddable
-    @EqualsAndHashCode
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Key implements Serializable {

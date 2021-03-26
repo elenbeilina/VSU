@@ -42,24 +42,14 @@ public class RatingByTechnology {
         return key.technology;
     }
 
-    @Embeddable
+    @Data
     @Builder
-    @EqualsAndHashCode
+    @Embeddable
     @NoArgsConstructor
     @AllArgsConstructor
     public static class Key implements Serializable {
         @Column(name = "user_id")
         private Long userId;
         private TechnologyName technology;
-    }
-
-    @Override
-    public String toString() {
-        return "RatingByTechnology{" +
-                ", technology=" + key.technology +
-                ", mean=" + mean +
-                ", deviation=" + deviation +
-                ", rating=" + rating +
-                '}';
     }
 }

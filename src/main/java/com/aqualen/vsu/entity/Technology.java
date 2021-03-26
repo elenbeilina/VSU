@@ -27,8 +27,8 @@ public class Technology {
     private Tournament tournament;
 
     @Getter
-    @Embeddable
     @Builder
+    @Embeddable
     @EqualsAndHashCode
     @NoArgsConstructor
     @AllArgsConstructor
