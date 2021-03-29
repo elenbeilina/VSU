@@ -52,4 +52,14 @@ public class RatingByTechnology {
         private Long userId;
         private TechnologyName technology;
     }
+
+    @Override
+    public String toString() {
+        return "RatingByTechnology{" +
+                "key=" + key +
+                ", mean=" + mean +
+                ", deviation=" + deviation +
+                ", rating=" + rating +
+                '}';
+    }
 }
