@@ -5,14 +5,13 @@ import com.aqualen.vsu.entity.RatingByTechnology;
 import com.aqualen.vsu.entity.Technology;
 import com.aqualen.vsu.entity.Tournament;
 import com.aqualen.vsu.entity.User;
+import com.aqualen.vsu.enums.TechnologyName;
 import com.aqualen.vsu.repository.RatingRepository;
 import com.aqualen.vsu.repository.TournamentRepository;
 import com.aqualen.vsu.repository.UserRepository;
 import com.aqualen.vsu.trueSkill.Player;
 import com.aqualen.vsu.trueSkill.Rating;
 import com.aqualen.vsu.trueSkill.TrueSkillCalculator;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,11 +20,15 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.aqualen.vsu.dto.ParticipantResponse.toPlayer;
 import static com.aqualen.vsu.enums.TechnologyName.*;
@@ -62,14 +65,17 @@ class RatingLogicTest {
     @BeforeEach
     void setUp() {
         User user = User.builder().id(1).build();
-        List<RatingByTechnology> rating = new ArrayList<>(){{
+        List<RatingByTechnology> rating = new ArrayList<>() {{
             add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(JAVA).build()).deviation(21.0).mean(2.0).build());
-               add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(PYTHON).build()).deviation(11.0).mean(3.0).build());}};
+            add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(PYTHON).build()).deviation(11.0).mean(3.0).build());
+        }};
         user.setRatings(rating);
         rateRequest = new ParticipantResponse(user, 1, "1");
 
-        tournament = Tournament.builder().technologies(new ArrayList<>(){{add(Technology.builder()
-                .key(Technology.Key.builder().technology(JAVA).build()).percent(100).build());}}).build();
+        tournament = Tournament.builder().technologies(new ArrayList<>() {{
+            add(Technology.builder()
+                    .key(Technology.Key.builder().technology(JAVA).build()).percent(100).build());
+        }}).build();
     }
 
     @Test
@@ -106,7 +112,7 @@ class RatingLogicTest {
     void rateUsers() {
         when(tournamentRepository.getOne(anyLong())).thenReturn(tournament);
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(rateRequest.getUser()));
-        when(ratingRepository.existsByKeyTechnologyAndUser(any(),any()))
+        when(ratingRepository.existsByKeyTechnologyAndUser(any(), any()))
                 .thenReturn(true);
         logic.rateUsers(1L, Collections.singletonList(rateRequest));
 
@@ -122,7 +128,7 @@ class RatingLogicTest {
     @Test
     void addDefaultRating() {
         tournament.getTechnologies().add(Technology.builder().key(Technology.Key.builder().technology(JS).build()).build());
-        when(ratingRepository.existsByKeyTechnologyAndUser(any(),any()))
+        when(ratingRepository.existsByKeyTechnologyAndUser(any(), any()))
                 .thenReturn(true)
                 .thenReturn(false);
 
@@ -134,5 +140,31 @@ class RatingLogicTest {
         assertThat(result).hasSize(3);
         assert result.get(2).getMean() == 25;
         assert result.get(2).extractTechnology() == JS;
+    }
+
+    @Test
+    void getUsersList() {
+        List<RatingByTechnology> userRatings = rateRequest.getUser().getRatings();
+        List<RatingByTechnology> rating = Collections.singletonList(userRatings.get(0));
+        when(ratingRepository.findByKeyTechnologyAndUserRoleOrderByRating(any(), any(), any()))
+                .thenReturn(new PageImpl<>(rating));
+
+        List<TechnologyName> technologyNames = getTechnologies(userRatings);
+        assertThat(technologyNames).hasSize(2);
+        assertThat(technologyNames.contains(PYTHON)).isTrue();
+
+        Page<User> usersList = logic.getUsersList(JAVA, Pageable.unpaged());
+
+        List<TechnologyName> resultTechnologies = getTechnologies(usersList.get().findFirst().get().getRatings());
+        assertThat(resultTechnologies).hasSize(1);
+        assertThat(resultTechnologies.contains(PYTHON)).isFalse();
+
+    }
+
+    private List<TechnologyName> getTechnologies(List<RatingByTechnology> ratings) {
+        return ratings.stream()
+                .map(RatingByTechnology::getKey)
+                .map(RatingByTechnology.Key::getTechnology)
+                .collect(Collectors.toList());
     }
 }

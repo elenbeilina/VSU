@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 import static com.aqualen.vsu.dto.ParticipantResponse.toPlayer;
@@ -33,9 +34,24 @@ public class RatingLogic {
     private final TournamentRepository tournamentRepository;
     private final UserRepository userRepository;
 
+    public static final BiPredicate<RatingByTechnology, TechnologyName> notRequestedTechnology =
+            (ratingByTechnology, technologyName) ->
+                    ratingByTechnology.extractTechnology() != technologyName;
+
     public Page<User> getUsersList(TechnologyName name, Pageable page) {
-        return ratingRepository.findByKeyTechnologyAndUserRoleOrderByRating(name, UserRole.USER, page)
+        Page<User> users = ratingRepository
+                .findByKeyTechnologyAndUserRoleOrderByRating(name, UserRole.USER, page)
                 .map(RatingByTechnology::getUser);
+
+        extractNotRequestedTechnologies(name, users);
+
+        return users;
+    }
+
+    private void extractNotRequestedTechnologies(TechnologyName name, Page<User> users) {
+        users.forEach(user -> user.getRatings()
+                .removeIf(rating -> notRequestedTechnology.test(rating, name))
+        );
     }
 
     public void rateUsers(long tournamentId, List<ParticipantResponse> requests) {
