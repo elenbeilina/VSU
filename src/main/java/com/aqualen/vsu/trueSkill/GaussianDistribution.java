@@ -114,8 +114,7 @@ public class GaussianDistribution {
 
         double multiplier = 1.0 / (standardDeviation * Math.sqrt(2 * Math.PI));
         double expPart = Math.exp((-1.0 * Math.pow(x - mean, 2.0)) / (2 * (standardDeviation * standardDeviation)));
-        double result = multiplier * expPart;
-        return result;
+        return multiplier * expPart;
     }
 
     public static double cumulativeTo(double x, double mean, double standardDeviation) {
@@ -158,34 +157,6 @@ public class GaussianDistribution {
 
         double ans = t * Math.exp(-z * z + 0.5 * (coefficients[0] + ty * d) - dd);
         return x >= 0.0 ? ans : (2.0 - ans);
-    }
-
-
-    private static double inverseErrorFunctionCumulativeTo(double p) {
-        // From page 265 of numerical recipes
-
-        if (p >= 2.0) {
-            return -100;
-        }
-        if (p <= 0.0) {
-            return 100;
-        }
-
-        double pp = (p < 1.0) ? p : 2 - p;
-        double t = Math.sqrt(-2 * Math.log(pp / 2.0)); // Initial guess
-        double x = -0.70711 * ((2.30753 + t * 0.27061) / (1.0 + t * (0.99229 + t * 0.04481)) - t);
-
-        for (int j = 0; j < 2; j++) {
-            double err = errorFunctionCumulativeTo(x) - pp;
-            x += err / (1.12837916709551257 * Math.exp(-(x * x)) - x * err); // Halley
-        }
-
-        return p < 1.0 ? x : -x;
-    }
-
-    public static double inverseCumulativeTo(double x, double mean, double standardDeviation) {
-        // From numerical recipes, page 320
-        return mean - Math.sqrt(2) * standardDeviation * inverseErrorFunctionCumulativeTo(2 * x);
     }
 
     @Override

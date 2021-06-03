@@ -66,7 +66,7 @@ class RatingLogicTest {
     void setUp() {
         User user = User.builder().id(1).build();
         List<RatingByTechnology> rating = new ArrayList<>() {{
-            add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(JAVA).build()).deviation(21.0).mean(2.0).build());
+            add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(JAVA).build()).deviation(21.0).mean(2.0).rating(2L).build());
             add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(PYTHON).build()).deviation(11.0).mean(3.0).build());
         }};
         user.setRatings(rating);
@@ -159,6 +159,30 @@ class RatingLogicTest {
         assertThat(resultTechnologies).hasSize(1);
         assertThat(resultTechnologies.contains(PYTHON)).isFalse();
 
+    }
+
+    @Test
+    void getSortedUserList() {
+        User user = User.builder().id(2).build();
+        List<RatingByTechnology> rating = new ArrayList<>() {{
+            add(RatingByTechnology.builder().user(user).key(RatingByTechnology.Key.builder().technology(JAVA).build()).rating(10L).build());
+        }};
+        user.setRatings(rating);
+
+        RatingByTechnology rating1 = rating.get(0);
+        RatingByTechnology rating2 = rateRequest.getUser().getRatings().get(0);
+
+        List<RatingByTechnology> ratingFromDB = new ArrayList<>() {{
+            add(rating2);
+            add(rating1);
+        }};
+        when(ratingRepository.findByKeyTechnologyAndUserRoleOrderByRating(any(), any(), any()))
+                .thenReturn(new PageImpl<>(ratingFromDB));
+
+        assertThat(ratingFromDB.get(0)).isSameAs(rating2);
+
+        Page<User> usersList = logic.getUsersList(JAVA, Pageable.unpaged());
+        assertThat(usersList.getContent().get(0).getRatings().get(0)).isSameAs(rating1);
     }
 
     private List<TechnologyName> getTechnologies(List<RatingByTechnology> ratings) {

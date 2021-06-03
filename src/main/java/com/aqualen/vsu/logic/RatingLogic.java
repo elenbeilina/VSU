@@ -16,6 +16,7 @@ import com.aqualen.vsu.trueSkill.Rating;
 import com.aqualen.vsu.trueSkill.TrueSkillCalculator;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,8 @@ public class RatingLogic {
 
         extractNotRequestedTechnologies(name, users);
 
-        return users;
+        return new PageImpl<>(users.getContent().stream().sorted().collect(Collectors.toList()),
+                users.getPageable(), users.getTotalElements());
     }
 
     private void extractNotRequestedTechnologies(TechnologyName name, Page<User> users) {

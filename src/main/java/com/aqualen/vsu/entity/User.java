@@ -20,7 +20,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Comparable<User>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_user")
@@ -57,5 +57,10 @@ public class User {
 
     public void addRating(RatingByTechnology rating){
         ratings.add(rating);
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return (int) (user.getRatings().get(0).getRating() - ratings.get(0).getRating());
     }
 }
